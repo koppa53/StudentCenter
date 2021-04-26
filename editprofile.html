@@ -1,0 +1,141 @@
+<!DOCTYPE HTML>
+<html lang="en">
+	<meta charset="utf-8" />
+	<head>
+		<title>Student Center - Profile Edit</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css"/>
+		<link rel="icon" type="image/png" href="images/BU-small-logo.png"/>
+	</head>
+	<body class="is-preload">
+		<!-- Wrapper -->
+			<div id="wrapper">
+				<!-- Main -->
+					<div id="main">
+						<div class="inner">
+							<!-- Header -->
+								<header id="header">
+									<a  class="logo"><h2><strong>Edit Proile Information</strong></h2></a>
+									<ul class="icons">
+										<li><a href="https://twitter.com/bicoluofficiai?lang=en" class="icon brands fa-twitter" target="_blank"><span class="label">Twitter</span></a></li>
+										<li><a href="https://www.facebook.com/BicolUniversity" class="icon brands fa-facebook-f" target="_blank"><span class="label">Facebook</span></a></li>
+										<li><a href="https://www.instagram.com/uscbicolu/?hl=en" class="icon brands fa-instagram" target="_blank"><span class="label">Instagram</span></a></li>
+										<li><a href="https://www.youtube.com/user/TheBicolUniversity" class="icon brands fa-youtube" target="_blank"><span class="label">Medium</span></a></li>
+									</ul>
+								</header>
+							<!-- Content -->
+								<section>
+									<form onsubmit="event.preventDefault();readFields();" >
+										<div class="btn-container">
+											<button class="button primary">Submit</button>
+										</div>
+										<p style = "text-align:center">Click here if you are done editing.</p>
+										<div class="box">
+                                        <div class="row gtr-uniform">
+                                            <div class="col-6 col-12-xsmall">
+                                                <label>Current Password<input type="password"  id="oldpass" value="" placeholder="Password" ></label>
+                                            </div>
+											<!-- Break -->
+                                            <div class="col-6 col-12-xsmall">
+                                                <label>New Password<input type="password"  id="newpass" value="" placeholder="8 above characters is recommended."></label>
+                                            </div>
+											<!-- Break -->
+                                            <div class="col-6 col-12-xsmall">
+                                            <label>New Mobile Number<input type="text"  id="newmobilenum" value="" placeholder="e.g 091233456789" autocomplete="off"></label>
+                                            </div>
+                                            <div class="col-6 col-12-xsmall">
+                                            <label>New Email Address<input type="email"  id="newemail" value="" placeholder="e.g sample@yahoo.com" autocomplete="off"></input></label>
+                                            </div>
+											<!-- Break -->
+                                            <div class="col-12">
+                                                <label>New Address<input type="text" id="newaddress" value="" placeholder="City / Town / Street/ House no." autocomplete="off"></label>
+											</div>
+											<div class="col-6 col-12-xsmall">
+												<label>Guardian 1 First Name<input type="text"  id="guardian_firstname" value="" placeholder="e.g John" autocomplete="off"></input></label>
+											</div>
+											<div class="col-6 col-12-xsmall">
+												<label>Guardian 1 Middle Name<input type="text"  id="guardian_middlename" value="" placeholder="e.g McTavish" autocomplete="off"></input></label>
+											</div>
+											<div class="col-12">
+                                                <label>Guardian 1 Last Name <input type="text" id="guardian_lastname" value="" placeholder="e.g Wood" autocomplete="off"></label>
+											</div>
+											<div class="col-6 col-12-xsmall">
+												<label>Guardian 2 First Name<input type="text"  id="guardian_firstname2" value="" placeholder="e.g John" autocomplete="off"></input></label>
+											</div>
+											<div class="col-6 col-12-xsmall">
+												<label>Guardian 2 Middle Name<input type="text"  id="guardian_middlename2" value="" placeholder="e.g McTavish" autocomplete="off"></input></label>
+											</div>
+											<div class="col-12">
+                                                <label>Guardian 2 Last Name <input type="text" id="guardian_lastname2" value="" placeholder="e.g Wood" autocomplete="off"></label>
+											</div>
+											<div class="col-6 col-12-xsmall">
+												<label>Guardian 1 New Mobile Number<input type="text"  id="new_guardian_mobilenum" value="" placeholder="e.g 091233456789" autocomplete="off"></label>
+											</div>
+											<div class="col-6 col-12-xsmall">
+												<label>Guardian 2 New Mobile Number<input type="text"  id="new_guardian_mobilenum2" value="" placeholder="e.g 091233456789" autocomplete="off"></label>
+											</div>
+											<div class="col-12">
+                                                <label>Guardian 1 New Address<input type="text" id="new_guardian_address" value="" placeholder="City / Town / Street/ House no." autocomplete="off"></label>
+											</div>
+											<div class="col-12">
+                                                <label>Guardian 2 New Address<input type="text" id="new_guardian_address2" value="" placeholder="City / Town / Street/ House no." autocomplete="off"></label>
+											</div>
+                                            <!-- Break -->
+                                            <div class="col-12">
+                                                <ul class="actions">
+                                                    <li><button type="reset" value="Reset">Reset</button></li>
+                                                </ul>
+                                            </div>
+											</div>
+                                        </div>
+                                    </form>
+								</section>
+						</div>
+					</div>
+					<!-- Start Sidebar -->
+					<div id="sidebar">
+						<div class="inner">
+							<section id="search" class="alt">
+									<img src="images/BU-big-logo.png" width="50" height="50" alt="" class="imageSpin">
+									<h2 style="color: rgb(255, 255, 255)">BICOL UNIVERSITY</h2>
+							</section>
+							<!-- Menu -->
+							<nav id="menu">
+								<header class="major">
+									<h2 style="color: #fff">Dashboard</h2>
+								</header>	
+								<ul>
+									<li><a href="homepage.html" class=""><i class="icon solid fa-home"></i> Home</a></li>
+									<li><a href="aboutprofile.html"><i class="icon far fa-id-badge"></i> Profile</a></li>
+									<li><a href="grade.html"><i class="icon far fa-clipboard"></i>   Grades</a></li>
+									<li><a href="schedule.html"><i class="icon far fa-calendar-alt"></i>  Course</a></li>
+									<li><a href="login.html"><i class="fas fa-power-off"></i>  Logout</a></li>	
+								</ul>
+							</nav>	
+							<section>
+								<header class="major">
+									<h2 style="color: #fff">Get in touch</h2>
+								</header>
+								<p style="color: #fff">For Assistance please contact the ff:</p>
+								<ul class="contact">
+									<li class="icon solid fa-envelope"style="color: #fff">BAC Secretariat<br><a href="#">bu_bacsecretariat@yahoo.com</a></li>
+									<li class="icon solid fa-phone"style="color: #fff">(052) 742-5922</li>	
+									<li class="icon solid fa-home" style="color: #fff">School-Address: <br>Bicol University - Main Campus, Rizal Street, Legazpi City, Albay</li>
+								</ul>
+							</section>
+						<!-- Footer -->
+							<footer id="footer">
+								<p class="copyright"style="color: #fff">Student Center Website a project for Student Management System.</p>
+							</footer>
+						</div>
+					</div>
+					<!--End of Sidebar-->
+			</div>
+	<script src="assets/js/profile.js"></script>
+	<script src="assets/js/jquery.min.js"></script>
+	<script src="assets/js/browser.min.js"></script>
+	<script src="assets/js/breakpoints.min.js"></script>
+	<script src="assets/js/util.js"></script>
+	<script src="assets/js/main.js"></script>
+	</body>
+</html>
