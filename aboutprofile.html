@@ -13,7 +13,6 @@
 				<!-- Main -->
 					<div id="main">
 						<div class="inner">
-							
 							<!-- Header -->
 								<header id="header">
 									<a  class="logo"><h2><strong>Proile Information</strong></h2></a>
@@ -30,11 +29,15 @@
 										<span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
 										<strong>ERROR:</strong>If you see this message please contact Administrator.
 									</div>
+									<div id="show-notice" class="notice">
+										<span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+										<strong>Notice: </strong>If you see this message page is taking time to load data.
+									</div>
 									<div class="btn-container">
 										<a href="editprofile.html" class="button primary icon solid fa-search">Edit Profile</a>
 									</div>
 									<p style = "text-align:center">If you want to edit your profile click here.</p>
-									<table style="width: 80%;" class="table-wrapper" >
+									<table style="width: 80%" class="table-wrapper" id="tbl" >
 									<th colspan="2">SUMMARY</th>
 										<tr>
 											<td style ="text-align:center">Student ID:</td>
@@ -43,6 +46,10 @@
 										<tr>
 											<td style="text-align:center" >Name:</th>
 											<td style="text-align:center" ><i id="Name"></p></td>
+										</tr>
+										<tr>
+											<td style ="text-align:center">Program:</td>
+											<td style="text-align:center"><i id="program"></p></td>
 										</tr>
 										<tr>
 											<td style="text-align:center">Address:</th>

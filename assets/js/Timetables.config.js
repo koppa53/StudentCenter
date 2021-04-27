@@ -1,13 +1,13 @@
 //SOME CODES/FUNCTIONS ARE CAN BE OPTMIZED will be updated soon
 //setup table
 var timetables = [
-['', '', '', '', '', '', '', '', '', '', '', '','','','','','','','','','','','','','','',''],
-['', '', '', '', '', '', '', '', '', '', '', '','','','','','','','','','','','','','','',''],
-['', '', '', '', '', '', '', '', '', '', '', '','','','','','','','','','','','','','','',''],
-['', '', '', '', '', '', '', '', '', '', '', '','','','','','','','','','','','','','','',''],
-['', '', '', '', '', '', '', '', '', '', '', '','','','','','','','','','','','','','','',''],
-['', '', '', '', '', '', '', '', '', '', '', '','','','','','','','','','','','','','','',''],
-['', '', '', '', '', '', '', '', '', '', '', '','','','','','','','','','','','','','','',''],
+['', '', '', '', '', '', '', '', '', '', '', '','','','','','','','','','','','','','','','','','',''],
+['', '', '', '', '', '', '', '', '', '', '', '','','','','','','','','','','','','','','','','','',''],
+['', '', '', '', '', '', '', '', '', '', '', '','','','','','','','','','','','','','','','','','',''],
+['', '', '', '', '', '', '', '', '', '', '', '','','','','','','','','','','','','','','','','','',''],
+['', '', '', '', '', '', '', '', '', '', '', '','','','','','','','','','','','','','','','','','',''],
+['', '', '', '', '', '', '', '', '', '', '', '','','','','','','','','','','','','','','','','','',''],
+['', '', '', '', '', '', '', '', '', '', '', '','','','','','','','','','','','','','','','','','',''],
 ];
 
 var week =  ['Mon', 'Tue', 'Wed', 'Thur', 'Fri','Sat','Sun'];
@@ -46,7 +46,10 @@ var timetableType = [
 [{index: 'PM',name: '7:00'}, 1],
 [{index: 'PM',name: '7:30'}, 1],
 [{index: 'PM',name: '8:00'}, 1],
-[{index: 'PM',name: '8:30'}, 1]
+[{index: 'PM',name: '8:30'}, 1],
+[{index: 'PM',name: '9:00'}, 1],
+[{index: 'PM',name: '9:30'}, 1],
+[{index: 'PM',name: '10:00'}, 1]
 ];
 
 var i = 0;
@@ -69,7 +72,10 @@ async function fetchAcademicTerms(){
     const enrollmentID_url = "https://softeng.jbtabz.com/enrollments/50782d26-4b44-4486-9a85-961ee20574ee"
     const response = await fetch (enrollmentID_url)
     const data = await response.json() 
-    console.log(data)
+    if(data!=undefined){
+        const al = document.querySelector('#show-notice');
+        al.style.display = 'none';
+    }
     const enrollment_ID = data[0].id
     const academic_term = data[0].academic_term_name
     const student_name = data[0].student_first_name+" "+data[0].student_middle_name+" " +data[0].student_last_name
@@ -618,6 +624,51 @@ function plot_table_time(time,duration){
         return t
     }
     if(time == "20:30:00"){
+        t[0] = 27;
+        for(i=1;i<=duration.hours;i++){
+            if(i==1){
+                d+=3
+            }else{
+                d+=2
+            }
+        }
+        if(Object.keys(duration).length > 1){
+            d+=1
+        }
+        t[1] = d
+        return t
+    }
+    if(time == "21:00:00"){
+        t[0] = 27;
+        for(i=1;i<=duration.hours;i++){
+            if(i==1){
+                d+=3
+            }else{
+                d+=2
+            }
+        }
+        if(Object.keys(duration).length > 1){
+            d+=1
+        }
+        t[1] = d
+        return t
+    }
+    if(time == "21:30:00"){
+        t[0] = 27;
+        for(i=1;i<=duration.hours;i++){
+            if(i==1){
+                d+=3
+            }else{
+                d+=2
+            }
+        }
+        if(Object.keys(duration).length > 1){
+            d+=1
+        }
+        t[1] = d
+        return t
+    }
+    if(time == "22:00:00"){
         t[0] = 27;
         for(i=1;i<=duration.hours;i++){
             if(i==1){

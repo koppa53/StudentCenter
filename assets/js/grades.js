@@ -19,6 +19,10 @@ async function fetchUserGrades(){
     const enrollmentID_url = "https://softeng.jbtabz.com/enrollments/50782d26-4b44-4486-9a85-961ee20574ee"
     const response = await fetch (enrollmentID_url)
     const data = await response.json() 
+    if(data!=undefined){
+        const al = document.querySelector('#show-notice');
+        al.style.display = 'none';
+    }
     const enrollment_ID = data[0].id
     const academic_term = data[0].academic_term_name
     const grades_url = "https://softeng.jbtabz.com/grades/"+enrollment_ID

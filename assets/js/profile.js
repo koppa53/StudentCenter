@@ -1,15 +1,22 @@
 const get_profile_url = 'https://softeng.jbtabz.com/search/students/Nolla';
 const get_guardian_url = 'https://softeng.jbtabz.com/guardian/50782d26-4b44-4486-9a85-961ee20574ee'; 
+const enrollmentID_url = "https://softeng.jbtabz.com/enrollments/50782d26-4b44-4486-9a85-961ee20574ee"
 const update_profile_url = 'https://softeng.jbtabz.com/student';
 const update_guardian_profile_url = 'https://softeng.jbtabz.com/guardian';
 
 async function fetchUserProfile(){
 try{
-    const [response,res] = await Promise.all([fetch(get_profile_url),fetch(get_guardian_url)]);
+    const [response,res,prog] = await Promise.all([fetch(get_profile_url),fetch(get_guardian_url),fetch(enrollmentID_url)]);
     const data = await response.json();
     const d = await res.json();
+    const p = await prog.json(); 
+    if(data!=undefined&&d!=undefined&&p!=undefined){
+        const al = document.querySelector('#show-notice');
+        al.style.display = 'none';
+    }
     document.getElementById("Name").innerHTML = data[0].first_name + " "+ data[0].middle_name + " "+data[0].last_name;
     document.getElementById("ID").innerHTML = data[0].school_id;
+    document.getElementById("program").innerHTML = p[0].course_name;
     document.getElementById("add").innerHTML = data[0].address;
     document.getElementById("mno").innerHTML = data[0].phone_number;
     document.getElementById("gend").innerHTML = data[0].sex;
@@ -46,10 +53,10 @@ if(update.guardian_lastname!=""){
 if(update.guardian_firstname2!=""){
     d.first_name_2 = update.guardian_firstname2
 }
-if(update.guardian_middlename!=""){
+if(update.guardian_middlename2!=""){
     d.middle_name_2 = update.guardian_middlename2
 }
-if(update.guardian_lastname!=""){
+if(update.guardian_lastname2!=""){
     d.last_name_2 = update.guardian_lastname2
 }
 if(update.guardian_phone_number!=""){
@@ -61,7 +68,7 @@ if(update.guardian_phone_number2!=""){
 if(update.guardian_address!=""){
     d.address = update.guardian_address
 }
-if(update.guardian_address!=""){
+if(update.guardian_address2!=""){
     d.address_2 = update.guardian_address2
 }
 const update_guardian_info = await fetch(update_guardian_profile_url,{
@@ -72,6 +79,7 @@ const update_guardian_info = await fetch(update_guardian_profile_url,{
     body: JSON.stringify(d)
 });
 const stat = await update_guardian_info.json();
+console.log(stat)
 //STUDENT PROFILE UPDATE
 const response = await fetch (get_profile_url);
 const data = await response.json(); 
