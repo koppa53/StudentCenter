@@ -104,6 +104,8 @@ const update_info = await fetch(update_profile_url,{
 });
 const status = await update_info.json();
 if (status.code == 200 && stat.code == 200){
+    const al = document.querySelector('#show-success');
+    al.style.display = 'block';
     window.location.href="aboutprofile.html";
     alert("Profile Edited Succesfully")
 }else{

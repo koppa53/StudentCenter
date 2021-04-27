@@ -2347,11 +2347,21 @@ button,
   color: white;
 }
 
+/*Notice*/
 .notice {
   display: block;
   padding: 20px 20px;
   margin-bottom: 20px;
-  background-color: #ff9800;
+  background-color: #2196F3;
+  color: rgb(255, 255, 255);
+}
+
+/*Notice*/
+.success {
+  display: none;
+  padding: 20px 20px;
+  margin-bottom: 20px;
+  background-color: #4CAF50;
   color: rgb(255, 255, 255);
 }
 
