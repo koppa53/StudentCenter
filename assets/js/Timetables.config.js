@@ -51,21 +51,22 @@ var timetableType = [
 [{index: 'PM',name: '9:30'}, 1],
 [{index: 'PM',name: '10:00'}, 1]
 ];
-
+var flag=0;
 var i = 0;
 var sem = 4;
 let table = document.querySelector("table");
 var button = document.createElement("button");
 button.className ="button primary icon solid fa-search";
-
 window.onload = function() {
     //getSchedule(timetables)
     fetchAcademicTerms();
 };
 
 button.addEventListener("click",function() {
-    getSchedule(timetables)
-  })
+    if (flag===0) {
+        getSchedule(timetables)
+    }
+})
 
 async function fetchAcademicTerms(){
     try{
@@ -193,6 +194,7 @@ async function getSchedule(timetables){
                 }
             }
         });
+        flag=1
         createTable()
     }catch(e){
         console.log(e)
