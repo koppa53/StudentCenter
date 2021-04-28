@@ -81,6 +81,8 @@ async function fetchAcademicTerms(){
     const academic_term = data[0].academic_term_name
     const student_name = data[0].student_first_name+" "+data[0].student_middle_name+" " +data[0].student_last_name
     data.forEach(function(v){
+        v.academic_term_name += " "+ "("+ v.course_schedule_name + ")"
+        delete v.course_schedule_name
         delete v.status
         delete v.course_schedule_id
         delete v.student_first_name
@@ -94,7 +96,8 @@ async function fetchAcademicTerms(){
         delete v.subject_code;
         delete  v.subject_name; 
         delete v.updated_at});
-    const head = { 'Academic Term' : '','Block' : '', 'Program' : '', 'View' : '' };
+    const head = { 'Academic Term' : '','Program' : '', 'View' : '' };
+    console.log(data)
     let k = Object.keys(head);
     console.log(k)
     generateTableHead(table,k,i,student_name);
@@ -106,13 +109,13 @@ async function fetchAcademicTerms(){
     }   
 }
 
-function generateTableHead(table, data,i,academic_term) {
+function generateTableHead(table, data,i,student_name) {
     let thead1 = table.createTHead();
     let row1 = thead1.insertRow();
     let th1 = document.createElement("th");
-    let text1 = document.createTextNode(academic_term);
+    let text1 = document.createTextNode(student_name);
     th1.appendChild(text1);
-    th1.colSpan= 4;
+    th1.colSpan= 3;
     row1.appendChild(th1);
     if(i<1){
         let thead = table.createTHead();
