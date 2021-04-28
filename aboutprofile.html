@@ -25,6 +25,16 @@
 								</header>
 							<!-- Content -->
 								<section>
+									<form onsubmit="event.preventDefault();rdrct();" >
+										<div class="popup" id="popup-1">
+											<div class="overlay"></div>
+											<div class="content">
+											<h2>Authentication Required</h2>	
+											<p>Must Login to Access Student Center</p>
+											<button class="button primary">Login</button>
+											</div>
+										</div>
+									</form>
 									<div id="show-alert" class="alert">
 										<span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
 										<strong>ERROR:</strong>If you see this message please contact Administrator.

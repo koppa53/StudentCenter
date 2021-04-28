@@ -3,6 +3,9 @@
 	html5up.net | @ajlkn
 	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
 */
+function rdrct() {
+	window.location.href="login.html";
+}
 (function($) {
 
 	var	$window = $(window),
@@ -30,22 +33,25 @@
 			window.location.href="login.html";
   			//localStorage.removeItem('user')   
 		};
-
+		
 		// ... loaded.
 			$window.on('load', function() {
+				var y = document.getElementById("sidebar");
 				autoRedirect()
 				async function autoRedirect () {
 					const validLogin = await isLoggedIn()
 					if (!validLogin && location.pathname !== '/login/'){
-						alert('You must log in to access this page.')
-						window.location.href="login.html";
+						document.getElementById("popup-1").classList.toggle("active");
+						y.style.display = "none";	
 					} 
 					if (validLogin && location.pathname === '/login/') window.location.href="login.html";
 				}
 				async function isLoggedIn () {
 					const login_endpoint = "https://softeng.jbtabz.com/login/s";
 					const token = sessionStorage.getItem('token')
-					if (!token) return false
+					if (!token){
+						return false
+					} 
 					else{
 						/*const response = await zlFetch.post(login_endpoint, {
 							method: "POST",

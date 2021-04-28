@@ -25,6 +25,16 @@
 								</header>
 							<!-- Content -->
 								<section>
+									<form onsubmit="event.preventDefault();rdrct();" >
+										<div class="popup" id="popup-1">
+											<div class="overlay"></div>
+											<div class="content">
+											<h2>Authentication Required</h2>	
+											<p>Must Login to Access Student Center</p>
+											<button class="button primary">Login</button>
+											</div>
+										</div>
+									</form>
 									<form onsubmit="event.preventDefault();readFields();" >
 										<div class="btn-container">
 											<button class="button primary">Submit</button>
