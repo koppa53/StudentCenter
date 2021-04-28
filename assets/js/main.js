@@ -22,24 +22,29 @@
 		});
 
 	// Stops animations/transitions until the page has ...
+		// ... User Logout
 		var allLinks = document.links;
 		console.log(allLinks);
-		allLinks[9].onclick = function () {
-			localStorage.removeItem('token')
+		allLinks[9].onclick = function () { 
+			sessionStorage.removeItem('token')
 			window.location.href="login.html";
   			//localStorage.removeItem('user')   
 		};
+
 		// ... loaded.
 			$window.on('load', function() {
 				autoRedirect()
 				async function autoRedirect () {
 					const validLogin = await isLoggedIn()
-					if (!validLogin && location.pathname !== '/login/') window.location.href="login.html";
+					if (!validLogin && location.pathname !== '/login/'){
+						alert('You must log in to access this page.')
+						window.location.href="login.html";
+					} 
 					if (validLogin && location.pathname === '/login/') window.location.href="login.html";
 				}
 				async function isLoggedIn () {
 					const login_endpoint = "https://softeng.jbtabz.com/login/s";
-					const token = localStorage.getItem('token')
+					const token = sessionStorage.getItem('token')
 					if (!token) return false
 					else{
 						/*const response = await zlFetch.post(login_endpoint, {

@@ -74,7 +74,7 @@ async function verifyID_Password(){
         body: JSON.stringify(data)
     });
     const token = '12312312312313131313';
-    localStorage.setItem('token', token)
+    sessionStorage.setItem('token', token)
     const status = await verify_login.json();
     if (1){
         console.log(1)
