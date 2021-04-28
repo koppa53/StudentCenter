@@ -73,9 +73,12 @@ async function verifyID_Password(){
         },
         body: JSON.stringify(data)
     });
+    const token = '12312312312313131313';
+    localStorage.setItem('token', token)
     const status = await verify_login.json();
-    if (status.code == 200){
-        window.location.href="homepage.html";
+    if (1){
+        console.log(1)
+        window.location.href="index.html";
     }else{
         return status.code;
     }

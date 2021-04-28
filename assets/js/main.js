@@ -22,10 +22,16 @@
 		});
 
 	// Stops animations/transitions until the page has ...
-
+		var allLinks = document.links;
+		console.log(allLinks);
+		allLinks[9].onclick = function () {
+			localStorage.removeItem('token')
+			window.location.href="login.html";
+  			//localStorage.removeItem('user')   
+		};
 		// ... loaded.
 			$window.on('load', function() {
-				//autoRedirect()
+				autoRedirect()
 				async function autoRedirect () {
 					const validLogin = await isLoggedIn()
 					if (!validLogin && location.pathname !== '/login/') window.location.href="login.html";
@@ -36,7 +42,7 @@
 					const token = localStorage.getItem('token')
 					if (!token) return false
 					else{
-						const response = await zlFetch.post(login_endpoint, {
+						/*const response = await zlFetch.post(login_endpoint, {
 							method: "POST",
 							headers: {
 								'Content-type': 'application/json'
@@ -44,7 +50,7 @@
 							body: JSON.stringify(token)
 						});
 						const { token } = response.json()
-						localStorage.setItem('token', token)
+						localStorage.setItem('token', token)*/
 						return true
 					}
 				}
