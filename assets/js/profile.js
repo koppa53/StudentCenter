@@ -25,7 +25,7 @@ async function fetchUserProfile(){
             bt.style.display = '';
             tb.style.display = '';
             gtb.style.display = '';
-            let.style.display = 'none';
+            notice.style.display = 'none';
         }
         document.getElementById("Name").innerHTML = data[0].first_name + " "+ data[0].middle_name + " "+data[0].last_name;
         document.getElementById("ID").innerHTML = data[0].school_id;
