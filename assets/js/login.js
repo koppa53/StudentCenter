@@ -62,6 +62,7 @@
 
 
 async function verifyID_Password(){
+    document.getElementById("login-button").innerHTML = "Logging in...";
     const login_endpoint = "https://softeng.jbtabz.com/login/s";
     var data={};
     data["username"] = document.getElementById("user_ID").value;
@@ -80,6 +81,7 @@ async function verifyID_Password(){
         console.log(1)
         window.location.href="home.html";
     }else{
+        document.getElementById("login-button").innerHTML = "Log in";
         return status.code;
     }
 }
