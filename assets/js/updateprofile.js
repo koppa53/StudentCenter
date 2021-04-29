@@ -12,15 +12,8 @@ function stoppedTyping(id){
         document.getElementById('sbmt').disabled = true; 
         element.scrollIntoView({behavior:'smooth'});
     }else{
-        if(id==="oldpass" || id==="newpass"){
-            if(document.getElementById("oldpass").value===""||document.getElementById("newpass").value===""){
-                document.getElementById('sbmt').disabled = true; 
-            }else{
-                document.getElementById('sbmt').disabled = false;
-            }
-        }else{
-            if(document.getElementById(id).value===""){ 
-                if(document.getElementById("newmobilenum").value===""&&document.getElementById("newemail").value===""&&
+        if(document.getElementById(id).value===""){ 
+            if(document.getElementById("newmobilenum").value===""&&document.getElementById("newemail").value===""&&
                 document.getElementById("newaddress").value===""&&document.getElementById("guardian_firstname").value===""&&
                 document.getElementById("guardian_middlename").value===""&&document.getElementById("guardian_lastname").value===""&& 
                 document.getElementById("new_guardian_mobilenum").value===""&&document.getElementById("new_guardian_address").value===""&&
@@ -30,14 +23,14 @@ function stoppedTyping(id){
                 document.getElementById("newpass").value===""){
                     document.getElementById('sbmt').disabled = true; 
                 }
-            }else if(document.getElementById("oldpass").value===""||document.getElementById("newpass").value===""){
-                document.getElementById('sbmt').disabled = true; 
-            } else { 
-                document.getElementById('sbmt').disabled = false;
-            }
+            } 
+        else { 
+            document.getElementById('sbmt').disabled = false;
         }
+            
     }
 }
+
 
 async function editProfile(update){
     //GUARDIAN PROFILE UPDATE
