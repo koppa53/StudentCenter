@@ -6,6 +6,13 @@
 function rdrct() {
 	window.location.href="index.html";
 }
+// ... User Logout
+function logout(){ 
+	sessionStorage.removeItem('token')
+	window.location.href="index.html";
+	  //localStorage.removeItem('user')   
+}
+
 (function($) {
 
 	var	$window = $(window),
@@ -25,15 +32,6 @@ function rdrct() {
 		});
 
 	// Stops animations/transitions until the page has ...
-		// ... User Logout
-		var allLinks = document.links;
-		console.log(allLinks);
-		allLinks[9].onclick = function () { 
-			sessionStorage.removeItem('token')
-			window.location.href="index.html";
-  			//localStorage.removeItem('user')   
-		};
-		
 		// ... loaded.
 			$window.on('load', function() {
 				var y = document.getElementById("sidebar");
