@@ -5,7 +5,6 @@ const get_guardian_url = 'https://softeng.jbtabz.com/guardian/50782d26-4b44-4486
 let notice = document.querySelector('#show-notice');
 let al = document.querySelector('#show-alert');
 let success = document.querySelector('#show-success');
-notice.style.display='none';
 async function editProfile(update){
     //GUARDIAN PROFILE UPDATE
     try{
