@@ -4,7 +4,7 @@
 	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
 */
 function rdrct() {
-	window.location.href="login.html";
+	window.location.href="index.html";
 }
 (function($) {
 
@@ -30,7 +30,7 @@ function rdrct() {
 		console.log(allLinks);
 		allLinks[9].onclick = function () { 
 			sessionStorage.removeItem('token')
-			window.location.href="login.html";
+			window.location.href="index.html";
   			//localStorage.removeItem('user')   
 		};
 		
@@ -44,7 +44,7 @@ function rdrct() {
 						document.getElementById("popup-1").classList.toggle("active");
 						y.style.display = "none";	
 					} 
-					if (validLogin && location.pathname === '/login/') window.location.href="login.html";
+					if (validLogin && location.pathname === '/login/') window.location.href="index.html";
 				}
 				async function isLoggedIn () {
 					const login_endpoint = "https://softeng.jbtabz.com/login/s";

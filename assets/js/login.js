@@ -66,19 +66,19 @@ async function verifyID_Password(){
     var data={};
     data["username"] = document.getElementById("user_ID").value;
     data["password"] = document.getElementById("user_pass").value;
-    const verify_login = await fetch(login_endpoint, {
+    /*const verify_login = await fetch(login_endpoint, {
         method: "POST",
         headers: {
             'Content-type': 'application/json'
         },
         body: JSON.stringify(data)
-    });
+    });*/
     const token = '12312312312313131313';
     sessionStorage.setItem('token', token)
-    const status = await verify_login.json();
+    //const status = await verify_login.json();
     if (1){
         console.log(1)
-        window.location.href="index.html";
+        window.location.href="home.html";
     }else{
         return status.code;
     }

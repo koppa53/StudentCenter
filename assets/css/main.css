@@ -2385,7 +2385,7 @@ button,
 .popup .overlay {
   position:fixed;
   top:0px;
-  left:0px;
+  left:0px; 
   width:100vw;
   height:100vh;
   background:rgba(0,0,0,0.7);
@@ -2394,11 +2394,13 @@ button,
 }
  
 .popup .content {
-  position:absolute;
+  position:absolute;  
   top:50%;
   left:50%;
   transform:translate(-50%,-50%) scale(0);
   background:#fff;
+  margin-top: -50px;
+  margin-bottom: -50px;
   width:500px;
   height:200px;
   z-index:2;
@@ -2407,7 +2409,12 @@ button,
   padding:20px;
   box-sizing:border-box;
   font-family:"Open Sans",sans-serif;
-  overflow: hidden;
+}
+
+@media only screen and (max-width: 600px) {
+  .popup .content {
+    width:400px;
+  }
 }
  
 .popup .close-btn {

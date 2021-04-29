@@ -56,7 +56,11 @@ var flag=0;
 var i = 0;
 var sem = 4;
 let table = document.querySelector("table");
-var button = document.createElement("button");
+let button = document.createElement("button");
+let element = document.getElementById("coursesTable");
+let ele = document.getElementById("cont");
+let notice = document.querySelector('#show-notice');
+let al = document.querySelector('#show-alert');
 button.className ="button primary icon solid fa-search";
 
 window.onload = function() {
@@ -67,21 +71,23 @@ window.onload = function() {
 button.addEventListener("click",function() {
     if (flag===0) {
         getSchedule(timetables)
+    }else{
+        element.scrollIntoView({behavior:'smooth'});
     }
 })
 
 async function fetchAcademicTerms(){
     try{
     const enrollmentID_url = "https://softeng.jbtabz.com/enrollments/50782d26-4b44-4486-9a85-961ee20574ee"
+    const get_profile_url = 'https://softeng.jbtabz.com/search/students/Nolla';
     const response = await fetch (enrollmentID_url)
+    const res = await fetch(get_profile_url)
+    const d = await res.json() 
     const data = await response.json() 
     if(data!=undefined){
-        const al = document.querySelector('#show-notice');
-        al.style.display = 'none';
+        notice.style.display = 'none';
     }
-    const enrollment_ID = data[0].id
-    const academic_term = data[0].academic_term_name
-    const student_name = data[0].student_first_name+" "+data[0].student_middle_name+" " +data[0].student_last_name
+    const student_name = d[0].school_id + " : "+ data[0].student_first_name+" "+data[0].student_middle_name+" " +data[0].student_last_name
     data.forEach(function(v){
         v.academic_term_name += " "+ "("+ v.course_schedule_name + ")"
         delete v.course_schedule_name
@@ -99,15 +105,13 @@ async function fetchAcademicTerms(){
         delete  v.subject_name; 
         delete v.updated_at});
     const head = { 'Academic Term' : '','Program' : '', 'View' : '' };
-    console.log(data)
     let k = Object.keys(head);
-    console.log(k)
     generateTableHead(table,k,i,student_name);
     generateTable(table, data);
     }catch(e){
         console.log(e.message)
-        const al = document.querySelector('#show-alert');
         al.style.display = 'block';
+        notice.style.display = 'none';
     }   
 }
 
@@ -201,12 +205,14 @@ async function getSchedule(timetables){
         });
         flag=1
         createTable()
+        element.scrollIntoView({behavior:'smooth'});
     }catch(e){
         console.log(e)
-        const al = document.querySelector('#show-alert');
+        notice.style.display = 'none';
         al.style.display = 'block';
     }
 }
+
 
 function createTable(){
     var Timetable = new Timetables({

@@ -1,105 +1,53 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html lang="en">
-	<head>
-		<title>Student Center</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/><!--Icons-->
-		<link rel="stylesheet" href="assets/css/main.css"/>
-		<link rel="icon" type="image/png" href="images/BU-small-logo.png"/>
-	</head>
-	<body class="is-preload">
-		<!-- Wrapper -->
-			<div id="wrapper">
-				<!-- Main -->
-					<div id="main">
-						<div class="inner">
-							<!-- Header -->
-								<header id="header">
-									<a href="homepage.html" class="logo"><strong>WELCOME STUDENT!</strong></a>
-									<ul class="icons">
-										<li><a href="https://twitter.com/bicoluofficiai?lang=en" class="icon brands fa-twitter" target="_blank"><span class="label">Twitter</span></a></li>
-										<li><a href="https://www.facebook.com/BicolUniversity" class="icon brands fa-facebook-f" target="_blank"><span class="label">Facebook</span></a></li>
-										<li><a href="https://www.instagram.com/uscbicolu/?hl=en" class="icon brands fa-instagram" target="_blank"><span class="label">Instagram</span></a></li>
-										<li><a href="https://www.youtube.com/user/TheBicolUniversity" class="icon brands fa-youtube" target="_blank"><span class="label">Medium</span></a></li>
-									</ul>
-								</header>
-							<!-- End of Header -->	
-							<!-- Banner -->
-								<section id="banner">
-									<div class="content">
-										<form onsubmit="event.preventDefault();rdrct();" >
-											<div class="popup" id="popup-1">
-												<div class="overlay"></div>
-												<div class="content">
-												<h2>Authentication Required</h2>	
-												<p>Must Login to Access Student Center</p>
-												<button class="button primary">Login</button>
-												</div>
-											</div>
-										</form>
-										<header>
-											<h1>BICOL UNIVERSITY STUDENT CENTER <br/>
-											</h1>
-											<blockquote>Aimed to produce, allocate and manage the delivery of your academical content</blockquote>
-										</header>
-										<p>A web based system that provides function and features in order to provide users an easy 
-											as well as customizable in accessing your information and provide a reliable 
-											and user-friendly stucture. </p>
-									</div>
-									<span class="image fit">
-										<img src="images/BU-big-logo.png">
-									</span>
-								</section>
-							<!--end of banner -->
-						</div>
-					</div>
-					<!--End Main-->
-					<!-- Start Sidebar -->
-					<div id="sidebar">
-						<div class="inner">
-							<section id="search" class="alt">
-									<img src="images/BU-big-logo.png" width="50" height="50" alt="" class="imageSpin">
-									<h2 style="color: rgb(255, 255, 255)">BICOL UNIVERSITY</h2>
-							</section>
-							<!-- Menu -->
-							<nav id="menu">
-								<header class="major">
-									<h2 style="color: #fff">Dashboard</h2>
-								</header>	
-								<ul>
-									<li><a href="index.html" class=""><i class="icon solid fa-home"></i> Home</a></li>
-									<li><a href="aboutprofile.html"><i class="icon far fa-id-badge"></i> Profile</a></li>
-									<li><a href="grade.html"><i class="icon far fa-clipboard"></i>   Grades</a></li>
-									<li><a href="schedule.html"><i class="icon far fa-calendar-alt"></i>  Course</a></li>
-									<li><a href="#"><i class="fas fa-power-off"></i>  Logout</a></li>	
-								</ul>
-							</nav>	
-							<section>
-								<header class="major">
-									<h2 style="color: #fff">Get in touch</h2>
-								</header>
-								<p style="color: #fff">For Assistance please contact the ff:</p>
-								<ul class="contact">
-									<li class="icon solid fa-envelope"style="color: #fff">BAC Secretariat<br><a href="#">bu_bacsecretariat@yahoo.com</a></li>
-									<li class="icon solid fa-phone"style="color: #fff">(052) 742-5922</li>	
-									<li class="icon solid fa-home" style="color: #fff">School-Address: <br>Bicol University - Main Campus, Rizal Street, Legazpi City, Albay</li>
-								</ul>
-							</section>
-						<!-- Footer -->
-							<footer id="footer">
-								<p class="copyright"style="color: #fff">Student Center Website a project for Student Management System.</p>
-							</footer>
-						</div>
-					</div>
-					<!--End of Sidebar-->
-			</div>
-		<!-- End of Wrapper -->
-		<!-- Scripts -->
-		<script src="assets/js/jquery.min.js"></script>
-		<script src="assets/js/browser.min.js"></script>
-		<script src="assets/js/breakpoints.min.js"></script>
-		<script src="assets/js/util.js"></script>
-		<script src="assets/js/main.js"></script>
-	</body>
+  <head>
+    <title>Student Center</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!--===============================================================================================-->
+    <link rel="icon" type="image/png" href="images/BU-small-logo.png" />
+    <link rel="stylesheet" type="text/css" href="assets/fonts/font-awesome-4.7.0/css/font-awesome.min.css"/>
+    <link rel="stylesheet" type="text/css" href="assets/css/login.css" />
+    <link rel="stylesheet" type="text/css" href="assets/css/util.css" />
+    <!--===============================================================================================-->
+  </head>
+  <body>
+    <div class="limiter">
+      <div class="container-login100">
+        <div class="wrap-login100">
+          <form class="login100-form validate-form" onsubmit="event.preventDefault()" autocomplete="off">
+            <span class="login100-form-title p-b-26">
+              <img src="images/BU-big-logo.png" width="100" height="100" alt=""/>
+              <br />STUDENT ACCOUNT LOGIN
+            </span>
+            <div class="wrap-input100 validate-input" data-validate="Incorrect ID/Password">
+              <input class="input100" type="text" id="user_ID" autocomplete="off"/>
+              <span class="focus-input100" data-placeholder="ID"></span>
+            </div>
+            <div class="wrap-input100 validate-input" data-validate="Re-Enter Password">
+              <span class="btn-show-pass">
+                <i class="zmdi zmdi-eye"></i>
+              </span>
+              <input class="input100" type="password" id="user_pass" name="pass"/>
+              <span class="focus-input100" data-placeholder="Password"></span>
+            </div>
+            <div class="container-login100-form-btn">
+              <div class="wrap-login100-form-btn">
+                <div class="login100-form-bgbtn"></div>
+                <button class="login100-form-btn">Login</button>
+              </div>
+            </div>
+            <div class="text-center p-t-115">
+              <span class="txt1"> Bicol University Student Center Login<br>S.Y 2021-2022
+              </span>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <!--===============================================================================================-->
+    <script src="assets/jquery/jquery-3.2.1.min.js"></script>
+    <script src="assets/js/login.js"></script>
+    <!--===============================================================================================-->
+  </body>
 </html>

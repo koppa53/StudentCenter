@@ -1,10 +1,11 @@
 <!DOCTYPE HTML>
 <html lang="en">
 	<head>
-		<title>Student Center - Grades</title>
+		<title>Student Center</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="stylesheet" href="assets/css/main.css" />
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/><!--Icons-->
+		<link rel="stylesheet" href="assets/css/main.css"/>
 		<link rel="icon" type="image/png" href="images/BU-small-logo.png"/>
 	</head>
 	<body class="is-preload">
@@ -15,42 +16,45 @@
 						<div class="inner">
 							<!-- Header -->
 								<header id="header">
-									<a  class="logo"><h2><strong>Grades List</strong></h2></a>
+									<a href="homepage.html" class="logo"><strong>WELCOME STUDENT!</strong></a>
 									<ul class="icons">
-										<li><a href="https://twitter.com/bicoluofficiai?lang=en" class="icon brands fa-twitter" target="_blank">
-											<span class="label">Twitter</span></a></li>
-										<li><a href="https://www.facebook.com/BicolUniversity" class="icon brands fa-facebook-f" target="_blank">
-											<span class="label">Facebook</span></a></li>
-										<li><a href="https://www.instagram.com/uscbicolu/?hl=en" class="icon brands fa-instagram" target="_blank">
-											<span class="label">Instagram</span></a></li>
-										<li><a href="https://www.youtube.com/user/TheBicolUniversity" class="icon brands fa-youtube" target="_blank">
-											<span class="label">Medium</span></a></li>
+										<li><a href="https://twitter.com/bicoluofficiai?lang=en" class="icon brands fa-twitter" target="_blank"><span class="label">Twitter</span></a></li>
+										<li><a href="https://www.facebook.com/BicolUniversity" class="icon brands fa-facebook-f" target="_blank"><span class="label">Facebook</span></a></li>
+										<li><a href="https://www.instagram.com/uscbicolu/?hl=en" class="icon brands fa-instagram" target="_blank"><span class="label">Instagram</span></a></li>
+										<li><a href="https://www.youtube.com/user/TheBicolUniversity" class="icon brands fa-youtube" target="_blank"><span class="label">Medium</span></a></li>
 									</ul>
 								</header>
-							<!-- Content -->
-								<section>
-									<form onsubmit="event.preventDefault();rdrct();" >
-										<div class="popup" id="popup-1">
-											<div class="overlay"></div>
-											<div class="content">
-											<h2>Authentication Required</h2>	
-											<p>Must Login to Access Student Center</p>
-											<button class="button primary">Login</button>
+							<!-- End of Header -->	
+							<!-- Banner -->
+								<section id="banner">
+									<div class="content">
+										<form onsubmit="event.preventDefault();rdrct();" >
+											<div class="popup" id="popup-1">
+												<div class="overlay"></div>
+												<div class="content">
+												<h2>Authentication Required</h2>	
+												<p>Must Login to Access Student Center</p>
+												<button class="button primary">Login</button>
+												</div>
 											</div>
-										</div>
-									</form>
-									<div id="show-alert" class="alert">
-										<strong>ERROR:</strong> If you see this message please contact Administrator
+										</form>
+										<header>
+											<h1>BICOL UNIVERSITY STUDENT CENTER <br/>
+											</h1>
+											<blockquote>Aimed to produce, allocate and manage the delivery of your academical content</blockquote>
+										</header>
+										<p>A web based system that provides function and features in order to provide users an easy 
+											as well as customizable in accessing your information and provide a reliable 
+											and user-friendly stucture. </p>
 									</div>
-									<div id="show-notice" class="notice">
-										<strong>Notice: </strong>If you see this message page is still retrieving your data.
-									</div>
-									<table style="width: 80%;"class="table-wrapper">	
-										<!--javascript data-->
-									</table>
+									<span class="image fit">
+										<img src="images/BU-big-logo.png">
+									</span>
 								</section>
+							<!--end of banner -->
 						</div>
 					</div>
+					<!--End Main-->
 					<!-- Start Sidebar -->
 					<div id="sidebar">
 						<div class="inner">
@@ -90,7 +94,8 @@
 					</div>
 					<!--End of Sidebar-->
 			</div>
-		<script src="assets/js/grades.js" ></script>
+		<!-- End of Wrapper -->
+		<!-- Scripts -->
 		<script src="assets/js/jquery.min.js"></script>
 		<script src="assets/js/browser.min.js"></script>
 		<script src="assets/js/breakpoints.min.js"></script>

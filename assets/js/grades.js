@@ -9,6 +9,8 @@ let sample_data=[
 var i = 0;
 var sem = 4;
 let table = document.querySelector("table");
+let notice = document.querySelector('#show-notice');
+let al = document.querySelector('#show-alert');
 
 window.onload = function() {
     fetchUserGrades();
@@ -20,8 +22,7 @@ async function fetchUserGrades(){
     const response = await fetch (enrollmentID_url)
     const data = await response.json() 
     if(data!=undefined){
-        const al = document.querySelector('#show-notice');
-        al.style.display = 'none';
+        notice.style.display = 'none';
     }
     const enrollment_ID = data[0].id
     const academic_term = data[0].academic_term_name
@@ -41,8 +42,8 @@ async function fetchUserGrades(){
     generateTable(table, d);
     }catch(e){
         console.log(e.message)
-        const al = document.querySelector('#show-alert');
         al.style.display = 'block';
+        notice.style.display = 'none';
     }
 }
 
