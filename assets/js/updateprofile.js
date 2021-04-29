@@ -5,6 +5,32 @@ const get_guardian_url = 'https://softeng.jbtabz.com/guardian/50782d26-4b44-4486
 let notice = document.querySelector('#show-notice');
 let al = document.querySelector('#show-alert');
 let success = document.querySelector('#show-success');
+
+function stoppedTyping(id){
+    if(id==="oldpass" || id==="newpass"){
+        if(document.getElementById("oldpass").value===""||document.getElementById("newpass").value===""){
+            document.getElementById('sbmt').disabled = true; 
+        }else{
+            document.getElementById('sbmt').disabled = false;
+        }
+    }else{
+        if(document.getElementById(id).value===""){ 
+            if(document.getElementById("newmobilenum").value===""&&document.getElementById("newemail").value===""&&
+            document.getElementById("newaddress").value===""&&document.getElementById("guardian_firstname").value===""&&
+            document.getElementById("guardian_middlename").value===""&&document.getElementById("guardian_lastname").value===""&& 
+            document.getElementById("new_guardian_mobilenum").value===""&&document.getElementById("new_guardian_address").value===""&&
+            document.getElementById("guardian_firstname2").value===""&&document.getElementById("guardian_middlename2").value===""&&
+            document.getElementById("guardian_lastname2").value===""&& document.getElementById("new_guardian_mobilenum2").value===""&&
+            document.getElementById("new_guardian_address2").value===""){
+                if(document.getElementById("oldpass").value===""||document.getElementById("newpass").value==="")
+                    document.getElementById('sbmt').disabled = true; 
+            }
+        } else { 
+            document.getElementById('sbmt').disabled = false;
+        }
+    }
+}
+
 async function editProfile(update){
     //GUARDIAN PROFILE UPDATE
     try{
@@ -118,15 +144,8 @@ function readFields(){
 
         //STUDENT PROFILE
         //var oldpass = document.getElementById("oldpass").value
-        /*data["newpass"] = document.getElementById("newpass").value
-        if(oldpass.length !=0 && data["newpass"].length == 0){
-            alert("Enter new password!");
-            return false;
-        }
-        if(oldpass.length ==0 && data["newpass"].length !=0 ){
-            alert("Enter old password!");
-            return false;
-        }*/
+        //data["newpass"] = document.getElementById("newpass").value
+
         data["phone_number"] = document.getElementById("newmobilenum").value
         result = checkMobileNumber(data["phone_number"])
         if(result==false){
@@ -135,29 +154,20 @@ function readFields(){
         data["email_address"] = document.getElementById("newemail").value
         data["address"] = document.getElementById("newaddress").value
         var mailformat = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-        if(data["phone_number"]=="" && data["email_address"]=="" && data["address"]=="" && 
-            data["guardian_firstname"] == "" && data["guardian_middlename"] == "" && data["guardian_lastname"] == "" && 
-            data["guardian_firstname2"] == "" && data["guardian_middlename2"] == "" && data["guardian_lastname2"] == "" &&
-            data["guardian_phone_number"] == "" && data["guardian_phone_number2"] == "" && data["guardian_address"] == "" && 
-            data["guardian_address2"] == ""){
-            alert("Field is Empty!")
-        }else{
-            if(data["email_address"]!=""){
-                if(data["email_address"].match(mailformat)){
-                    editProfile(data);
-                }else{
-                    alert("You have entered an invalid email address!");
-                    data["address"] =""
-                }
+        if(data["email_address"]!=""){
+            if(data["email_address"].match(mailformat)){
+                editProfile(data);
+            }else{
+                alert("You have entered an invalid email address!");
+                data["address"] =""
             }
-            editProfile(data);
         }
+        editProfile(data);
     }catch(e){
         console.log(e.message)
         al.style.display = 'block';
         notice.style.display = 'none';
-    }
-        
+    }   
 }
 
 function checkMobileNumber(data){

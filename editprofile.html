@@ -29,9 +29,9 @@
 										<div class="popup" id="popup-1">
 											<div class="overlay"></div>
 											<div class="content">
-											<h2>Authentication Required</h2>	
-											<p>Must Login to Access Student Center</p>
-											<button class="button primary">Login</button>
+												<h2>Authentication Required</h2>	
+												<p>Must Login to Access Student Center</p>
+												<button class="button primary">Login</button>
 											</div>
 										</div>
 									</form>
@@ -46,71 +46,98 @@
 									</div>
 									<form onsubmit="event.preventDefault();readFields();" >
 										<div class="btn-container">
-											<button class="button primary">Submit</button>
+											<button class="button primary" id="sbmt" disabled>Submit</button>
 										</div>
 										<p style = "text-align:center">Click here if you are done editing.</p>
-										<div class="box">
-                                        <div class="row gtr-uniform">
-                                            <div class="col-6 col-12-xsmall">
-                                                <label>Current Password<input type="password"  id="oldpass" value="" placeholder="Password" ></label>
-                                            </div>
-											<!-- Break -->
-                                            <div class="col-6 col-12-xsmall">
-                                                <label>New Password<input type="password"  id="newpass" value="" placeholder="8 above characters is recommended."></label>
-                                            </div>
-											<!-- Break -->
-                                            <div class="col-6 col-12-xsmall">
-                                            <label>New Mobile Number<input type="text"  id="newmobilenum" value="" placeholder="e.g 091233456789" autocomplete="off"></label>
-                                            </div>
-                                            <div class="col-6 col-12-xsmall">
-                                            <label>New Email Address<input type="email"  id="newemail" value="" placeholder="e.g sample@yahoo.com" autocomplete="off"></input></label>
-                                            </div>
-											<!-- Break -->
-                                            <div class="col-12">
-                                                <label>New Address<input type="text" id="newaddress" value="" placeholder="City / Town / Street/ House no." autocomplete="off"></label>
+										<fieldset class ="box">
+											<legend><h3>STUDENT PROFILE</h3></legend>		
+											<div class="row gtr-uniform">
+												<div class="col-6 col-12-xsmall">
+													<label>Current Password<input type="password"  id="oldpass" value="" placeholder="Password" 
+														onkeyup="stoppedTyping(this.id);"></label>
+												</div>
+												<!-- Break -->
+												<div class="col-6 col-12-xsmall">
+													<label>New Password<input type="password"  id="newpass" value="" placeholder="8 above characters is recommended." 
+														onkeyup="stoppedTyping(this.id);"></label>
+												</div>
+												<!-- Break -->
+												<div class="col-6 col-12-xsmall">
+												<label>New Mobile Number<input type="text"  id="newmobilenum" value="" placeholder="e.g 091233456789" 
+													autocomplete="off" onkeyup="stoppedTyping(this.id);" ></label>
+												</div>
+												<div class="col-6 col-12-xsmall">
+												<label>New Email Address<input type="email"  id="newemail" value="" placeholder="e.g sample@yahoo.com" 
+													autocomplete="off" onkeyup="stoppedTyping(this.id);"></label>
+												</div>
+												<!-- Break -->
+												<div class="col-12">
+													<label>New Address<input type="text" id="newaddress" value="" placeholder="City / Town / Street/ House no." 
+														autocomplete="off" onkeyup="stoppedTyping(this.id);"></label>
+												</div>
 											</div>
-											<div class="col-6 col-12-xsmall">
-												<label>Guardian 1 First Name<input type="text"  id="guardian_firstname" value="" placeholder="e.g John" autocomplete="off"></input></label>
+										</fieldset>
+										<fieldset class ="box">
+											<legend><h3>GUARDIAN 1 PROFILE</h3></legend>
+											<div class="row gtr-uniform">	
+												<div class="col-6 col-12-xsmall">
+													<label>Guardian 1 First Name<input type="text"  id="guardian_firstname" value="" placeholder="e.g John" 
+														autocomplete="off" onkeyup="stoppedTyping(this.id);" ></label>
+												</div>
+												<div class="col-6 col-12-xsmall">
+													<label>Guardian 1 Middle Name<input type="text"  id="guardian_middlename" value="" placeholder="e.g McTavish" 
+														autocomplete="off" onkeyup="stoppedTyping(this.id);" ></label>
+												</div>
+												<div class="col-6 col-12-xsmall">
+													<label>Guardian 1 Last Name <input type="text" id="guardian_lastname" value="" placeholder="e.g Wood" 
+														autocomplete="off" onkeyup="stoppedTyping(this.id);"></label>
+												</div>
+												<div class="col-6 col-12-xsmall">
+													<label>Guardian 1 New Mobile Number<input type="text"  id="new_guardian_mobilenum" value="" placeholder="e.g 091233456789" 
+														autocomplete="off" onkeyup="stoppedTyping(this.id);"></label>
+												</div>
+												<div class="col-12">
+													<label>Guardian 1 New Address<input type="text" id="new_guardian_address" value="" placeholder="City / Town / Street/ House no." 
+														autocomplete="off" onkeyup="stoppedTyping(this.id);"></input></label>
+												</div>
 											</div>
-											<div class="col-6 col-12-xsmall">
-												<label>Guardian 1 Middle Name<input type="text"  id="guardian_middlename" value="" placeholder="e.g McTavish" autocomplete="off"></input></label>
+										</fieldset>	
+										<fieldset class ="box">
+											<legend><h3>GUARDIAN 2 PROFILE</h3></legend>
+											<div class="row gtr-uniform">
+												<div class="col-6 col-12-xsmall">
+													<label>Guardian 2 First Name<input type="text"  id="guardian_firstname2" value="" placeholder="e.g John" 
+														autocomplete="off" onkeyup="stoppedTyping(this.id);"></input></label>
+												</div>
+												<div class="col-6 col-12-xsmall">
+													<label>Guardian 2 Middle Name<input type="text"  id="guardian_middlename2" value="" placeholder="e.g McTavish" 
+														autocomplete="off" onkeyup="stoppedTyping(this.id);"></input></label>
+												</div>
+												<div class="col-6 col-12-xsmall">
+													<label>Guardian 2 Last Name <input type="text" id="guardian_lastname2" value="" placeholder="e.g Wood" 
+														autocomplete="off" onkeyup="stoppedTyping(this.id);"></input></label>
+												</div>
+												<div class="col-6 col-12-xsmall">
+													<label>Guardian 2 New Mobile Number<input type="text"  id="new_guardian_mobilenum2" value="" placeholder="e.g 091233456789" 
+														autocomplete="off" onkeyup="stoppedTyping(this.id);"></input></label>
+												</div>
+												<div class="col-12">
+													<label>Guardian 2 New Address<input type="text" id="new_guardian_address2" value="" placeholder="City / Town / Street/ House no." 
+														autocomplete="off" onkeyup="stoppedTyping(this.id);"></input></label>
+												</div>
 											</div>
-											<div class="col-12">
-                                                <label>Guardian 1 Last Name <input type="text" id="guardian_lastname" value="" placeholder="e.g Wood" autocomplete="off"></label>
-											</div>
-											<div class="col-6 col-12-xsmall">
-												<label>Guardian 2 First Name<input type="text"  id="guardian_firstname2" value="" placeholder="e.g John" autocomplete="off"></input></label>
-											</div>
-											<div class="col-6 col-12-xsmall">
-												<label>Guardian 2 Middle Name<input type="text"  id="guardian_middlename2" value="" placeholder="e.g McTavish" autocomplete="off"></input></label>
-											</div>
-											<div class="col-12">
-                                                <label>Guardian 2 Last Name <input type="text" id="guardian_lastname2" value="" placeholder="e.g Wood" autocomplete="off"></label>
-											</div>
-											<div class="col-6 col-12-xsmall">
-												<label>Guardian 1 New Mobile Number<input type="text"  id="new_guardian_mobilenum" value="" placeholder="e.g 091233456789" autocomplete="off"></label>
-											</div>
-											<div class="col-6 col-12-xsmall">
-												<label>Guardian 2 New Mobile Number<input type="text"  id="new_guardian_mobilenum2" value="" placeholder="e.g 091233456789" autocomplete="off"></label>
-											</div>
-											<div class="col-12">
-                                                <label>Guardian 1 New Address<input type="text" id="new_guardian_address" value="" placeholder="City / Town / Street/ House no." autocomplete="off"></label>
-											</div>
-											<div class="col-12">
-                                                <label>Guardian 2 New Address<input type="text" id="new_guardian_address2" value="" placeholder="City / Town / Street/ House no." autocomplete="off"></label>
-											</div>
+										</fieldset>
                                             <!-- Break -->
-                                            <div class="col-12">
-                                                <ul class="actions">
-                                                    <li><button type="reset" value="Reset">Reset</button></li>
-                                                </ul>
-                                            </div>
-											</div>
+                                        <div class="col-12">
+                                            <ul class="actions">
+                                                <li><button type="reset" value="Reset">Reset</button></li>
+                                            </ul>
                                         </div>
-                                    </form>
+									</form>
 								</section>
 						</div>
-					</div>
+					</div>				
+			</div>
 					<!-- Start Sidebar -->
 					<div id="sidebar">
 						<div class="inner">
@@ -149,7 +176,6 @@
 						</div>
 					</div>
 					<!--End of Sidebar-->
-			</div>
 	<script src="assets/js/updateprofile.js"></script>
 	<script src="assets/js/jquery.min.js"></script>
 	<script src="assets/js/browser.min.js"></script>
