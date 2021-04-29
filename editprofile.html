@@ -45,7 +45,7 @@
 									<div id="show-success" class="success">
 										<strong>SUCCESS: </strong>Profile has been successfully updated. Redirecting you back to profile page...
 									</div>
-									<form onsubmit="event.preventDefault();readFields();" >
+									<form id="t1" onsubmit="event.preventDefault();readFields();" >
 										<div class="btn-container">
 											<button class="button primary" id="sbmt" disabled>Submit</button>
 										</div>
@@ -131,7 +131,7 @@
                                             <!-- Break -->
                                         <div class="col-12">
                                             <ul class="actions">
-                                                <li><button type="reset" value="Reset">Reset</button></li>
+                                                <li><button id="res"type="reset" value="Reset" onclick="stoppedTyping(this.id);">Reset</button></li>
                                             </ul>
                                         </div>
 									</form>
