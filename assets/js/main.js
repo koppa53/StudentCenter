@@ -33,13 +33,17 @@ function logout(){
 
 	// Stops animations/transitions until the page has ...
 		// ... loaded.
-			$window.on('load', function() {
+			$window.on('load', function() {	
 				var y = document.getElementById("sidebar");
 				autoRedirect()
 				async function autoRedirect () {
 					const validLogin = await isLoggedIn()
 					if (!validLogin && location.pathname !== '/login/'){
 						document.getElementById("popup-1").classList.toggle("active");
+						document.querySelector('#popup-1').addEventListener('contextmenu',(e) => {
+							e.preventDefault();
+						})
+						document.body.style.overflow="hidden";
 						y.style.display = "none";	
 					} 
 					if (validLogin && location.pathname === '/login/') window.location.href="index.html";

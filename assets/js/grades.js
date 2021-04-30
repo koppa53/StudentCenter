@@ -73,10 +73,13 @@ function generateTable(table, data) {
         for (key in element) {
             let text = ""
             let cell = row.insertCell();
+            cell.style.textAlign = "center"
             if(element[key]==null){
                 text = document.createTextNode("TBD");
+                cell.style.backgroundColor = "yellow";
             }else{
                 text = document.createTextNode(element[key]);
+                if(element[key]=="5.0") row.style.backgroundColor = "red";
             }
             cell.appendChild(text);
         }
