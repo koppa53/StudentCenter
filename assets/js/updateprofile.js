@@ -12,7 +12,8 @@ function stoppedTyping(id){
         document.getElementById('sbmt').disabled = true; 
         element.scrollIntoView({behavior:'smooth'});
     }else{
-        if(document.getElementById(id).value===""){ 
+        let inpt = document.getElementById(id).value
+        if(inpt.value===""|| inpt.replace(/^\s+|\s+$/g, '').length == 0){ 
             if(document.getElementById("newmobilenum").value===""&&document.getElementById("newemail").value===""&&
                 document.getElementById("newaddress").value===""&&document.getElementById("guardian_firstname").value===""&&
                 document.getElementById("guardian_middlename").value===""&&document.getElementById("guardian_lastname").value===""&& 
@@ -26,8 +27,7 @@ function stoppedTyping(id){
             } 
         else { 
             document.getElementById('sbmt').disabled = false;
-        }
-            
+        }       
     }
 }
 
@@ -78,7 +78,6 @@ async function editProfile(update){
             body: JSON.stringify(d)
         });
         const stat = await update_guardian_info.json();
-        console.log(stat)
         //STUDENT PROFILE UPDATE
         const response = await fetch (get_profile_url);
         const data = await response.json(); 
@@ -120,9 +119,11 @@ async function editProfile(update){
 
 function readFields(){
     try{
-        notice.style.display = 'none';
+        //notice.style.display = 'none';
         var data={};
-        var result = true;
+        var result= true;
+        var result1= true;
+        var result2=true;
         //GUARDIAN PROFILE 
         data["guardian_firstname"] = document.getElementById("guardian_firstname").value
         data["guardian_middlename"] = document.getElementById("guardian_middlename").value
@@ -131,39 +132,53 @@ function readFields(){
         data["guardian_middlename2"] = document.getElementById("guardian_middlename2").value
         data["guardian_lastname2"] = document.getElementById("guardian_lastname2").value
         data["guardian_phone_number"] = document.getElementById("new_guardian_mobilenum").value
-        result = checkMobileNumber(data["guardian_phone_number"])
-        if(result==false){
-            data["guardian_phone_number"]=""
+        if(data["guardian_phone_number"]!=""){
+            result = checkMobileNumber(data["guardian_phone_number"])
+            if(result===false){
+                document.getElementById("new_guardian_mobilenum").focus()
+                document.getElementById("new_guardian_mobilenum").scrollIntoView({behavior:'smooth',block:'center'})
+                data["guardian_phone_number"]=""
+            }
         }
         data["guardian_phone_number2"] = document.getElementById("new_guardian_mobilenum2").value
-        result = checkMobileNumber(data["guardian_phone_number2"])
-        if(result==false){
-            data["guardian_phone_number2"]=""
+        if(data["guardian_phone_number2"]!=""){
+            result1 = checkMobileNumber(data["guardian_phone_number2"])
+            if(result1===false){
+                document.getElementById("new_guardian_mobilenum2").focus()
+                document.getElementById("new_guardian_mobilenum2").scrollIntoView({behavior:'smooth',block:'center'})
+                data["guardian_phone_number2"]=""
+            }
         }
+        
         data["guardian_address"] = document.getElementById("new_guardian_address").value
         data["guardian_address2"] = document.getElementById("new_guardian_address2").value
 
         //STUDENT PROFILE
-        //var oldpass = document.getElementById("oldpass").value
+        //data[oldpass] = document.getElementById("oldpass").value
         //data["newpass"] = document.getElementById("newpass").value
 
         data["phone_number"] = document.getElementById("newmobilenum").value
-        result = checkMobileNumber(data["phone_number"])
-        if(result==false){
-            data["phone_number"]=""
+        if(data["phone_number"]!==""){
+            result2 = checkMobileNumber(data["phone_number"])
+            if(result2===false){
+                document.getElementById("newmobilenum").focus()
+                document.getElementById("newmobilenum").scrollIntoView({behavior:'smooth',block:'center'})
+                data["phone_number"]=""
+            }
         }
+        
         data["email_address"] = document.getElementById("newemail").value
         data["address"] = document.getElementById("newaddress").value
         var mailformat = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-        if(data["email_address"]!=""){
+        if(data["email_address"]!==""){
             if(data["email_address"].match(mailformat)){
                 editProfile(data);
             }else{
-                alert("You have entered an invalid email address!");
+                document.getElementById("newemail").focus();
                 data["address"] =""
             }
         }
-        editProfile(data);
+        if(result!==false&&result1!==false&&result2!==false) editProfile(data);
     }catch(e){
         console.log(e.message)
         al.style.display = 'block';
@@ -172,17 +187,15 @@ function readFields(){
 }
 
 function checkMobileNumber(data){
-    if(data.length!=0 ){
+    if(data.length!==0){    
         if(data.length > 10){
             let isnum = /^\d+$/.test(data);
             if(isnum==false){
-                alert("Invalid mobile phone number!")
                 return false;
             }else{
                 return true;
             }
         }else{
-            alert("Invalid mobile phone number!")
             return false
         }
     }
