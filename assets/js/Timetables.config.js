@@ -52,29 +52,19 @@ var timetableType = [
 [{index: 'PM',name: '10:00'}, 1]
 ];
 
-var flag=0;
+
 var i = 0;
-var sem = 4;
 let table = document.querySelector("table");
 let button = document.createElement("button");
 let element = document.getElementById("coursesTable");
 let ele = document.getElementById("cont");
 let notice = document.querySelector('#show-notice');
 let al = document.querySelector('#show-alert');
-button.className ="button primary icon solid fa-search";
 
 window.onload = function() {
     //getSchedule(timetables)
     fetchAcademicTerms();
 };
-
-button.addEventListener("click",function() {
-    if (flag===0) {
-        getSchedule(timetables)
-    }else{
-        element.scrollIntoView({behavior:'smooth'});
-    }
-})
 
 async function fetchAcademicTerms(){
     try{
@@ -89,10 +79,10 @@ async function fetchAcademicTerms(){
     }
     const student_name = d[0].school_id + " : "+ data[0].student_first_name+" "+data[0].student_middle_name+" " +data[0].student_last_name
     data.forEach(function(v){
+        Object.assign(v, {button: ""});
         v.academic_term_name += " "+ "("+ v.course_schedule_name + ")"
         delete v.course_schedule_name
         delete v.status
-        delete v.course_schedule_id
         delete v.student_first_name
         delete v.student_middle_name
         delete v.student_last_name
@@ -137,27 +127,40 @@ function generateTableHead(table, data,i,student_name) {
 }
 function generateTable(table, data) {
     for (let element of data) {
+        button = document.createElement("button");
+        button.className ="button primary icon solid fa-search";
+        button.onclick = function() {
+            timetables = [
+                ['', '', '', '', '', '', '', '', '', '', '', '','','','','','','','','','','','','','','','','','',''],
+                ['', '', '', '', '', '', '', '', '', '', '', '','','','','','','','','','','','','','','','','','',''],
+                ['', '', '', '', '', '', '', '', '', '', '', '','','','','','','','','','','','','','','','','','',''],
+                ['', '', '', '', '', '', '', '', '', '', '', '','','','','','','','','','','','','','','','','','',''],
+                ['', '', '', '', '', '', '', '', '', '', '', '','','','','','','','','','','','','','','','','','',''],
+                ['', '', '', '', '', '', '', '', '', '', '', '','','','','','','','','','','','','','','','','','',''],
+                ['', '', '', '', '', '', '', '', '', '', '', '','','','','','','','','','','','','','','','','','',''],
+                ];
+            if(document.getElementById("coursesTable") != null)
+                document.getElementById("coursesTable").innerHTML = "";
+            getSchedule(timetables,element["course_schedule_id"])
+        }
         let row = table.insertRow();
         for (key in element) {
+            if(key != "course_schedule_id"){
             let text = ""
             let cell = row.insertCell();
-            if(element[key]==null){
-                text = document.createTextNode("TBD");
-            }else{
-                text = document.createTextNode(element[key]);
-            }
+            text = document.createTextNode(element[key]);
             cell.appendChild(text);
+            cell.appendChild(button);
+            }
         }
-        let c = row.insertCell();
-        c.appendChild(button);
     }
 }
 
 
 
-async function getSchedule(timetables){
+async function getSchedule(timetables,id){
     try{
-        const schedule_url = "https://softeng.jbtabz.com/course_schedule_contents/8e371283-7293-4dcb-81af-9291cfcc141a"
+        const schedule_url = "https://softeng.jbtabz.com/course_schedule_contents/"+id;
         const response = await fetch(schedule_url);
         const data = await response.json();
         data.forEach(function(v){
@@ -203,7 +206,6 @@ async function getSchedule(timetables){
                 }
             }
         });
-        flag=1
         createTable()
         element.scrollIntoView({behavior:'smooth'});
     }catch(e){

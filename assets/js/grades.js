@@ -24,22 +24,24 @@ async function fetchUserGrades(){
     if(data!=undefined){
         notice.style.display = 'none';
     }
-    const enrollment_ID = data[0].id
-    const academic_term = data[0].academic_term_name
-    const grades_url = "https://softeng.jbtabz.com/grades/"+enrollment_ID
-    const res = await fetch (grades_url)
-    const d = await res.json()
-    d.forEach(function(v){
-        temp = v.subject_code;
-        v.subject_code = v.subject_name;
-        v.subject_name = temp; 
-        delete v.is_hidden;
-        delete v.subject_id 
-        delete v.updated_at});
-    const head = { 'Course Code' : '', 'Subject' : '', 'Grades' :''};
-    let k = Object.keys(head);
-    generateTableHead(table, k,i,academic_term);
-    generateTable(table, d);
+    for(i = 0; i<data.length;i++){
+        const enrollment_ID = data[i].id
+        const academic_term = data[i].academic_term_name
+        const grades_url = "https://softeng.jbtabz.com/grades/"+enrollment_ID
+        const res = await fetch (grades_url)
+        const d = await res.json()
+        d.forEach(function(v){
+            temp = v.subject_code;
+            v.subject_code = v.subject_name;
+            v.subject_name = temp; 
+            delete v.is_hidden;
+            delete v.subject_id 
+            delete v.updated_at});
+        const head = { 'Course Code' : '', 'Subject' : '', 'Grades' :''};
+        let k = Object.keys(head);
+        generateTableHead(table, k,i,academic_term);
+        generateTable(table, d);
+    }
     }catch(e){
         console.log(e.message)
         al.style.display = 'block';
