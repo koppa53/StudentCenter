@@ -62,7 +62,6 @@ let notice = document.querySelector('#show-notice');
 let al = document.querySelector('#show-alert');
 
 window.onload = function() {
-    //getSchedule(timetables)
     fetchAcademicTerms();
 };
 
@@ -146,11 +145,11 @@ function generateTable(table, data) {
         let row = table.insertRow();
         for (key in element) {
             if(key != "course_schedule_id"){
-            let text = ""
-            let cell = row.insertCell();
-            text = document.createTextNode(element[key]);
-            cell.appendChild(text);
-            cell.appendChild(button);
+                let text = ""
+                let cell = row.insertCell();
+                text = document.createTextNode(element[key]);
+                cell.appendChild(text);
+                cell.appendChild(button);
             }
         }
     }

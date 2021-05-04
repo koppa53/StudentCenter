@@ -7,7 +7,6 @@ let sample_data=[
     { Code: "Course 105" , Subject: "sub5" , Grade: "1.1"}
 ]
 var i = 0;
-var sem = 4;
 let table = document.querySelector("table");
 let notice = document.querySelector('#show-notice');
 let al = document.querySelector('#show-alert');
