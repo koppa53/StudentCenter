@@ -3,7 +3,7 @@
         table-layout: fixed;
         height: auto;
         max-width: 100%;
-        overflow: auto;
+        overflow: hidden;
     }
 
     .Courses-head {
@@ -78,6 +78,7 @@
     }
 
     .Courses-content li span {
+        overflow: hidden;
         padding: 6px 2px;
         box-sizing: border-box;
         line-height: 18px;

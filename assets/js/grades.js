@@ -8,6 +8,7 @@ let sample_data=[
 ]
 var i = 0;
 let table = document.querySelector("table");
+table.style.boxShadow = "0 2px 12px 12px rgba(0,0,0,.1)"
 let notice = document.querySelector('#show-notice');
 let al = document.querySelector('#show-alert');
 
