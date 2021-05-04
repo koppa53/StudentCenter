@@ -11,10 +11,13 @@ let al = document.querySelector('#show-alert');
     tb.style.display = 'none';
     gtb.style.display = 'none';
 /*END OF HIDE CONTENT*/
+
+window.onload = function() {
+    fetchUserProfile();
+};
+
 async function fetchUserProfile(){
     try{
-        //let success = document.querySelector('#show-success');
-        //success.style.display = 'block';
         const [response,res,prog] = await Promise.all([fetch(get_profile_url),fetch(get_guardian_url),fetch(enrollmentID_url)]);
         const data = await response.json(); 
         const d = await res.json();
