@@ -1,5 +1,4 @@
 
-const student_id = sessionStorage.getItem('id');
 const token = sessionStorage.getItem('token');
 const change_password_url = 'https://softeng.jbtabz.com/auth/update';
 const logout_url = "https://softeng.jbtabz.com/auth/logout";
@@ -7,26 +6,24 @@ let notice = document.querySelector('#show-notice');
 let al = document.querySelector('#show-alert');
 let success = document.querySelector('#show-success');
 let pass_al = document.querySelector('#show-passError');
-let element = document.getElementById("t1");
 
 function stoppedTyping(id){
     let inpt = document.getElementById(id).value
     if(inpt.value===""|| inpt.replace(/^\s+|\s+$/g, '').length == 0){ 
-        if(document.getElementById("oldpass").value===""||
-            document.getElementById("newpass").value===""){
+        if(document.getElementById("oldpass").value==""||
+            document.getElementById("newpass").value==""){
                 document.getElementById('sbmt').disabled = true; 
         }
     } else { 
-        if(document.getElementById("oldpass").value!==""&&
-            document.getElementById("newpass").value!==""){
+        if(document.getElementById("oldpass").value!=""&&
+            document.getElementById("newpass").value!=""){
                 document.getElementById('sbmt').disabled = false; 
         }
     }       
 }
 
 
-async function editProfile(update){
-    
+async function updatePassword(update){
     try{
         notice.style.display='block';
         //PASSWORD UPDATE
@@ -77,10 +74,9 @@ async function editProfile(update){
 function readFields(){
     try{
         var data={};
-        //STUDENT PROFILE
         data["oldpass"] = document.getElementById("oldpass").value
         data["newpass"] = document.getElementById("newpass").value
-        editProfile(data);
+        updatePassword(data);
     }catch(e){
         console.log(e.message)
         al.style.display = 'block';

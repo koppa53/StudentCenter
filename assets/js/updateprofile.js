@@ -136,7 +136,6 @@ async function editProfile(update){
 
 function readFields(){
     try{
-        //notice.style.display = 'none';
         var data={};
         var result= true;
         var result1= true;
