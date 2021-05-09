@@ -60,7 +60,7 @@ async function editProfile(update){
                 success.style.display='block';
                 setInterval(function(){ window.location.href="index.html";}, 3000);
             }else{
-                al.style.display = 'block';
+                pass_al.style.display = 'block';
             }
         }else{
             al.style.display = 'block';
