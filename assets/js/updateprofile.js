@@ -1,7 +1,10 @@
-const get_profile_url = 'https://softeng.jbtabz.com/search/students/Nolla';
+
+const student_id = sessionStorage.getItem('id');
+const token = sessionStorage.getItem('token');
+const get_profile_url = 'https://softeng.jbtabz.com/student/'+student_id;
+const get_guardian_url = 'https://softeng.jbtabz.com/guardian/'+student_id; 
 const update_profile_url = 'https://softeng.jbtabz.com/student';
 const update_guardian_profile_url = 'https://softeng.jbtabz.com/guardian';
-const get_guardian_url = 'https://softeng.jbtabz.com/guardian/50782d26-4b44-4486-9a85-961ee20574ee'; 
 let notice = document.querySelector('#show-notice');
 let al = document.querySelector('#show-alert');
 let success = document.querySelector('#show-success');
@@ -33,10 +36,15 @@ function stoppedTyping(id){
 
 
 async function editProfile(update){
-    //GUARDIAN PROFILE UPDATE
+    
     try{
         notice.style.display='block';
-        const res = await fetch (get_guardian_url);
+        //GUARDIAN PROFILE UPDATE
+        const res = await fetch (get_guardian_url,{
+            headers: {
+                "X-Session-Token": token,
+            }
+        });
         const d = await res.json(); 
         delete d.updated_at
         delete d.created_at
@@ -73,35 +81,44 @@ async function editProfile(update){
         const update_guardian_info = await fetch(update_guardian_profile_url,{
             method: 'PUT',
             headers: {
+                "X-Session-Token": token,
                 'Content-type': 'application/json'
             },
             body: JSON.stringify(d)
         });
         const stat = await update_guardian_info.json();
+
+
+
         //STUDENT PROFILE UPDATE
-        const response = await fetch (get_profile_url);
+        const response = await fetch (get_profile_url,{
+            headers:{
+                "X-Session-Token": token,
+            }
+        });
         const data = await response.json(); 
-        delete data[0].is_currently_enrolled
-        delete data[0].created_at
-        delete data[0].updated_at
+        delete data.is_currently_enrolled
+        delete data.created_at
+        delete data.updated_at
         if(update.phone_number!=""){
-            data[0].phone_number = update.phone_number
+            data.phone_number = update.phone_number
         }
         if(update.email_address!=""){
-            data[0].email_address =update.email_address
+            data.email_address =update.email_address
         }
         if(update.address!=""){
-            data[0].address =update.address
+            data.address =update.address
         }
         const update_info = await fetch(update_profile_url,{
             method: 'PUT',
             headers: {
+                "X-Session-Token": token,
                 'Content-type': 'application/json'
             },
-            body: JSON.stringify(data[0])
+            body: JSON.stringify(data)
         });
         const status = await update_info.json();
-        if (status.code == 200 && stat.code == 200){
+        if (status.code == 200 && stat.code == 200 ){
             notice.style.display='none';
             success.style.display='block';
             setInterval(function(){ window.location.href="aboutprofile.html";}, 3000);
@@ -154,9 +171,6 @@ function readFields(){
         data["guardian_address2"] = document.getElementById("new_guardian_address2").value
 
         //STUDENT PROFILE
-        //data[oldpass] = document.getElementById("oldpass").value
-        //data["newpass"] = document.getElementById("newpass").value
-
         data["phone_number"] = document.getElementById("newmobilenum").value
         if(data["phone_number"]!==""){
             result2 = checkMobileNumber(data["phone_number"])

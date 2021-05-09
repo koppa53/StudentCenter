@@ -3,14 +3,24 @@
 	html5up.net | @ajlkn
 	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
 */
+const log_url = "https://softeng.jbtabz.com/auth/logout";
+
 function rdrct() {
 	window.location.href="index.html";
 }
 // ... User Logout
-function logout(){ 
-	sessionStorage.removeItem('token')
-	window.location.href="index.html";
-	  //localStorage.removeItem('user')   
+async function logout(){
+	const out = await fetch(log_url,{
+		headers: {
+			"X-Session-Token": token
+		}
+	});
+	const status = await out.json();
+	if(status.code == 200){ 
+		sessionStorage.removeItem('token')
+		sessionStorage.removeItem('id')
+		window.location.href="index.html";
+	}
 }
 
 (function($) {
@@ -49,21 +59,11 @@ function logout(){
 					if (validLogin && location.pathname === '/login/') window.location.href="index.html";
 				}
 				async function isLoggedIn () {
-					const login_endpoint = "https://softeng.jbtabz.com/login/s";
 					const token = sessionStorage.getItem('token')
 					if (!token){
 						return false
 					} 
 					else{
-						/*const response = await zlFetch.post(login_endpoint, {
-							method: "POST",
-							headers: {
-								'Content-type': 'application/json'
-							},
-							body: JSON.stringify(token)
-						});
-						const { token } = response.json()
-						localStorage.setItem('token', token)*/
 						return true
 					}
 				}

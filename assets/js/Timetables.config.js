@@ -1,4 +1,8 @@
 //SOME CODES/FUNCTIONS ARE CAN BE OPTMIZED will be updated soon
+const student_id = sessionStorage.getItem('id');
+const token = sessionStorage.getItem('token');
+const enrollmentID_url = "https://softeng.jbtabz.com/enrollments/"+ student_id;
+const get_profile_url = 'https://softeng.jbtabz.com/student/'+ student_id;
 //setup table
 var timetables = [
 ['', '', '', '', '', '', '', '', '', '', '', '','','','','','','','','','','','','','','','','','',''],
@@ -68,16 +72,22 @@ window.onload = function() {
 
 async function fetchAcademicTerms(){
     try{
-    const enrollmentID_url = "https://softeng.jbtabz.com/enrollments/50782d26-4b44-4486-9a85-961ee20574ee"
-    const get_profile_url = 'https://softeng.jbtabz.com/search/students/Nolla';
-    const response = await fetch (enrollmentID_url)
-    const res = await fetch(get_profile_url)
+    const response = await fetch (enrollmentID_url,{
+        headers:{
+            "X-Session-Token": token
+        }
+    })
+    const res = await fetch(get_profile_url,{
+        headers:{
+            "X-Session-Token": token
+        }
+    })
     const d = await res.json() 
     const data = await response.json() 
     if(data!=undefined){
         notice.style.display = 'none';
     }
-    const student_name = d[0].school_id + " : "+ data[0].student_first_name+" "+data[0].student_middle_name+" " +data[0].student_last_name
+    const student_name = d.school_id + " : "+ data[0].student_first_name+" "+data[0].student_middle_name+" " +data[0].student_last_name
     data.forEach(function(v){
         Object.assign(v, {button: ""});
         v.academic_term_name += " "+ "("+ v.course_schedule_name + ")"
@@ -161,7 +171,11 @@ function generateTable(table, data) {
 async function getSchedule(timetables,id){
     try{
         const schedule_url = "https://softeng.jbtabz.com/course_schedule_contents/"+id;
-        const response = await fetch(schedule_url);
+        const response = await fetch(schedule_url,{
+            headers:{
+                "X-Session-Token": token
+            }
+        });
         const data = await response.json();
         data.forEach(function(v){
             var profname = v.professor_first_name+" "+v.professor_middle_name+" "+v.professor_last_name;

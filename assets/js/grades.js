@@ -1,3 +1,7 @@
+
+const student_id = sessionStorage.getItem('id');
+const token = sessionStorage.getItem('token');
+const enrollmentID_url = "https://softeng.jbtabz.com/enrollments/"+student_id;
 //sample data
 let sample_data=[
     { Code: "Course 101" , Subject: "sub1" , Grade: "1.1"},
@@ -18,8 +22,11 @@ window.onload = function() {
 
 async function fetchUserGrades(){
     try{
-    const enrollmentID_url = "https://softeng.jbtabz.com/enrollments/50782d26-4b44-4486-9a85-961ee20574ee"
-    const response = await fetch (enrollmentID_url)
+    const response = await fetch (enrollmentID_url,{
+        headers:{
+            "X-Session-Token": token
+        }
+    })
     const data = await response.json() 
     if(data!=undefined){
         notice.style.display = 'none';
@@ -28,7 +35,11 @@ async function fetchUserGrades(){
         const enrollment_ID = data[i].id
         const academic_term = data[i].academic_term_name
         const grades_url = "https://softeng.jbtabz.com/grades/"+enrollment_ID
-        const res = await fetch (grades_url)
+        const res = await fetch (grades_url,{
+            headers:{
+                "X-Session-Token": token
+            }
+        })
         const d = await res.json()
         d.forEach(function(v){
             temp = v.subject_code;

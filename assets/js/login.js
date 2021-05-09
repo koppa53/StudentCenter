@@ -57,31 +57,30 @@
             $(this).find('i').removeClass('zmdi-eye-off');
             showPass = 0;
         }
-        
     });
 
+//account getnoitad not!shillingIswear
 
 async function verifyID_Password(){
     document.getElementById("login-button").innerHTML = "Logging in...";
-    const login_endpoint = "https://softeng.jbtabz.com/login/s";
+    const login_endpoint = "https://softeng.jbtabz.com/auth/login";
     var data={};
     data["username"] = document.getElementById("user_ID").value;
     data["password"] = document.getElementById("user_pass").value;
-    /*const verify_login = await fetch(login_endpoint, {
+    const verify_login = await fetch(login_endpoint, {
         method: "POST",
         headers: {
             'Content-type': 'application/json'
         },
         body: JSON.stringify(data)
-    });*/
-    const token = '12312312312313131313';
-    sessionStorage.setItem('token', token)
-    //const status = await verify_login.json();
-    if (1){
-        console.log(1)
+    });
+    const status = await verify_login.json();
+    if (verify_login["status"]!= 400){
+        sessionStorage.setItem('token', status["session-token"])
+        sessionStorage.setItem('id', status["id"])
         window.location.href="home.html";
     }else{
         document.getElementById("login-button").innerHTML = "Log in";
-        return status.code;
+        return 1;
     }
 }

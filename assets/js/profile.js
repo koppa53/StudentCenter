@@ -1,6 +1,9 @@
-const get_profile_url = 'https://softeng.jbtabz.com/search/students/Nolla';
-const get_guardian_url = 'https://softeng.jbtabz.com/guardian/50782d26-4b44-4486-9a85-961ee20574ee'; 
-const enrollmentID_url = "https://softeng.jbtabz.com/enrollments/50782d26-4b44-4486-9a85-961ee20574ee"
+
+const student_id = sessionStorage.getItem('id');
+const token = sessionStorage.getItem('token');
+const get_profile_url = 'https://softeng.jbtabz.com/student/'+ student_id;
+const get_guardian_url = 'https://softeng.jbtabz.com/guardian/'+ student_id; 
+const enrollmentID_url = "https://softeng.jbtabz.com/enrollments/"+ student_id;
 let notice = document.querySelector('#show-notice');
 let al = document.querySelector('#show-alert');
 /*HIDE CONTENT*/
@@ -18,7 +21,18 @@ window.onload = function() {
 
 async function fetchUserProfile(){
     try{
-        const [response,res,prog] = await Promise.all([fetch(get_profile_url),fetch(get_guardian_url),fetch(enrollmentID_url)]);
+        const [response,res,prog] = await Promise.all([fetch(get_profile_url,{
+            headers: {
+                "X-Session-Token": token
+            }}
+            ),fetch(get_guardian_url,{
+                headers: {
+                    "X-Session-Token": token
+            }}),fetch(enrollmentID_url,{
+                headers: {
+                    "X-Session-Token": token
+            }}
+            )]);
         const data = await response.json(); 
         const d = await res.json();
         const p = await prog.json(); 
@@ -28,14 +42,14 @@ async function fetchUserProfile(){
             gtb.style.display = '';
             notice.style.display = 'none';
         }
-        document.getElementById("Name").innerHTML = data[0].first_name + " "+ data[0].middle_name + " "+data[0].last_name;
-        document.getElementById("ID").innerHTML = data[0].school_id;
-        document.getElementById("program").innerHTML = p[0].course_name;
-        document.getElementById("add").innerHTML = data[0].address;
-        document.getElementById("mno").innerHTML = data[0].phone_number;
-        document.getElementById("gend").innerHTML = data[0].sex;
-        document.getElementById("bday").innerHTML = data[0].birth_date;
-        document.getElementById("email").innerHTML = data[0].email_address;
+        document.getElementById("Name").innerHTML = data.first_name + " "+ data.middle_name + " "+data.last_name;
+        document.getElementById("ID").innerHTML = data.school_id;
+        document.getElementById("program").innerHTML = p[p.length-1].course_name;
+        document.getElementById("add").innerHTML = data.address;
+        document.getElementById("mno").innerHTML = data.phone_number;
+        document.getElementById("gend").innerHTML = data.sex;
+        document.getElementById("bday").innerHTML = data.birth_date;
+        document.getElementById("email").innerHTML = data.email_address;
         document.getElementById("guardian_name").innerHTML = d.first_name + " "+ d.middle_name + " "+d.last_name;
         document.getElementById("guardian_mobile_number").innerHTML = d.phone_number;
         document.getElementById("guardian_address").innerHTML = d.address;
