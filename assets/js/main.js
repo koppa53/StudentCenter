@@ -45,7 +45,7 @@ async function logout(){
 		// ... loaded.
 			$window.on('load', function() {	
 				var y = document.getElementById("sidebar");
-				//autoRedirect()
+				autoRedirect()
 				async function autoRedirect () {
 					const validLogin = await isLoggedIn()
 					if (!validLogin && location.pathname !== '/login/'){
