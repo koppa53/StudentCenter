@@ -1,16 +1,5 @@
 
     /*==================================================================
-    [ Check server Status ]*/
-    $.ajax({
-        url: "https://softengdocs.jbtabz.com/",
-        cache: false,
-        async : false,
-        error: function(XMLHttpRequest, textStatus, errorThrown) {
-            document.getElementById("login-button").innerHTML = "Server Offline";
-            document.getElementById("login-button").disabled = true;
-            }
-    });
-    /*==================================================================
     [ Focus input ]*/
     $('.input100').each(function(){
         $(this).on('blur', function(){

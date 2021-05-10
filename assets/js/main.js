@@ -12,7 +12,7 @@ function rdrct() {
 async function logout(){
 	const out = await fetch(log_url,{
 		headers: {
-			"X-Session-Token": token
+			"X-Session-Token": sessionStorage.getItem('token')
 		}
 	});
 	const status = await out.json();
