@@ -23,8 +23,7 @@ function stoppedTyping(id){
                 document.getElementById("new_guardian_mobilenum").value===""&&document.getElementById("new_guardian_address").value===""&&
                 document.getElementById("guardian_firstname2").value===""&&document.getElementById("guardian_middlename2").value===""&&
                 document.getElementById("guardian_lastname2").value===""&& document.getElementById("new_guardian_mobilenum2").value===""&&
-                document.getElementById("new_guardian_address2").value===""&&document.getElementById("oldpass").value===""&&
-                document.getElementById("newpass").value===""){
+                document.getElementById("new_guardian_address2").value===""){
                     document.getElementById('sbmt').disabled = true; 
                 }
             } 
