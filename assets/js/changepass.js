@@ -22,7 +22,6 @@ function stoppedTyping(id){
     }       
 }
 
-
 async function updatePassword(update){
     try{
         notice.style.display='block';
