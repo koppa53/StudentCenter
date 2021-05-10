@@ -7,6 +7,7 @@
         async : false,
         error: function(XMLHttpRequest, textStatus, errorThrown) {
             document.getElementById("login-button").innerHTML = "Server Offline";
+            document.getElementById("login-button").disabled = true;
             }
     });
     /*==================================================================
