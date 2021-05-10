@@ -2241,7 +2241,7 @@ button,
     font-size: 0.9em;
     padding: 0.625em 0; }
     #menu ul a:hover, #menu ul span:hover {
-      color: #f56a6a; }
+      color: #000000; }
     #menu ul a.opener, #menu ul span.opener {
       -moz-transition: color 0.2s ease-in-out;
       -webkit-transition: color 0.2s ease-in-out;
@@ -2266,7 +2266,7 @@ button,
         -webkit-transition: color 0.2s ease-in-out, -webkit-transform 0.2s ease-in-out;
         -ms-transition: color 0.2s ease-in-out, -ms-transform 0.2s ease-in-out;
         transition: color 0.2s ease-in-out, transform 0.2s ease-in-out;
-        color: #9fa3a6;
+        color: #ffffff;
         content: '\f078';
         position: absolute;
         right: 0; }
@@ -2286,7 +2286,7 @@ button,
   padding: 0.5em 0 0 0;
   }
   #menu > ul > li > ul {
-    color: #9fa3a6;
+    color: #d8d8d8;
     display: none;
     margin: 0.5em 0 1.5em 0;
     padding-left: 1em; }
@@ -2388,7 +2388,7 @@ button,
   left:0px; 
   width:100vw;
   height:100vh;
-  background:rgba(0,0,0,0.7);
+  background:black;
   z-index:1;
   display:none;
 }

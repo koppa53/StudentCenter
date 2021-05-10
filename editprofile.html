@@ -10,6 +10,16 @@
 	<body class="is-preload">
 		<!-- Wrapper -->
 			<div id="wrapper">
+				<form onsubmit="event.preventDefault();rdrct();" >
+					<div class="popup" id="popup-1">
+						<div class="overlay"></div>
+						<div class="content">
+							<h2>Authentication Required</h2>	
+							<p>Must Login to Access Student Center</p>
+							<button class="button primary">Login</button>
+						</div>
+					</div>
+				</form>
 				<!-- Main -->
 					<div id="main">
 						<div class="inner">
@@ -26,16 +36,6 @@
 							<!-- End Header -->	
 							<!-- Content -->
 								<section>
-									<form onsubmit="event.preventDefault();rdrct();" >
-										<div class="popup" id="popup-1">
-											<div class="overlay"></div>
-											<div class="content">
-												<h2>Authentication Required</h2>	
-												<p>Must Login to Access Student Center</p>
-												<button class="button primary">Login</button>
-											</div>
-										</div>
-									</form>
 									<div id="show-alert" class="alert">
 										<strong>ERROR:</strong> If you see this message please contact Administrator
 									</div>
@@ -144,10 +144,17 @@
 									<h2 style="color: #fff">Dashboard</h2>
 								</header>	
 								<ul>
-									<li><a href="home.html" class=""><i class="icon solid fa-home"></i> Home</a></li>
-									<li><a href="aboutprofile.html"><i class="icon far fa-id-badge"></i> Profile</a></li>
+									<li><a href="home.html"><i class="icon solid fa-home"></i> Home</a></li>
 									<li><a href="grade.html"><i class="icon far fa-clipboard"></i>   Grades</a></li>
 									<li><a href="schedule.html"><i class="icon far fa-calendar-alt"></i>  Course</a></li>
+									<li>
+										<span class="opener"><i class="icon far fa-id-badge"></i> Account & Profile</span>
+										<ul>
+											<li><a href="aboutprofile.html">Profile Overview</a></li>
+											<li><a href="editprofile.html">Edit Profile</a></li>
+											<li><a href="changepassword.html">Change Account Password</a></li>
+										</ul>
+									</li>
 									<li><a href="#" onclick="logout()"><i class="fas fa-power-off"></i>  Logout</a></li>	
 								</ul>
 							</nav>	
