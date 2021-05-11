@@ -2,14 +2,6 @@
 const student_id = sessionStorage.getItem('id');
 const token = sessionStorage.getItem('token');
 const enrollmentID_url = "https://softeng.jbtabz.com/enrollments/"+student_id;
-//sample data
-let sample_data=[
-    { Code: "Course 101" , Subject: "sub1" , Grade: "1.1"},
-    { Code: "Course 102" , Subject: "sub2" , Grade: "1.1"},
-    { Code: "Course 103" , Subject: "sub3" , Grade: "1.1"},
-    { Code: "Course 104" , Subject: "sub4" , Grade: "1.1"},
-    { Code: "Course 105" , Subject: "sub5" , Grade: "1.1"}
-]
 var i = 0;
 let table = document.querySelector("table");
 table.style.boxShadow = "0 2px 12px 12px rgba(0,0,0,.1)"
