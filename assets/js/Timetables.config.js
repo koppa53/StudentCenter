@@ -218,6 +218,18 @@ async function getSchedule(timetables,id){
                         timetables[4][i] = v.subject_name+"\n\n"+"Room: \n"+v.schedule_room+ "\n\nProfessor: "+profname;
                     }
                 }
+                if(v.schedule_days[y]=="sat"){
+                    time = plot_table_time(v.schedule_time_start,v.schedule_time_duration);
+                    for(i=time[0],x=1;x<=time[1];i++,x++){
+                        timetables[5][i] = v.subject_name+"\n\n"+"Room: \n"+v.schedule_room+ "\n\nProfessor: "+profname;
+                    }
+                }
+                if(v.schedule_days[y]=="sun"){
+                    time = plot_table_time(v.schedule_time_start,v.schedule_time_duration);
+                    for(i=time[0],x=1;x<=time[1];i++,x++){
+                        timetables[6][i] = v.subject_name+"\n\n"+"Room: \n"+v.schedule_room+ "\n\nProfessor: "+profname;
+                    }
+                }
             }
         });
         createTable()
