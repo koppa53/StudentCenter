@@ -1,4 +1,4 @@
-
+//Retreive necessary id and tokens for API Requests
 const student_id = sessionStorage.getItem('id');
 const token = sessionStorage.getItem('token');
 const enrollmentID_url = "https://softeng.jbtabz.com/enrollments/"+student_id;
@@ -8,12 +8,14 @@ table.style.boxShadow = "0 2px 12px 12px rgba(0,0,0,.1)"
 let notice = document.querySelector('#show-notice');
 let al = document.querySelector('#show-alert');
 
+//Fetch grades once page has loaded
 window.onload = function() {
     fetchUserGrades();
 };
 
 async function fetchUserGrades(){
     try{
+    //Create API Request
     const response = await fetch (enrollmentID_url,{
         headers:{
             "X-Session-Token": token
@@ -42,6 +44,7 @@ async function fetchUserGrades(){
             delete v.updated_at});
         const head = { 'Course Code' : '', 'Subject' : '', 'Grades' :''};
         let k = Object.keys(head);
+        //Build table after fetching data
         generateTableHead(table, k,i,academic_term);
         generateTable(table, d);
     }
@@ -79,6 +82,7 @@ function generateTable(table, data) {
             let text = ""
             let cell = row.insertCell();
             cell.style.textAlign = "center"
+            //Colorize Cell for grades status classifications
             if(element[key]==null){
                 text = document.createTextNode("TBD");
                 cell.style.backgroundColor = "yellow";

@@ -40,6 +40,7 @@ async function logout(){
 	// Stops animations/transitions until the page has ...
 		// ... loaded.
 			$window.on('load', function() {	
+				//Check if user is logged in everytime the page loads	
 				var y = document.getElementById("sidebar");
 				autoRedirect()
 				async function autoRedirect () {
@@ -54,6 +55,7 @@ async function logout(){
 					} 
 					if (validLogin && location.pathname === '/login/') window.location.href="index.html";
 				}
+				//Check if token exists in the storage
 				async function isLoggedIn () {
 					const token = sessionStorage.getItem('token')
 					if (!token){

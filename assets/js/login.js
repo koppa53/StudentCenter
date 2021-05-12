@@ -15,6 +15,7 @@
     [ Validate ]*/
     var input = $('.validate-input .input100');
     $('.validate-form').on('submit',function(){
+        //Check User Credentials
         (async () => {
             status = await verifyID_Password();
             if (status > 0){
@@ -59,7 +60,7 @@
         }
     });
 
-//account getnoitad not!shillingIswear
+//sample account getnoitad not!shillingIswear
 
 async function verifyID_Password(){
     document.getElementById("login-button").innerHTML = "Logging in...";
@@ -75,11 +76,12 @@ async function verifyID_Password(){
         body: JSON.stringify(data)
     });
     const status = await verify_login.json();
+    //Direct user to Homepage if the server responds code "200"
     if (verify_login["status"]!= 400){
         sessionStorage.setItem('token', status["session-token"])
         sessionStorage.setItem('id', status["id"])
         window.location.href="home.html";
-    }else{
+    }else{  //Prompt Incorrect Credentials to the webpage
         document.getElementById("login-button").innerHTML = "Log in";
         return 1;
     }
