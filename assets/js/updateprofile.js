@@ -1,4 +1,5 @@
 
+//Retreive necessary id and tokens for API Requests
 const student_id = sessionStorage.getItem('id');
 const token = sessionStorage.getItem('token');
 const get_profile_url = 'https://softeng.jbtabz.com/student/'+student_id;
@@ -11,10 +12,12 @@ let success = document.querySelector('#show-success');
 let element = document.getElementById("t1");
 
 function stoppedTyping(id){
+    //Scroll Webpage To top
     if(id==="res"){
         document.getElementById('sbmt').disabled = true; 
         element.scrollIntoView({behavior:'smooth'});
     }else{
+        //Enable or Disable submit button if the page has not detected any input in fields
         let inpt = document.getElementById(id).value
         if(inpt.value===""|| inpt.replace(/^\s+|\s+$/g, '').length == 0){ 
             if(document.getElementById("newmobilenum").value===""&&document.getElementById("newemail").value===""&&
@@ -117,6 +120,7 @@ async function editProfile(update){
             body: JSON.stringify(data)
         });
         const status = await update_info.json();
+        //RETURN user to profile page once system has successfully updated the profile
         if (status.code == 200 && stat.code == 200 ){
             notice.style.display='none';
             success.style.display='block';
@@ -190,6 +194,7 @@ function readFields(){
                 data["address"] =""
             }
         }
+        //check all mobile numbers has passed validity test
         if(result!==false&&result1!==false&&result2!==false) editProfile(data);
     }catch(e){
         console.log(e.message)

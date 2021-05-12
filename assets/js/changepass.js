@@ -1,4 +1,5 @@
 
+//Retreive necessary id and tokens for API Requests
 const token = sessionStorage.getItem('token');
 const change_password_url = 'https://softeng.jbtabz.com/auth/update';
 const logout_url = "https://softeng.jbtabz.com/auth/logout";
@@ -7,6 +8,7 @@ let al = document.querySelector('#show-alert');
 let success = document.querySelector('#show-success');
 let pass_al = document.querySelector('#show-passError');
 
+//Enable or Disable submit button if the page has not detected any input in fields
 function stoppedTyping(id){
     let inpt = document.getElementById(id).value
     if(inpt.value===""|| inpt.replace(/^\s+|\s+$/g, '').length == 0){ 
@@ -43,6 +45,7 @@ async function updatePassword(update){
             body: JSON.stringify(passwordCredentials)
         });
         const sts = await connect.json()
+        //Logout the user if password sucessfully changed
         if (sts.code == 200){
             notice.style.display='none';
             const out = await fetch(logout_url,{
@@ -51,6 +54,7 @@ async function updatePassword(update){
                 }
             });
             const status = await out.json();
+            //Redirect user back to login page
             if(status.code==200){
                 sessionStorage.removeItem('token')
 	            sessionStorage.removeItem('id')
@@ -73,6 +77,7 @@ async function updatePassword(update){
 
 function readFields(){
     try{
+        //Get data from the fields
         var data={};
         data["oldpass"] = document.getElementById("oldpass").value
         data["newpass"] = document.getElementById("newpass").value

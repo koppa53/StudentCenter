@@ -22,6 +22,7 @@ async function fetchUserGrades(){
         }
     })
     const data = await response.json() 
+    //hide status message from the page
     if(data!=undefined){
         notice.style.display = 'none';
     }
@@ -63,6 +64,7 @@ function generateTableHead(table, data,i,academic_term) {
     th1.appendChild(text1);
     th1.colSpan= 3;
     row1.appendChild(th1);
+    //generate headers once
     if(i<1){
         let thead = table.createTHead();
         let row = thead.insertRow();
@@ -101,19 +103,3 @@ function generateTable(table, data) {
         }
     }
 }
-
-/* incase of 1st 2nd 3rd is needed in the semesters
-function ordinal_suffix_of(i) {
-    var j = i % 10,
-        k = i % 100;
-    if (j == 1 && k != 11) {
-        return i + "st";
-    }
-    if (j == 2 && k != 12) {
-        return i + "nd";
-    }
-    if (j == 3 && k != 13) {
-        return i + "rd";
-    }
-    return i + "th";
-}*/

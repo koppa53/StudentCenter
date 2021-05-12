@@ -1,4 +1,4 @@
-
+//Retreive necessary id and tokens for API Requests
 const student_id = sessionStorage.getItem('id');
 const token = sessionStorage.getItem('token');
 const get_profile_url = 'https://softeng.jbtabz.com/student/'+ student_id;
@@ -15,6 +15,7 @@ let al = document.querySelector('#show-alert');
     gtb.style.display = 'none';
 /*END OF HIDE CONTENT*/
 
+//Fetch profiles once page has loaded
 window.onload = function() {
     fetchUserProfile();
 };
@@ -36,12 +37,14 @@ async function fetchUserProfile(){
         const data = await response.json(); 
         const d = await res.json();
         const p = await prog.json(); 
+        //hide status message from the page
         if(data != undefined && d!=undefined && p!=undefined){
             bt.style.display = '';
             tb.style.display = '';
             gtb.style.display = '';
             notice.style.display = 'none';
         }
+        //Append Fetched data from server to profile fields in the page 
         document.getElementById("Name").innerHTML = data.first_name + " "+ data.middle_name + " "+data.last_name;
         document.getElementById("ID").innerHTML = data.school_id;
         document.getElementById("program").innerHTML = p[p.length-1].course_name;

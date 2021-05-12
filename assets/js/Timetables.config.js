@@ -1,4 +1,4 @@
-//SOME CODES/FUNCTIONS ARE CAN BE OPTMIZED will be updated soon
+//Retreive necessary id and tokens for API Requests
 const student_id = sessionStorage.getItem('id');
 const token = sessionStorage.getItem('token');
 const enrollmentID_url = "https://softeng.jbtabz.com/enrollments/"+ student_id;
@@ -13,7 +13,7 @@ var timetables = [
 ['', '', '', '', '', '', '', '', '', '', '', '','','','','','','','','','','','','','','','','','',''],
 ['', '', '', '', '', '', '', '', '', '', '', '','','','','','','','','','','','','','','','','','',''],
 ];
-
+//Initialize Day-Frame and timetable setup
 var week =  ['Mon', 'Tue', 'Wed', 'Thur', 'Fri','Sat','Sun'];
 var highlightWeek = new Date().getDay();
 var styles = {
@@ -22,6 +22,7 @@ var styles = {
     palette: ['#ff6633', '#ffd061']
 };
 
+//Initialize Time-Frame
 var timetableType = [
 [{index: 'AM',name: '7:00'}, 1],
 [{index: 'AM',name: '7:30'}, 1],
@@ -66,6 +67,7 @@ let ele = document.getElementById("cont");
 let notice = document.querySelector('#show-notice');
 let al = document.querySelector('#show-alert');
 
+//Fetch all academic terms of student once page loads
 window.onload = function() {
     fetchAcademicTerms();
 };
@@ -106,6 +108,7 @@ async function fetchAcademicTerms(){
         delete v.updated_at});
     const head = { 'Academic Term' : '','Program' : '', 'View' : '' };
     let k = Object.keys(head);
+    //Build table for academic term list
     generateTableHead(table,k,i,student_name);
     generateTable(table, data);
     }catch(e){
@@ -123,6 +126,7 @@ function generateTableHead(table, data,i,student_name) {
     th1.appendChild(text1);
     th1.colSpan= 3;
     row1.appendChild(th1);
+    //generate headers once
     if(i<1){
         let thead = table.createTHead();
         let row = thead.insertRow();
@@ -139,6 +143,7 @@ function generateTable(table, data) {
     for (let element of data) {
         button = document.createElement("button");
         button.className ="button primary icon solid fa-search";
+        //reset timetable for new schedules
         button.onclick = function() {
             timetables = [
                 ['', '', '', '', '', '', '', '', '', '', '', '','','','','','','','','','','','','','','','','','',''],
