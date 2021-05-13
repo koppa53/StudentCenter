@@ -13,12 +13,26 @@ let element = document.getElementById("t1");
 
 
 function confirm_reset() {
+    //Confirm reset all fields
     var result = confirm("Are you sure you want to reset all text?");
     document.getElementById("t1").scrollIntoView({behavior:'smooth',block:'start'})
+    
     if(result == true){
+        //Disable submit button if user has confirmed to reset the all fields
         document.getElementById('sbmt').disabled = true; 
     }else{
-        document.getElementById('sbmt').disabled = false;
+        //Enable or Disable submit button if the page has not detected any input in fields
+        if(document.getElementById("newmobilenum").value===""&&document.getElementById("newemail").value===""&&
+        document.getElementById("newaddress").value===""&&document.getElementById("guardian_firstname").value===""&&
+        document.getElementById("guardian_middlename").value===""&&document.getElementById("guardian_lastname").value===""&& 
+        document.getElementById("new_guardian_mobilenum").value===""&&document.getElementById("new_guardian_address").value===""&&
+        document.getElementById("guardian_firstname2").value===""&&document.getElementById("guardian_middlename2").value===""&&
+        document.getElementById("guardian_lastname2").value===""&& document.getElementById("new_guardian_mobilenum2").value===""&&
+        document.getElementById("new_guardian_address2").value===""){
+            document.getElementById('sbmt').disabled = true; 
+        }else{
+            document.getElementById('sbmt').disabled = false;
+        }
     }
     return result;
 }
