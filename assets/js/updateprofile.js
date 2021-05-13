@@ -11,29 +11,35 @@ let al = document.querySelector('#show-alert');
 let success = document.querySelector('#show-success');
 let element = document.getElementById("t1");
 
-function stoppedTyping(id){
-    //Scroll Webpage To top
-    if(id==="res"){
+
+function confirm_reset() {
+    var result = confirm("Are you sure you want to reset all text?");
+    document.getElementById("t1").scrollIntoView({behavior:'smooth',block:'start'})
+    if(result == true){
         document.getElementById('sbmt').disabled = true; 
-        element.scrollIntoView({behavior:'smooth'});
     }else{
-        //Enable or Disable submit button if the page has not detected any input in fields
-        let inpt = document.getElementById(id).value
-        if(inpt.value===""|| inpt.replace(/^\s+|\s+$/g, '').length == 0){ 
-            if(document.getElementById("newmobilenum").value===""&&document.getElementById("newemail").value===""&&
-                document.getElementById("newaddress").value===""&&document.getElementById("guardian_firstname").value===""&&
-                document.getElementById("guardian_middlename").value===""&&document.getElementById("guardian_lastname").value===""&& 
-                document.getElementById("new_guardian_mobilenum").value===""&&document.getElementById("new_guardian_address").value===""&&
-                document.getElementById("guardian_firstname2").value===""&&document.getElementById("guardian_middlename2").value===""&&
-                document.getElementById("guardian_lastname2").value===""&& document.getElementById("new_guardian_mobilenum2").value===""&&
-                document.getElementById("new_guardian_address2").value===""){
-                    document.getElementById('sbmt').disabled = true; 
-                }
-            } 
-        else { 
-            document.getElementById('sbmt').disabled = false;
-        }       
+        document.getElementById('sbmt').disabled = false;
     }
+    return result;
+}
+
+function stoppedTyping(id){
+    //Enable or Disable submit button if the page has not detected any input in fields
+    let inpt = document.getElementById(id).value
+    if(inpt.value===""|| inpt.replace(/^\s+|\s+$/g, '').length == 0){ 
+        if(document.getElementById("newmobilenum").value===""&&document.getElementById("newemail").value===""&&
+            document.getElementById("newaddress").value===""&&document.getElementById("guardian_firstname").value===""&&
+            document.getElementById("guardian_middlename").value===""&&document.getElementById("guardian_lastname").value===""&& 
+            document.getElementById("new_guardian_mobilenum").value===""&&document.getElementById("new_guardian_address").value===""&&
+            document.getElementById("guardian_firstname2").value===""&&document.getElementById("guardian_middlename2").value===""&&
+            document.getElementById("guardian_lastname2").value===""&& document.getElementById("new_guardian_mobilenum2").value===""&&
+            document.getElementById("new_guardian_address2").value===""){
+                document.getElementById('sbmt').disabled = true; 
+            }
+        } 
+    else { 
+        document.getElementById('sbmt').disabled = false;
+    }       
 }
 
 
