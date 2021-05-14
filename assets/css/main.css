@@ -2344,7 +2344,7 @@ button,
   .alert {
   display: none;
   padding: 20px 20px;
-  background-color: #f44336;
+  background-color: #DE0F3F;
   color: white;
 }
 
@@ -2353,7 +2353,7 @@ button,
   display: block;
   padding: 20px 20px;
   margin-bottom: 20px;
-  background-color: #2196F3;
+  background-color: #004DA9;
   color: rgb(255, 255, 255);
 }
 
@@ -2362,7 +2362,7 @@ button,
   display: none;
   padding: 20px 20px;
   margin-bottom: 20px;
-  background-color: #4CAF50;
+  background-color: #169D53;
   color: rgb(255, 255, 255);
 }
 

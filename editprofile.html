@@ -46,11 +46,7 @@
 										<strong>SUCCESS: </strong>Profile has been successfully updated. Redirecting you back to profile page...
 									</div>
 									<form id="t1" onsubmit="event.preventDefault();readFields();" >
-										<div class="btn-container">
-											<button class="button primary" id="sbmt" disabled>Submit</button>
-										</div>
-										<p style = "text-align:center">Click here if you are done editing.</p>
-										<fieldset class ="box">
+										<fieldset class ="box" style="background:#efefef">
 											<legend><h3>STUDENT PROFILE</h3></legend>		
 											<div class="row gtr-uniform">
 												<!-- Break -->
@@ -69,7 +65,7 @@
 												</div>
 											</div>
 										</fieldset>
-										<fieldset class ="box">
+										<fieldset class ="box" style="background:#efefef">
 											<legend><h3>GUARDIAN 1 PROFILE</h3></legend>
 											<div class="row gtr-uniform">	
 												<div class="col-6 col-12-xsmall">
@@ -94,7 +90,7 @@
 												</div>
 											</div>
 										</fieldset>	
-										<fieldset class ="box">
+										<fieldset class ="box" style="background:#efefef">
 											<legend><h3>GUARDIAN 2 PROFILE</h3></legend>
 											<div class="row gtr-uniform">
 												<div class="col-6 col-12-xsmall">
@@ -121,9 +117,13 @@
 										</fieldset>
                                             <!-- Break -->
                                         <div class="col-12">
-                                            <ul class="actions">
-                                                <li><button id="res"type="reset" value="Reset" onclick="return confirm_reset();">Reset</button></li>
-                                            </ul>
+											<div class="btn-container">
+												<button title ="Click here if you are done editing" class="button primary" id="sbmt" disabled>Submit</button>
+											</div>
+											<br>
+                                            <div class="btn-container">
+                                                <button title ="Click here if you want to reset entries." id="res"type="reset" value="Reset" onclick="return confirm_reset();">Reset</button>
+                                            </div>
                                         </div>
 									</form>
 								</section>

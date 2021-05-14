@@ -28,6 +28,7 @@ async function updatePassword(update){
     try{
         notice.style.display='block';
         pass_al.style.display = 'none';
+        al.style.display = 'none';
         //PASSWORD UPDATE
         var passwordCredentials = { 'currentPassword': "" , 'newPassword': "" }
         if(update.oldpass!=""){
