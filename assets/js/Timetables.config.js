@@ -19,7 +19,7 @@ var highlightWeek = new Date().getDay();
 var styles = {
     Gheight: 50,
     leftHandWidth: 80,
-    palette: ['#ff6633', '#ffd061']
+    palette: ['#3574ab', '#e08b02']
 };
 
 //Initialize Time-Frame
