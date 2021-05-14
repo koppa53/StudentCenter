@@ -21,6 +21,15 @@
 						</div>
 					</div>
 				</form>
+				<div class="popup" id="popup-2">
+					<div class="overlay" id="overly"></div>
+					<div class="content">
+					<h2>Ready to leave?</h2>	
+					<p>Click logout to leave this site. Cancel to stay.</p>
+					<button onclick="logout()"class="button primary">Logout</button>
+					<button onclick="togglelogoutModal()">Cancel</button>
+					</div>
+				</div>
 				<!-- Main -->
 					<div id="main">
 						<div class="inner">
@@ -79,7 +88,7 @@
 											<li><a href="changepassword.html">Change Account Password</a></li>
 										</ul>
 									</li>
-									<li><a href="#" onclick="logout()"><i class="fas fa-power-off"></i>  Logout</a></li>	
+									<li><a href="#" onclick="togglelogoutModal()"><i class="fas fa-power-off"></i>  Logout</a></li>	
 								</ul>
 							</nav>	
 							<section>

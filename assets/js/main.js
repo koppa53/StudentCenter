@@ -4,6 +4,13 @@ const log_url = "https://softeng.jbtabz.com/auth/logout";
 function rdrct() {
 	window.location.href="index.html";
 }
+
+function togglelogoutModal(){
+	document.getElementById("overly").style.background = "rgba(0, 0, 0, 0.5)";
+	document.getElementById("popup-2").classList.toggle("active");
+	var element = document.getElementById("sidebar");
+  	element.classList.add("inactive")
+}
 // ... User Logout
 async function logout(){
 	const out = await fetch(log_url,{
