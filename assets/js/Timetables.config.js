@@ -60,7 +60,6 @@ var timetableType = [
 
 var i = 0;
 let table = document.querySelector("table");
-table.style.boxShadow = "0 2px 12px 12px rgba(0,0,0,.1)"
 let button = document.createElement("button");
 let element = document.getElementById("coursesTable");
 let ele = document.getElementById("cont");
@@ -111,6 +110,7 @@ async function fetchAcademicTerms(){
     //Build table for academic term list
     generateTableHead(table,k,i,student_name);
     generateTable(table, data);
+    table.style.boxShadow = "0 2px 12px 12px rgba(0,0,0,.1)"
     }catch(e){
         console.log(e.message)
         al.style.display = 'block';
