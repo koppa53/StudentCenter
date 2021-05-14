@@ -161,14 +161,14 @@ function generateGradesTable(table, data) {
             //Colorize Cell for grades status classifications
             if(element[key]==null){
                 text = document.createTextNode("TBD");
-                cell.style.backgroundColor = "yellow";
+                //cell.style.backgroundColor = "yellow";
             }else if(element[key]=="-1"){
                 text = document.createTextNode("INC");
-                cell.style.backgroundColor = "#f68c1f";
+                //cell.style.backgroundColor = "#f68c1f";
             
             }else if(element[key]=="-2"){
                 text = document.createTextNode("DRP");
-                cell.style.backgroundColor = "#f04d22";
+                //cell.style.backgroundColor = "#f04d22";
             }else{
                 text = document.createTextNode(element[key]);
                 if(element[key]=="5.0") row.style.backgroundColor = "red";
