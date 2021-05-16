@@ -107,6 +107,10 @@ function generateTable(table, data) {
 
 
 async function fetchGrades(enrollment_ID,academic_term ){
+    var count = 1;
+    var sum = 0;
+    var gwa = 0;
+    var complete = true;
     const grades_url = "https://softeng.jbtabz.com/grades/"+enrollment_ID
     const res = await fetch (grades_url,{
         headers:{
@@ -114,18 +118,26 @@ async function fetchGrades(enrollment_ID,academic_term ){
         }
     })
     const d = await res.json()
+    console.log(d)
     d.forEach(function(v){
+        if(v.grade==null || v.grade==-1 || v.grade==-2) complete = false;
+        if(complete){
+            sum = sum + v.grade * (v.subject_unit_lab+v.subject_unit_lec)
+            count = count + v.subject_unit_lab+v.subject_unit_lec
+        }
         temp = v.subject_code;
         v.subject_code = v.subject_name;
         v.subject_name = temp; 
+        delete v.subject_id;
         delete v.is_hidden;
-        delete v.subject_id 
         delete v.updated_at});
+    gwa = sum/count
+    gwa = gwa.toFixed(1)
     const head = { 'Course Code' : '', 'Subject' : '', 'Grades' :''};
     let k = Object.keys(head);
     //Build table after fetching data
     generateGradesTableHead(gradesTable, k,i,academic_term);
-    generateGradesTable(gradesTable, d);
+    generateGradesTable(gradesTable, d,gwa);
     gradesTable.style.boxShadow = "0 2px 12px 12px rgba(0,0,0,.1)"
     gradesTable.scrollIntoView({behavior:'smooth'});
 }
@@ -151,29 +163,49 @@ function generateGradesTableHead(table, data,i,academic_term) {
     }   
 }
 
-function generateGradesTable(table, data) {
+function generateGradesTable(table, data,gwa) {
     for (let element of data) {
         let row = table.insertRow();
         for (key in element) {
-            let text = ""
-            let cell = row.insertCell();
-            cell.style.textAlign = "center"
-            //Colorize Cell for grades status classifications
-            if(element[key]==null){
-                text = document.createTextNode("TBD");
-                //cell.style.backgroundColor = "yellow";
-            }else if(element[key]=="-1"){
-                text = document.createTextNode("INC");
-                //cell.style.backgroundColor = "#f68c1f";
-            
-            }else if(element[key]=="-2"){
-                text = document.createTextNode("DRP");
-                //cell.style.backgroundColor = "#f04d22";
-            }else{
-                text = document.createTextNode(element[key]);
-                if(element[key]=="5.0") row.style.backgroundColor = "red";
+            if(key != "subject_unit_lab" && key!= "subject_unit_lec"){
+                let text = ""
+                let cell = row.insertCell();
+                cell.style.textAlign = "center"
+                //Colorize Cell for grades status classifications
+                if(element[key]==null){
+                    text = document.createTextNode("TBD");
+                }else if(element[key]=="-1"){
+                    text = document.createTextNode("INC");
+                }else if(element[key]=="-2"){
+                    text = document.createTextNode("DRP");
+                }else{
+                    text = document.createTextNode(element[key]);
+                    if(element[key]=="5.0") {
+                        row.style.backgroundColor = "red";
+                        row.style.color = "white";
+                    }
+                }
+                cell.appendChild(text);
             }
-            cell.appendChild(text);
         }
     }
+    let gtext=""
+    let finalRow = table.insertRow();
+    let cell = finalRow.insertCell();
+    let text = document.createTextNode("General Waited Average (GWA)")
+    cell.style.textAlign = "center"
+    cell.colSpan = "2"
+    cell.style.backgroundColor = "#024089";
+    cell.style.color = "white";
+    cell.appendChild(text);
+    let gcell = finalRow.insertCell();
+    if(gwa!='0.0') {gtext = document.createTextNode(gwa)}
+    else{
+        gtext = document.createTextNode("N/A")
+    }
+    gcell.style.fontSize = "medium"
+    gcell.style.fontWeight = "bold"
+    gcell.style.textAlign = "center"
+    gcell.style.backgroundColor = "yellow";
+    gcell.appendChild(gtext);
 }
