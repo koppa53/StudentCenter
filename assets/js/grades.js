@@ -171,7 +171,7 @@ function generateGradesTable(table, data,gwa) {
                 let text = ""
                 let cell = row.insertCell();
                 cell.style.textAlign = "center"
-                //Colorize Cell for grades status classifications
+                //Classify Cell for grades status 
                 if(element[key]==null){
                     text = document.createTextNode("TBD");
                 }else if(element[key]=="-1"){
