@@ -83,6 +83,7 @@ async function verifyID_Password(){
         window.location.href="home.html";
     }else{  //Prompt Incorrect Credentials to the webpage
         document.getElementById("login-button").innerHTML = "Log in";
+        document.getElementById("user_pass").value ="";
         return 1;
     }
 }
