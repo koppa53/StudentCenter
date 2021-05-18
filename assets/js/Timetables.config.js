@@ -1,3 +1,4 @@
+
 //Retreive necessary id and tokens for API Requests
 const student_id = sessionStorage.getItem('id');
 const token = sessionStorage.getItem('token');
@@ -61,6 +62,7 @@ var timetableType = [
 var i = 0;
 let table = document.querySelector("table");
 let button = document.createElement("button");
+let dlbutton = document.createElement("button");
 let element = document.getElementById("coursesTable");
 let ele = document.getElementById("cont");
 let notice = document.querySelector('#show-notice');
@@ -105,7 +107,7 @@ async function fetchAcademicTerms(){
         delete v.subject_code;
         delete  v.subject_name; 
         delete v.updated_at});
-    const head = { 'Academic Term' : '','Program' : '', 'View' : '' };
+    const head = { 'Academic Term' : '','Program' : '', 'Actions' : '' };
     let k = Object.keys(head);
     //Build table for academic term list
     generateTableHead(table,k,i,student_name);
@@ -143,6 +145,8 @@ function generateTable(table, data) {
     for (let element of data) {
         button = document.createElement("button");
         button.className ="button primary icon solid fa-search";
+        dlbutton = document.createElement("button");
+        dlbutton.className ="button primary icon solid fa-download ";
         //reset timetable for new schedules
         button.onclick = function() {
             timetables = [
@@ -158,14 +162,21 @@ function generateTable(table, data) {
                 document.getElementById("coursesTable").innerHTML = "";
             getSchedule(timetables,element["course_schedule_id"])
         }
+        dlbutton.onclick = function(){
+            generateCOR()
+        }
         let row = table.insertRow();
         for (key in element) {
             if(key != "course_schedule_id"){
                 let text = ""
+                let btext = ""
                 let cell = row.insertCell();
                 text = document.createTextNode(element[key]);
+                btext = document.createTextNode("  ");
                 cell.appendChild(text);
                 cell.appendChild(button);
+                cell.appendChild(btext);
+                cell.appendChild(dlbutton);
             }
         }
     }
@@ -731,4 +742,146 @@ function plot_table_time(time,duration){
     }
 }
 
-
+function generateCOR(){
+    //templates
+    var studName = "STUDENT NAME:   "
+    var studID = "STUDENT NUMBER:    "
+    var program = "PROGRAM:    "
+    var major = "MAJOR:    "
+    var yearlvl = "YEAR LVL:    "
+    var age = "AGE:    "
+    var gender = "GENDER: "
+    var sy = "SCHOOL YEAR: "
+    var curriculum = "CURRICULUM: "
+    var scholarship = "SCHOLARSHIP: "
+    var regNum = "REGISTRATION NUMBER: "
+    var studSig = "STUDENT SIGNATURE"
+    var regSig = "COLLEGE REGISTRAR"
+    var reciept = "OFFICIAL RECEIPT:_____________________________"
+    var paydate = "PAYMENT/VALIDATION DATE:_____________________"
+    var note = "KEEP THIS CERTIFICATE YOU WILL BE REQUIRED TO PRESENT THIS IN ALL YOUR DEALINGS WITH THE COLLEGE."
+    var printBy = "PRINTED BY: "
+    var note2 = "*NOTE: INVALID WITHOUT THE REGISTRAR'S SIGNATURE"
+    //sample data
+    var time = "12:30:00"
+    var date = "FRIDAY MAY 14 2021 " + time
+    var printname = "JEFF CLEMENTE"
+    var regnum = "20211067901"
+    var name = "JEFFERSON CLEMENTE"
+    var regName = "SHARLENE A. MENDIZABAL"
+    var studname = studName + name
+    window.jsPDF = window.jspdf.jsPDF
+    var pdf = new jsPDF('p','mm','a4');
+    var img = new Image;
+    img.crossOrigin = "";  
+    img.src = "images/BU-small-logo.png";
+    img.onload = function() {
+        pdf.setFont('Helvetica')
+        pdf.addImage(this,98, 2 ,20,20);
+        pdf.setFontSize(35)
+        pdf.text("BICOL UNIVERSITY",98,35,{ charSpace: '1.5', align: 'center' })
+        pdf.setFontSize(22)
+        pdf.text("COLLEGE OF SCIENCE",108,45,{ align: 'center' })
+        pdf.setFontSize(14)
+        pdf.text("CERTIFICATE OF REGISTRATION",92,57,{ align: 'center' , charSpace: '1.5'})
+        pdf.setDrawColor(107,207,245); 
+        pdf.rect(5, 62, 200, 22); // empty red square    
+        pdf.setFontSize(10)
+        pdf.text(studname,6,66)
+        pdf.text(studID,6,70)
+        pdf.text(program,6,74)
+        pdf.text(major,6,78)
+        pdf.text(yearlvl,6,82)
+        pdf.text(age,130,66)
+        pdf.text(gender,130,70)
+        pdf.text(sy,130,74)
+        pdf.text(curriculum,130,78)
+        pdf.text(scholarship,130,82)
+        pdf.autoTable({
+            startY:87 ,
+            tableWidth: 200,
+            head: [['Code', 'Subject', 'Units' ,'Class' ,'Days', 'Time' , 'Room','Faculty']],
+            headStyles:{textColor: 21,halign: 'center',fillColor: [107,207,245]},
+            bodyStyles: { halign: 'center',fontSize:9 }, // Cells in first column centered and green
+            margin: { top: 10 , left:5},
+            body: [
+                ['CS Elect', 'Computer Security And Cryptography', '3.0 2.0 1.0','BSCS 3-C','MF\nW','04:00 PM - 07:00 PM\n08:00 PM - 10:00 PM','CS-02-201','NAZ,R-'],
+                ['GEC 18', 'Ethics', '3.0 3.0 0,0','BSCS-3C','M','01:00 PM-04:00 PM','CSSP-04-105','BERDIN,K.'],
+                ['GEC 17', 'Science, Technology and Society', '3.0 3.0 0,0','BSCS-3C','TTH','02:30 PM-04:00 PM','CSSP-04-104','CONDA,K.'],
+                ['FIL 22', 'Sosyedad at Literatura/Panitikang', '3.0 3.0 0,0','BSCS-3C','TTH','02:30 PM-04:00 PM','CSSP-04-104','CONDA,K.'],
+                ['CS Elect', 'Computer Security And Cryptography', '3.0 2.0 1.0','BSCS 3-C','MF\nW','04:00 PM - 07:00 PM\n08:00 PM - 10:00 PM','CS-02-201','NAZ,R-'],
+                ['GEC 18', 'Ethics', '3.0 3.0 0,0','BSCS-3C','M','01:00 PM-04:00 PM','CSSP-04-105','BERDIN,K.'],
+                ['GEC 17', 'Science, Technology and Society', '3.0 3.0 0,0','BSCS-3C','TTH','02:30 PM-04:00 PM','CSSP-04-104','CONDA,K.'],
+                ['FIL 22', 'Sosyedad at Literatura/Panitikang', '3.0 3.0 0,0','BSCS-3C','TTH','02:30 PM-04:00 PM','CSSP-04-104','CONDA,K.']
+            ],
+        })
+        pdf.autoTable({
+            tableWidth: 90,
+            head: [[{
+                    content: 'ASSESED FEES',
+                    colSpan: 2,
+                    styles: { textColor: 21,halign: 'center',fillColor: [107,207,245] },},
+                ],
+            ],
+            bodyStyles: { halign: 'left',fontSize:9 , maxCellHeight:3,cellPadding:{top: 0, right: 5, bottom: 1, left: 0}}, 
+            margin: { top: 10 , left:5},
+            body: [
+                ['Total Units: (21.00)', ''],
+                ['',''],
+                ['Tuition Fee - UG/CP/ETEEAP', '3,675.00'],
+                ['Med & Den. Fee - UG/CP/ETEEAP', '20.00'],
+                ['Library Fee - UG/CP/ETEEAP', '50.00'],
+                ['Guidance Fee - UG/CP/ETEEAP', '50.00'],
+                ['Athletic Fee - UG/CP/ETEEAP', '40.00'],
+                ['SCUAA Fee - UG/CP/ETEEAP', '50.00'],
+                ['Cultura Fee - UG/CP/ETEEAP', '40.00'],
+                ['Universitarian Fee - UG/CP/ETEEAP', '12.00'],
+                ['Internet Fee - UG/CP/ETEEAP', '175.00'],
+                ['Matriculation Fee - UG/CP/ETEEAP', '20.00'],
+                ['Laboratory Fee - UG/CP/ETEEAP', '200.00'],
+                ['Laboratory Fee - UG/CP/ETEEAP', '200.00'],
+                ['Laboratory Fee - UG/CP/ETEEAP', '200.00'],
+                ['', ''],
+                ['Total Assesment:', '4,712.00'],
+                ['Less Financial Aid:', '0.00'],
+                ['Net Assessed:', '4,712.00'],
+                ['Total Payment:', '0.00'],
+                ['Outstanding Balance:', '4,712.00'],
+                ['Additional Previous Balance:', '21,760.00'],
+            ],
+        })
+        let finalY = pdf.lastAutoTable.finalY
+        pdf.setFont('Helvetica','bold')
+        pdf.setFontSize(9)
+        pdf.setFillColor(243,240,255);
+        pdf.rect(97, finalY-111, 105, 5, "F");
+        pdf.text(regNum,97,finalY-107)
+        pdf.setTextColor(255,0,0)
+        pdf.text(regnum,140,finalY-107)
+        pdf.setTextColor(0,0,0)
+        pdf.text(name,130,finalY-67)
+        pdf.setFont('Helvetica','normal')
+        pdf.setFontSize(8)
+        pdf.text(studSig,133,finalY-63)
+        pdf.setFont('Helvetica','bold')
+        pdf.setFontSize(9)
+        pdf.text(regName,127,finalY-45)
+        pdf.setFont('Helvetica','normal')
+        pdf.setFontSize(8)
+        pdf.text(regSig,133,finalY-41)
+        pdf.text(reciept,97,finalY-11)
+        pdf.text(paydate,97,finalY-7)
+        pdf.setFillColor(243,240,255);
+        pdf.rect(97, finalY-5, 105, 3, "F");
+        pdf.setFontSize(5)
+        pdf.text(note,100, finalY-3,)
+        pdf.text(printBy,97, finalY,)
+        pdf.text(printname,109, finalY,)
+        pdf.text(date,127, finalY,)
+        pdf.setFont('Helvetica','bold')
+        pdf.setTextColor(255,0,0)
+        pdf.text(note2,155, finalY,)
+        pdf.output('dataurlnewwindow'); 
+        //pdf.save("test.pdf");
+    };
+}
