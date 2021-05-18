@@ -881,7 +881,7 @@ function generateCOR(){
         pdf.setFont('Helvetica','bold')
         pdf.setTextColor(255,0,0)
         pdf.text(note2,155, finalY,)
-        pdf.output('dataurlnewwindow'); 
-        //pdf.save("test.pdf");
+        //pdf.output('dataurlnewwindow'); 
+        pdf.save("test.pdf");
     };
 }
