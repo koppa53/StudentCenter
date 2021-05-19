@@ -762,6 +762,13 @@ async function generateCOR(corstudent_name,corgender,corschoolid,status,program,
             }
         });
     const d = await res.json();
+    const department_url = "https://softeng.jbtabz.com/course/"+d.course_id;
+        const r = await fetch(department_url,{
+            headers:{
+                "X-Session-Token": token
+            }
+        });
+    const department = await r.json();
     const schedule_url = "https://softeng.jbtabz.com/course_schedule_contents/"+id;
         const response = await fetch(schedule_url,{
             headers:{
@@ -880,6 +887,8 @@ async function generateCOR(corstudent_name,corgender,corschoolid,status,program,
             separate[2] = separate[2].replace("00","")
             var endtime= separate[0]+":"+separate[1]+" "+separate[2]
             content[dupPos][5] = content[dupPos][5]+"\n"+formattedStartTime +"-"+ endtime
+            var profname = v.professor_last_name.toUpperCase()+", "+v.professor_first_name[0]
+            if(content[dupPos][7]!= profname ) content[dupPos][7] = content[dupPos][7]+"\n" + profname
             alreadyAdded = false
         }
     })
@@ -914,16 +923,20 @@ async function generateCOR(corstudent_name,corgender,corschoolid,status,program,
     img.crossOrigin = "";  
     img.src = "images/BU-small-logo.png";
     img.onload = function() {
+        var textWidth = pdf.getStringUnitWidth(department.department_name.toUpperCase()) * pdf.internal.getFontSize() / pdf.internal.scaleFactor;
+        var textOffset = (pdf.internal.pageSize.width - textWidth) / 2;
         pdf.setFont('Helvetica')
         pdf.addImage(this,98, 2 ,20,20);
         pdf.setFontSize(35)
         pdf.text("BICOL UNIVERSITY",98,35,{ charSpace: '1.5', align: 'center' })
-        pdf.setFontSize(22)
-        pdf.text("COLLEGE OF SCIENCE",108,45,{ align: 'center' })
+        pdf.setFontSize(19)
+        pdf.text(textOffset, 45, department.department_name.toUpperCase());
         pdf.setFontSize(14)
+        pdf.setFont('Helvetica','bold')
         pdf.text("CERTIFICATE OF REGISTRATION",92,57,{ align: 'center' , charSpace: '1.5'})
         pdf.setDrawColor(107,207,245); 
-        pdf.rect(5, 62, 200, 22);     
+        pdf.rect(5, 62, 200, 22);
+        pdf.setFont('Helvetica','normal')     
         pdf.setFontSize(10)
         pdf.text(studName,6,66)
         pdf.text(studID,6,70)
@@ -938,15 +951,15 @@ async function generateCOR(corstudent_name,corgender,corschoolid,status,program,
         pdf.autoTable({
             startY:87 ,
             tableWidth: 200,
-            head: [['Code', 'Subject', 'Units' ,'Class' ,'Days', 'Time' , 'Room','Faculty']],
-            headStyles:{textColor: 21,halign: 'center',fillColor: [107,207,245]},
+            head: [['Code', 'Subject', 'Units\nCred/Lec/Lab','Class' ,'Days', 'Time' , 'Room','Faculty']],
+            headStyles:{textColor: 21,halign: 'center',fillColor: [107,207,245],cellPadding:{top: 1, right: 1, bottom: 0, left: 0 }},
+            didParseCell(data) {
+                if (data.section === 'head' && data.column.index === 2) data.cell.styles.fontSize=7;
+            },
             bodyStyles: { halign: 'center',fontSize:9, cellPadding:{top: 1, right: 1, bottom: 1, left: 0 }}, 
             margin: { top: 10 , left:5},
             body: content,
         })
-        pdf.setFont('Helvetica','bold')
-        pdf.setFontSize(7)
-        pdf.text("Cred/Lec/Lab",86,94)
         pdf.autoTable({
             tableWidth: 90,
             head: [[{
@@ -991,13 +1004,13 @@ async function generateCOR(corstudent_name,corgender,corschoolid,status,program,
         pdf.setTextColor(255,0,0)
         pdf.text(regnum,140,finalY-107)
         pdf.setTextColor(0,0,0)
-        pdf.text(corstudent_name.toUpperCase(),127,finalY-67)
+        pdf.text(corstudent_name.toUpperCase(),133,finalY-67)
         pdf.setFont('Helvetica','normal')
         pdf.setFontSize(8)
         pdf.text(studSig,133,finalY-63)
         pdf.setFont('Helvetica','bold')
         pdf.setFontSize(9)
-        pdf.text(regName,127,finalY-45)
+        pdf.text(regName,133,finalY-45)
         pdf.setFont('Helvetica','normal')
         pdf.setFontSize(8)
         pdf.text(regSig,133,finalY-41)
