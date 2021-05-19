@@ -1027,7 +1027,7 @@ async function generateCOR(corstudent_name,corgender,corschoolid,status,program,
         pdf.setTextColor(255,0,0)
         pdf.text(note2,155, finalY,)
         //pdf.output('dataurlnewwindow'); 
-        pdf.save("test.pdf");
+        pdf.save(corschoolid+".pdf");
     };
 }
 
