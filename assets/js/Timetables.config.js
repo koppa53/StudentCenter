@@ -67,6 +67,7 @@ let element = document.getElementById("coursesTable");
 let ele = document.getElementById("cont");
 let notice = document.querySelector('#show-notice');
 let al = document.querySelector('#show-alert');
+let corStudName = "";
 
 //Fetch all academic terms of student once page loads
 window.onload = function() {
@@ -90,12 +91,17 @@ async function fetchAcademicTerms(){
     if(data!=undefined){
         notice.style.display = 'none';
     }
+    var current = new Date();
     const student_name = d.school_id + " : "+ data[0].student_first_name+" "+data[0].student_middle_name+" " +data[0].student_last_name
+    const corstudent_name = data[0].student_first_name+" "+data[0].student_middle_name+" " +data[0].student_last_name
+    const corgender = d.sex
+    const corschoolid = d.school_id
+    var seperate = d.birth_date.split("-")
+    const age = current.getFullYear() - seperate[0] 
     data.forEach(function(v){
         Object.assign(v, {button: ""});
         v.academic_term_name += " "+ "("+ v.course_schedule_name + ")"
         delete v.course_schedule_name
-        delete v.status
         delete v.student_first_name
         delete v.student_middle_name
         delete v.student_last_name
@@ -106,12 +112,12 @@ async function fetchAcademicTerms(){
         delete v.is_revoked
         delete v.subject_code;
         delete  v.subject_name; 
-        delete v.updated_at});
+    delete v.updated_at});
     const head = { 'Academic Term' : '','Program' : '', 'Actions' : '' };
     let k = Object.keys(head);
     //Build table for academic term list
     generateTableHead(table,k,i,student_name);
-    generateTable(table, data);
+    generateTable(table, data,corstudent_name,corgender,corschoolid,age);
     table.style.boxShadow = "0 2px 12px 12px rgba(0,0,0,.1)"
     }catch(e){
         console.log(e.message)
@@ -141,7 +147,7 @@ function generateTableHead(table, data,i,student_name) {
     }
     
 }
-function generateTable(table, data) {
+function generateTable(table, data,corstudent_name,corgender,corschoolid,age) {
     for (let element of data) {
         button = document.createElement("button");
         button.className ="button primary icon solid fa-search";
@@ -162,12 +168,15 @@ function generateTable(table, data) {
                 document.getElementById("coursesTable").innerHTML = "";
             getSchedule(timetables,element["course_schedule_id"])
         }
+        //generate COR based on selected semester
         dlbutton.onclick = function(){
-            generateCOR()
+            var acad_term = element["academic_term_name"].split("(")
+            var term = acad_term[0].replace("S/Y","")
+            generateCOR(corstudent_name,corgender,corschoolid,element["status"],element["course_name"],element["course_schedule_id"],term,age)
         }
         let row = table.insertRow();
         for (key in element) {
-            if(key != "course_schedule_id"){
+            if(key != "course_schedule_id" && key!="status"){
                 let text = ""
                 let btext = ""
                 let cell = row.insertCell();
@@ -742,18 +751,150 @@ function plot_table_time(time,duration){
     }
 }
 
-function generateCOR(){
+async function generateCOR(corstudent_name,corgender,corschoolid,status,program,id,term,age){
+    var stat =""
+    if(status=="Regular") stat = "FREE EDUCATION"
+    var totalunits = 0;
+    const yearlvl_url = "https://softeng.jbtabz.com/course_schedule/"+id;
+        const res = await fetch(yearlvl_url,{
+            headers:{
+                "X-Session-Token": token
+            }
+        });
+    const d = await res.json();
+    const schedule_url = "https://softeng.jbtabz.com/course_schedule_contents/"+id;
+        const response = await fetch(schedule_url,{
+            headers:{
+                "X-Session-Token": token
+            }
+        });
+    const data = await response.json();
+    var sub= new Array()
+    data.forEach(function(g){
+        sub.push(g.subject_name)
+    })
+    //COUNT ALL SUBJECTS BY REMOVING DUPLICATES
+    var filteredSubjects = sub.filter((value,index)=> sub.indexOf(value)===index)
+    var count = 0;
+    var content = Array.from(Array(filteredSubjects.length), () => new Array(8))
+    var alreadyAdded = false
+    data.forEach(function(v){
+        var dupPos = 0;
+        //CHECK IF SUB IS ALREADY LISTED
+        for(i=0;i<filteredSubjects.length;i++){
+            if(content[i][1] == v.subject_name){
+                alreadyAdded = true
+                dupPos = i
+            }
+        }if(alreadyAdded==false){
+            content[count][0] = v.subject_code
+            content[count][1] = v.subject_name
+            var credits = v.subject_unit_lec + v.subject_unit_lab
+            content[count][2] = credits.toFixed(1) + " " + v.subject_unit_lec.toFixed(1) + " " + v.subject_unit_lab.toFixed(1)
+            content[count][3] = v.schedule_class
+            var days = ""
+            for(var y =0; y<=v.schedule_days.length; y++){
+                if(v.schedule_days[y]=="mon"){
+                    days = days + "M"
+                }
+                if(v.schedule_days[y]=="tues"){
+                    days = days + "T"
+                }
+                if(v.schedule_days[y]=="wed"){
+                    days = days + "W"
+                }
+                if(v.schedule_days[y]=="thur"){
+                    days = days + "Th"
+                }
+                if(v.schedule_days[y]=="fri"){
+                    days = days + "F"
+                }
+                if(v.schedule_days[y]=="sat"){
+                    days = days + "S"
+
+                }
+                if(v.schedule_days[y]=="sun"){
+                    days = days + "Sun"
+                }
+            }
+            content[count][4] = days
+            var starttime = tConvert(v.schedule_time_start)
+            //REFORMAT START TIME
+            var sep = starttime.split(":")
+            sep[2] = sep[2].replace("00","")
+            var formattedStartTime = sep[0]+":"+sep[1]+" "+sep[2]
+            //COMPUTE END TIME
+            var separate = starttime.split(":")
+            separate[0] = parseInt(separate[0]) + parseInt(v.schedule_time_duration["hours"])
+            if(separate[0]==12) separate[2] = "00PM"
+            if(v.schedule_time_duration["minutes"]!=null){
+                separate[1] = parseInt(separate[1]) + parseInt(v.schedule_time_duration["minutes"])
+            }
+            separate[2] = separate[2].replace("00","")
+            var endtime= separate[0]+":"+separate[1]+" "+separate[2]
+            content[count][5] = formattedStartTime +"-"+ endtime
+            content[count][6] = v.schedule_room
+            content[count][7] = v.professor_last_name.toUpperCase()+", "+v.professor_first_name[0]
+            totalunits = totalunits + credits
+            count++
+        }else{
+            //IF SUB IS ALREADY LISTED APPEND TO EXISTING SCHEDULE
+            var days = ""
+            for(var y =0; y<=v.schedule_days.length; y++){
+                if(v.schedule_days[y]=="mon"){
+                    days = days + "M"
+                }
+                if(v.schedule_days[y]=="tues"){
+                    days = days + "T"
+                }
+                if(v.schedule_days[y]=="wed"){
+                    days = days + "W"
+                }
+                if(v.schedule_days[y]=="thur"){
+                    days = days + "Th"
+                }
+                if(v.schedule_days[y]=="fri"){
+                    days = days + "F"
+                }
+                if(v.schedule_days[y]=="sat"){
+                    days = days + "S"
+
+                }
+                if(v.schedule_days[y]=="sun"){
+                    days = days + "Sun"
+                }
+            }
+            content[dupPos][4] = content[dupPos][4]+"\n"+days
+            var starttime = tConvert(v.schedule_time_start)
+            //REFORMAT START TIME
+            var sep = starttime.split(":")
+            sep[2] = sep[2].replace("00","")
+            var formattedStartTime = sep[0]+":"+sep[1]+" "+sep[2]
+            //COMPUTE END TIME  
+            var separate = starttime.split(":")
+            separate[0] = parseInt(separate[0]) + parseInt(v.schedule_time_duration["hours"])
+            if(separate[0]==12) separate[2] = "00PM"
+            if(v.schedule_time_duration["minutes"]!=null){
+                separate[1] = parseInt(separate[1]) + parseInt(v.schedule_time_duration["minutes"])
+            }
+            separate[2] = separate[2].replace("00","")
+            var endtime= separate[0]+":"+separate[1]+" "+separate[2]
+            content[dupPos][5] = content[dupPos][5]+"\n"+formattedStartTime +"-"+ endtime
+            alreadyAdded = false
+        }
+    })
     //templates
-    var studName = "STUDENT NAME:   "
-    var studID = "STUDENT NUMBER:    "
-    var program = "PROGRAM:    "
+    var tUnits = "Total Units: "+"("+totalunits.toFixed(1)+")"
+    var studName = "STUDENT NAME:   " + corstudent_name.toUpperCase()
+    var studID = "STUDENT NUMBER:    " + corschoolid.toUpperCase()
+    var corprogram = "PROGRAM:    " + program.toUpperCase() 
     var major = "MAJOR:    "
-    var yearlvl = "YEAR LVL:    "
-    var age = "AGE:    "
-    var gender = "GENDER: "
-    var sy = "SCHOOL YEAR: "
+    var yearlvl = "YEAR LVL: " + d.year_level.toUpperCase()
+    var corAge = "AGE:  " + age
+    var gender = "GENDER: " + corgender.toUpperCase()
+    var sy = "SCHOOL YEAR:" + term.toUpperCase()
     var curriculum = "CURRICULUM: "
-    var scholarship = "SCHOLARSHIP: "
+    var scholarship = "SCHOLARSHIP: " + stat
     var regNum = "REGISTRATION NUMBER: "
     var studSig = "STUDENT SIGNATURE"
     var regSig = "COLLEGE REGISTRAR"
@@ -762,14 +903,11 @@ function generateCOR(){
     var note = "KEEP THIS CERTIFICATE YOU WILL BE REQUIRED TO PRESENT THIS IN ALL YOUR DEALINGS WITH THE COLLEGE."
     var printBy = "PRINTED BY: "
     var note2 = "*NOTE: INVALID WITHOUT THE REGISTRAR'S SIGNATURE"
-    //sample data
-    var time = "12:30:00"
-    var date = "FRIDAY MAY 14 2021 " + time
-    var printname = "JEFF CLEMENTE"
+    //append data
+    var current = new Date();
     var regnum = "20211067901"
-    var name = "JEFFERSON CLEMENTE"
     var regName = "SHARLENE A. MENDIZABAL"
-    var studname = studName + name
+    var initials = corstudent_name.toUpperCase().split(" ")
     window.jsPDF = window.jspdf.jsPDF
     var pdf = new jsPDF('p','mm','a4');
     var img = new Image;
@@ -785,14 +923,14 @@ function generateCOR(){
         pdf.setFontSize(14)
         pdf.text("CERTIFICATE OF REGISTRATION",92,57,{ align: 'center' , charSpace: '1.5'})
         pdf.setDrawColor(107,207,245); 
-        pdf.rect(5, 62, 200, 22); // empty red square    
+        pdf.rect(5, 62, 200, 22);     
         pdf.setFontSize(10)
-        pdf.text(studname,6,66)
+        pdf.text(studName,6,66)
         pdf.text(studID,6,70)
-        pdf.text(program,6,74)
+        pdf.text(corprogram,6,74)
         pdf.text(major,6,78)
         pdf.text(yearlvl,6,82)
-        pdf.text(age,130,66)
+        pdf.text(corAge,130,66)
         pdf.text(gender,130,70)
         pdf.text(sy,130,74)
         pdf.text(curriculum,130,78)
@@ -802,19 +940,13 @@ function generateCOR(){
             tableWidth: 200,
             head: [['Code', 'Subject', 'Units' ,'Class' ,'Days', 'Time' , 'Room','Faculty']],
             headStyles:{textColor: 21,halign: 'center',fillColor: [107,207,245]},
-            bodyStyles: { halign: 'center',fontSize:9 }, // Cells in first column centered and green
+            bodyStyles: { halign: 'center',fontSize:9, cellPadding:{top: 1, right: 1, bottom: 1, left: 0 }}, 
             margin: { top: 10 , left:5},
-            body: [
-                ['CS Elect', 'Computer Security And Cryptography', '3.0 2.0 1.0','BSCS 3-C','MF\nW','04:00 PM - 07:00 PM\n08:00 PM - 10:00 PM','CS-02-201','NAZ,R-'],
-                ['GEC 18', 'Ethics', '3.0 3.0 0,0','BSCS-3C','M','01:00 PM-04:00 PM','CSSP-04-105','BERDIN,K.'],
-                ['GEC 17', 'Science, Technology and Society', '3.0 3.0 0,0','BSCS-3C','TTH','02:30 PM-04:00 PM','CSSP-04-104','CONDA,K.'],
-                ['FIL 22', 'Sosyedad at Literatura/Panitikang', '3.0 3.0 0,0','BSCS-3C','TTH','02:30 PM-04:00 PM','CSSP-04-104','CONDA,K.'],
-                ['CS Elect', 'Computer Security And Cryptography', '3.0 2.0 1.0','BSCS 3-C','MF\nW','04:00 PM - 07:00 PM\n08:00 PM - 10:00 PM','CS-02-201','NAZ,R-'],
-                ['GEC 18', 'Ethics', '3.0 3.0 0,0','BSCS-3C','M','01:00 PM-04:00 PM','CSSP-04-105','BERDIN,K.'],
-                ['GEC 17', 'Science, Technology and Society', '3.0 3.0 0,0','BSCS-3C','TTH','02:30 PM-04:00 PM','CSSP-04-104','CONDA,K.'],
-                ['FIL 22', 'Sosyedad at Literatura/Panitikang', '3.0 3.0 0,0','BSCS-3C','TTH','02:30 PM-04:00 PM','CSSP-04-104','CONDA,K.']
-            ],
+            body: content,
         })
+        pdf.setFont('Helvetica','bold')
+        pdf.setFontSize(7)
+        pdf.text("Cred/Lec/Lab",86,94)
         pdf.autoTable({
             tableWidth: 90,
             head: [[{
@@ -824,9 +956,9 @@ function generateCOR(){
                 ],
             ],
             bodyStyles: { halign: 'left',fontSize:9 , maxCellHeight:3,cellPadding:{top: 0, right: 5, bottom: 1, left: 0}}, 
-            margin: { top: 10 , left:5},
+            margin: {left:5},
             body: [
-                ['Total Units: (21.00)', ''],
+                [tUnits, ''],
                 ['',''],
                 ['Tuition Fee - UG/CP/ETEEAP', '3,675.00'],
                 ['Med & Den. Fee - UG/CP/ETEEAP', '20.00'],
@@ -859,7 +991,7 @@ function generateCOR(){
         pdf.setTextColor(255,0,0)
         pdf.text(regnum,140,finalY-107)
         pdf.setTextColor(0,0,0)
-        pdf.text(name,130,finalY-67)
+        pdf.text(corstudent_name.toUpperCase(),127,finalY-67)
         pdf.setFont('Helvetica','normal')
         pdf.setFontSize(8)
         pdf.text(studSig,133,finalY-63)
@@ -876,12 +1008,23 @@ function generateCOR(){
         pdf.setFontSize(5)
         pdf.text(note,100, finalY-3,)
         pdf.text(printBy,97, finalY,)
-        pdf.text(printname,109, finalY,)
-        pdf.text(date,127, finalY,)
+        pdf.text(initials[0]+" "+initials[initials.length-1],109, finalY,)
+        pdf.text(current.toLocaleString(),129, finalY,)
         pdf.setFont('Helvetica','bold')
         pdf.setTextColor(255,0,0)
         pdf.text(note2,155, finalY,)
-        //pdf.output('dataurlnewwindow'); 
-        pdf.save("test.pdf");
+        pdf.output('dataurlnewwindow'); 
+        //pdf.save("test.pdf");
     };
+}
+
+function tConvert (time) {
+    // Check correct time format and split into components
+    time = time.toString ().match (/^([01]\d|2[0-3])(:)([0-5]\d)(:[0-5]\d)?$/) || [time];
+    if (time.length > 1) { // If time format correct
+      time = time.slice (1);  // Remove full string match value
+      time[5] = +time[0] < 12 ? 'AM' : 'PM'; // Set AM/PM
+      time[0] = +time[0] % 12 || 12; // Adjust hours
+    }
+    return time.join (''); // return adjusted time or original string
 }
