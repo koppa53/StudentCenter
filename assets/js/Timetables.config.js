@@ -153,9 +153,11 @@ function generateTableHead(table, data,i,student_name) {
 function generateTable(table, data,corstudent_name,corgender,corschoolid,age) {
     for (let element of data) {
         button = document.createElement("button");
+        button.title = "View Graphical Schedule"
         button.className ="button primary icon solid fa-search";
         dlbutton = document.createElement("button");
         dlbutton.className ="button primary icon solid fa-download ";
+        dlbutton.title = "Download Schedule (COR)"
         //reset timetable for new schedules
         button.onclick = function() {
             timetables = [
