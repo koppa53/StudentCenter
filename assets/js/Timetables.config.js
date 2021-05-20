@@ -66,11 +66,14 @@ let dlbutton = document.createElement("button");
 let element = document.getElementById("coursesTable");
 let ele = document.getElementById("cont");
 let notice = document.querySelector('#show-notice');
+let dlnotice = document.querySelector('#show-download');
+let dlsuccess = document.querySelector('#show-dlsuccess');
 let al = document.querySelector('#show-alert');
 let corStudName = "";
 
 //Fetch all academic terms of student once page loads
 window.onload = function() {
+    dlnotice.style.display = 'none';
     fetchAcademicTerms();
 };
 
@@ -753,6 +756,7 @@ function plot_table_time(time,duration){
 }
 
 async function generateCOR(corstudent_name,corgender,corschoolid,status,program,id,term,age){
+    dlnotice.style.display = 'block';
     var stat =""
     if(status=="Regular") stat = "FREE EDUCATION"
     var totalunits = 0;
@@ -1029,6 +1033,9 @@ async function generateCOR(corstudent_name,corgender,corschoolid,status,program,
         pdf.text(note2,155, finalY,)
         //pdf.output('dataurlnewwindow'); 
         pdf.save(corschoolid+".pdf");
+        dlnotice.style.display = 'none'
+        dlsuccess.style.display = 'block'
+        setInterval(function(){ dlsuccess.style.display = 'none'}, 5000);
     };
 }
 
