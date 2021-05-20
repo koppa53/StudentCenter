@@ -73,7 +73,6 @@ let corStudName = "";
 
 //Fetch all academic terms of student once page loads
 window.onload = function() {
-    dlnotice.style.display = 'none';
     fetchAcademicTerms();
 };
 
