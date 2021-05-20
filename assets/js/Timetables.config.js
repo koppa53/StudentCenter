@@ -221,43 +221,57 @@ async function getSchedule(timetables,id){
                 if(v.schedule_days[y]=="mon"){
                     time = plot_table_time(v.schedule_time_start,v.schedule_time_duration);
                     for(i=time[0],x=1;x<=time[1];i++,x++){
-                        timetables[0][i] = v.subject_name+"\n\n"+"Room: \n"+v.schedule_room+ "\n\nProfessor: "+profname;
+                        if(timetables[0][i]==""){ 
+                            timetables[0][i] = v.subject_name+"\n\n"+"Room: \n"+v.schedule_room+ "\n\nProfessor: "+profname;
+                        }
                     }
                 }
                 if(v.schedule_days[y]=="tues"){
                     time = plot_table_time(v.schedule_time_start,v.schedule_time_duration);
                     for(i=time[0],x=1;x<=time[1];i++,x++){
+                        if(timetables[1][i]==""){
                         timetables[1][i] = v.subject_name+"\n\n"+"Room: \n"+v.schedule_room+ "\n\nProfessor: "+profname;
+                        }
                     }
                 }
                 if(v.schedule_days[y]=="wed"){
                     time = plot_table_time(v.schedule_time_start,v.schedule_time_duration);
                     for(i=time[0],x=1;x<=time[1];i++,x++){
+                        if(timetables[2][i]==""){
                         timetables[2][i] = v.subject_name+"\n\n"+"Room: \n"+v.schedule_room+ "\n\nProfessor: "+profname;
+                        }
                     }
                 }
                 if(v.schedule_days[y]=="thur"){
                     time = plot_table_time(v.schedule_time_start,v.schedule_time_duration);
                     for(i=time[0],x=1;x<=time[1];i++,x++){
+                        if(timetables[3][i]==""){
                         timetables[3][i] = v.subject_name+"\n\n"+"Room: \n"+v.schedule_room+ "\n\nProfessor: "+profname;
+                        }
                     }
                 }
                 if(v.schedule_days[y]=="fri"){
                     time = plot_table_time(v.schedule_time_start,v.schedule_time_duration);
                     for(i=time[0],x=1;x<=time[1];i++,x++){
+                        if(timetables[4][i]==""){
                         timetables[4][i] = v.subject_name+"\n\n"+"Room: \n"+v.schedule_room+ "\n\nProfessor: "+profname;
+                        }
                     }
                 }
                 if(v.schedule_days[y]=="sat"){
                     time = plot_table_time(v.schedule_time_start,v.schedule_time_duration);
                     for(i=time[0],x=1;x<=time[1];i++,x++){
+                        if(timetables[5][i]==""){
                         timetables[5][i] = v.subject_name+"\n\n"+"Room: \n"+v.schedule_room+ "\n\nProfessor: "+profname;
+                        }
                     }
                 }
                 if(v.schedule_days[y]=="sun"){
                     time = plot_table_time(v.schedule_time_start,v.schedule_time_duration);
                     for(i=time[0],x=1;x<=time[1];i++,x++){
+                        if(timetables[6][i]==""){
                         timetables[6][i] = v.subject_name+"\n\n"+"Room: \n"+v.schedule_room+ "\n\nProfessor: "+profname;
+                        }
                     }
                 }
             }
