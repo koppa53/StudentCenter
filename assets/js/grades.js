@@ -181,7 +181,7 @@ function generateGradesTable(table, data,gwa) {
                 }else{
                     text = document.createTextNode(element[key]);
                     if(element[key]=="5.0") {
-                        row.style.backgroundColor = "red";
+                        row.style.backgroundColor = "#DE0F3F";
                         row.style.color = "white";
                     }
                 }
@@ -192,7 +192,7 @@ function generateGradesTable(table, data,gwa) {
     let gtext=""
     let finalRow = table.insertRow();
     let cell = finalRow.insertCell();
-    let text = document.createTextNode("General Waited Average (GWA)")
+    let text = document.createTextNode("General Weighted Average (GWA)")
     cell.style.textAlign = "center"
     cell.colSpan = "2"
     cell.style.backgroundColor = "#024089";
@@ -206,6 +206,6 @@ function generateGradesTable(table, data,gwa) {
     gcell.style.fontSize = "medium"
     gcell.style.fontWeight = "bold"
     gcell.style.textAlign = "center"
-    gcell.style.backgroundColor = "yellow";
+    gcell.style.backgroundColor = "#FFC619";
     gcell.appendChild(gtext);
 }

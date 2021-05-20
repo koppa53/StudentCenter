@@ -181,11 +181,12 @@ function generateTable(table, data,corstudent_name,corgender,corschoolid,age) {
                 let btext = ""
                 let cell = row.insertCell();
                 text = document.createTextNode(element[key]);
-                btext = document.createTextNode("  ");
+                btext = document.createTextNode(" ");
                 cell.appendChild(text);
                 cell.appendChild(button);
                 cell.appendChild(btext);
                 cell.appendChild(dlbutton);
+                cell.style.textAlign = "middle"
             }
         }
     }
