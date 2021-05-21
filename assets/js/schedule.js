@@ -70,6 +70,13 @@ let dlnotice = document.querySelector('#show-download');
 let dlsuccess = document.querySelector('#show-dlsuccess');
 let al = document.querySelector('#show-alert');
 let corStudName = "";
+var timestartlistmon = []
+var timestartlisttue = []
+var timestartlistwed = []
+var timestartlistthurs = []
+var timestartlistfri = []
+var timestartlistsat = []
+var timestartlistsun = []
 
 //Fetch all academic terms of student once page loads
 window.onload = function() {
@@ -196,14 +203,6 @@ function generateTable(table, data,corstudent_name,corgender,corschoolid,age) {
     }
 }
 
-
-var timestartlistmon = []
-var timestartlisttue = []
-var timestartlistwed = []
-var timestartlistthurs = []
-var timestartlistfri = []
-var timestartlistsat = []
-var timestartlistsun = []
 async function getSchedule(timetables,id){
     try{
         const schedule_url = "https://softeng.jbtabz.com/course_schedule_contents/"+id;
