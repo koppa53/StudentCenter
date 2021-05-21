@@ -7,9 +7,8 @@
     var startyear = year.getFullYear();
     var endyear = startyear+1
     var schoolyear = startyear + " - " + endyear
-    console.log(schoolyear)
     document.getElementById("sy").innerHTML = "<i><br>Bicol University Student Center Login<br>S.Y "+schoolyear+"</i>"
-    
+
     /*==================================================================
     [ Focus input ]*/
     $('.input100').each(function(){
