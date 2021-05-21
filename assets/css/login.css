@@ -38,6 +38,7 @@
 }
 
 body, html {
+  overflow: hidden;
 	height: 100%;
 	font-family: Poppins-Regular, sans-serif;
 }
@@ -178,11 +179,12 @@ iframe {
 }
 
 .wrap-login100 {
-  width: 500px;
+  height: 100%;
+  width: 450px;
   background: #fff;
   border-radius: 10px;
   overflow: hidden;
-  padding: 77px 55px 33px 55px;
+  padding: 25px 55px 35px 55px;
 
   box-shadow: 0 5px 10px 0px rgba(0, 0, 0, 0.1);
   -moz-box-shadow: 0 5px 10px 0px rgba(0, 0, 0, 0.1);
