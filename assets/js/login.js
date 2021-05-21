@@ -1,10 +1,17 @@
 
-    /*==================================================================
-    [ Focus input ]*/
-    
     //Disable Right Click
     document.addEventListener('contextmenu', event => event.preventDefault());
 
+    //Set Current School Year
+    var year = new Date();
+    var startyear = year.getFullYear();
+    var endyear = startyear+1
+    var schoolyear = startyear + " - " + endyear
+    console.log(schoolyear)
+    document.getElementById("sy").innerHTML = "<i><br>Bicol University Student Center Login<br>S.Y "+schoolyear+"</i>"
+    
+    /*==================================================================
+    [ Focus input ]*/
     $('.input100').each(function(){
         $(this).on('blur', function(){
             if($(this).val().trim() != "") {
