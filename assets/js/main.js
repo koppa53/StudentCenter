@@ -5,9 +5,11 @@ function rdrct() {
 	window.location.href="index.html";
 }
 
-function togglelogoutModal(){
+function togglelogoutModal(disable){
+	if(disable==1){document.body.style.overflow = 'visible';}else{document.body.style.overflow = 'hidden';}
 	document.getElementById("overly").style.background = "rgba(0, 0, 0, 0.5)";
 	document.getElementById("popup-2").classList.toggle("active");
+	
 	var element = document.getElementById("sidebar");
   	element.classList.add("inactive")
 }
