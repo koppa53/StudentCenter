@@ -197,7 +197,13 @@ function generateTable(table, data,corstudent_name,corgender,corschoolid,age) {
 }
 
 
-
+var timestartlistmon = []
+var timestartlisttue = []
+var timestartlistwed = []
+var timestartlistthurs = []
+var timestartlistfri = []
+var timestartlistsat = []
+var timestartlistsun = []
 async function getSchedule(timetables,id){
     try{
         const schedule_url = "https://softeng.jbtabz.com/course_schedule_contents/"+id;
@@ -211,6 +217,7 @@ async function getSchedule(timetables,id){
             var profname = v.professor_first_name+" "+v.professor_middle_name+" "+v.professor_last_name;
             var x=0;
             var time = [0,0];
+            var passed
             delete v.id;
             delete v.course_schedule_id; 
             delete v.schedule_id;
@@ -220,57 +227,99 @@ async function getSchedule(timetables,id){
             for(var y =0; y<=v.schedule_days.length; y++){
                 if(v.schedule_days[y]=="mon"){
                     time = plot_table_time(v.schedule_time_start,v.schedule_time_duration);
+                    timestartlistmon.push([[0],[time[0]]])
                     for(i=time[0],x=1;x<=time[1];i++,x++){
-                        if(timetables[0][i]==""){ 
+                        if(i!=time[0]){
+                            passed = chkPriorityStart(0,i,timestartlistmon)
+                            if(passed){ 
+                                timetables[0][i] = v.subject_name+"\n\n"+"Room: \n"+v.schedule_room+ "\n\nProfessor: "+profname;
+                            }
+                        }else{
                             timetables[0][i] = v.subject_name+"\n\n"+"Room: \n"+v.schedule_room+ "\n\nProfessor: "+profname;
                         }
                     }
                 }
                 if(v.schedule_days[y]=="tues"){
                     time = plot_table_time(v.schedule_time_start,v.schedule_time_duration);
+                    timestartlisttue.push([[1],[time[0]]])
                     for(i=time[0],x=1;x<=time[1];i++,x++){
-                        if(timetables[1][i]==""){
-                        timetables[1][i] = v.subject_name+"\n\n"+"Room: \n"+v.schedule_room+ "\n\nProfessor: "+profname;
+                        if(i!=time[0]){
+                            passed = chkPriorityStart(1,i,timestartlisttue)
+                            if(passed){ 
+                                timetables[1][i] = v.subject_name+"\n\n"+"Room: \n"+v.schedule_room+ "\n\nProfessor: "+profname;
+                            }
+                        }else{
+                            timetables[1][i] = v.subject_name+"\n\n"+"Room: \n"+v.schedule_room+ "\n\nProfessor: "+profname;
                         }
                     }
                 }
                 if(v.schedule_days[y]=="wed"){
                     time = plot_table_time(v.schedule_time_start,v.schedule_time_duration);
+                    timestartlistwed.push([[2],[time[0]]])
                     for(i=time[0],x=1;x<=time[1];i++,x++){
-                        if(timetables[2][i]==""){
-                        timetables[2][i] = v.subject_name+"\n\n"+"Room: \n"+v.schedule_room+ "\n\nProfessor: "+profname;
+                        if(i!=time[0]){
+                            passed = chkPriorityStart(2,i,timestartlistwed)
+                            if(passed){ 
+                                timetables[2][i] = v.subject_name+"\n\n"+"Room: \n"+v.schedule_room+ "\n\nProfessor: "+profname;
+                            }
+                        }else{
+                            timetables[2][i] = v.subject_name+"\n\n"+"Room: \n"+v.schedule_room+ "\n\nProfessor: "+profname;
                         }
                     }
                 }
                 if(v.schedule_days[y]=="thur"){
                     time = plot_table_time(v.schedule_time_start,v.schedule_time_duration);
+                    timestartlistthurs.push([[3],[time[0]]])
                     for(i=time[0],x=1;x<=time[1];i++,x++){
-                        if(timetables[3][i]==""){
-                        timetables[3][i] = v.subject_name+"\n\n"+"Room: \n"+v.schedule_room+ "\n\nProfessor: "+profname;
+                        if(i!=time[0]){
+                            passed = chkPriorityStart(3,i,timestartlistthurs)
+                            if(passed){ 
+                                timetables[3][i] = v.subject_name+"\n\n"+"Room: \n"+v.schedule_room+ "\n\nProfessor: "+profname;
+                            }
+                        }else{
+                            timetables[3][i] = v.subject_name+"\n\n"+"Room: \n"+v.schedule_room+ "\n\nProfessor: "+profname;
                         }
                     }
                 }
                 if(v.schedule_days[y]=="fri"){
                     time = plot_table_time(v.schedule_time_start,v.schedule_time_duration);
+                    timestartlistfri.push([[4],[time[0]]])
                     for(i=time[0],x=1;x<=time[1];i++,x++){
-                        if(timetables[4][i]==""){
-                        timetables[4][i] = v.subject_name+"\n\n"+"Room: \n"+v.schedule_room+ "\n\nProfessor: "+profname;
+                        if(i!=time[0]){
+                            passed = chkPriorityStart(4,i,timestartlistfri)
+                            if(passed){ 
+                                timetables[4][i] = v.subject_name+"\n\n"+"Room: \n"+v.schedule_room+ "\n\nProfessor: "+profname;
+                            }
+                        }else{
+                            timetables[4][i] = v.subject_name+"\n\n"+"Room: \n"+v.schedule_room+ "\n\nProfessor: "+profname;
                         }
                     }
                 }
                 if(v.schedule_days[y]=="sat"){
                     time = plot_table_time(v.schedule_time_start,v.schedule_time_duration);
+                    timestartlistsat.push([[5],[time[0]]])
                     for(i=time[0],x=1;x<=time[1];i++,x++){
-                        if(timetables[5][i]==""){
-                        timetables[5][i] = v.subject_name+"\n\n"+"Room: \n"+v.schedule_room+ "\n\nProfessor: "+profname;
+                        if(i!=time[0]){
+                            passed = chkPriorityStart(5,i,timestartlistsat)
+                            if(passed){ 
+                                timetables[5][i] = v.subject_name+"\n\n"+"Room: \n"+v.schedule_room+ "\n\nProfessor: "+profname;
+                            }
+                        }else{
+                            timetables[5][i] = v.subject_name+"\n\n"+"Room: \n"+v.schedule_room+ "\n\nProfessor: "+profname;
                         }
                     }
                 }
                 if(v.schedule_days[y]=="sun"){
                     time = plot_table_time(v.schedule_time_start,v.schedule_time_duration);
+                    timestartlistsun.push([[6],[time[0]]])
                     for(i=time[0],x=1;x<=time[1];i++,x++){
-                        if(timetables[6][i]==""){
-                        timetables[6][i] = v.subject_name+"\n\n"+"Room: \n"+v.schedule_room+ "\n\nProfessor: "+profname;
+                        if(i!=time[0]){
+                            passed = chkPriorityStart(6,i,timestartlistsun)
+                            if(passed){ 
+                                timetables[6][i] = v.subject_name+"\n\n"+"Room: \n"+v.schedule_room+ "\n\nProfessor: "+profname;
+                            }
+                        }else{
+                            timetables[6][i] = v.subject_name+"\n\n"+"Room: \n"+v.schedule_room+ "\n\nProfessor: "+profname;
                         }
                     }
                 }
@@ -283,6 +332,20 @@ async function getSchedule(timetables,id){
         notice.style.display = 'none';
         al.style.display = 'block';
     }
+}
+
+function chkPriorityStart(pos1,pos2,timestartlist){
+    var result1=0;
+    var result2=0;
+    for(var j = 0 ; j<timestartlist.length  ; j++){
+        if(pos1 == timestartlist[j][0] &&  pos2 != timestartlist[j][1]  ){
+            result1= 1
+        }else{
+            result2 = 1
+        }
+    }
+    if(result1==1 && result2==0) return true
+    return false
 }
 
 
