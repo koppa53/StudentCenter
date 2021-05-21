@@ -1,6 +1,10 @@
 
     /*==================================================================
     [ Focus input ]*/
+    
+    //Disable Right Click
+    document.addEventListener('contextmenu', event => event.preventDefault());
+
     $('.input100').each(function(){
         $(this).on('blur', function(){
             if($(this).val().trim() != "") {
