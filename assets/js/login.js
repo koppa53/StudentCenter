@@ -87,7 +87,7 @@ async function verifyID_Password(){
     });
     const status = await verify_login.json();
     //Direct user to Homepage if the server responds code "200"
-    if (verify_login["status"]!= 400){
+    if (verify_login["status"] == 200){
         sessionStorage.setItem('token', status["session-token"])
         sessionStorage.setItem('id', status["id"])
         window.location.href="home.html";
