@@ -70,9 +70,8 @@
         }
     });
 
-//sample account getnoitad not!shillingIswear
-
 async function verifyID_Password(){
+    try{
     document.getElementById("login-button").innerHTML = "Logging in...";
     const login_endpoint = "https://softeng.jbtabz.com/auth/login";
     var data={};
@@ -90,10 +89,14 @@ async function verifyID_Password(){
     if (verify_login["status"] == 200){
         sessionStorage.setItem('token', status["session-token"])
         sessionStorage.setItem('id', status["id"])
-        window.location.href="home.html";
+        window.location.href="home";
     }else{  //Prompt Incorrect Credentials to the webpage
         document.getElementById("login-button").innerHTML = "Log in";
         document.getElementById("user_pass").value ="";
         return 1;
+    }
+    }catch(e){
+        if(e=='TypeError: Failed to fetch') document.querySelector('#show-err').style.display = "block"
+        document.getElementById("login-button").innerHTML = "Log in";
     }
 }
