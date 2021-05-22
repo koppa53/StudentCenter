@@ -54,6 +54,7 @@
 									<div id="show-success" class="success">
 										<strong>SUCCESS: </strong>Profile has been successfully updated. Redirecting you back to profile page...
 									</div>
+									<br>
 									<form id="t1" onsubmit="event.preventDefault();readFields();" >
 										<fieldset class ="box" style="background:#efefef">
 											<legend><h3>STUDENT PROFILE</h3></legend>		
@@ -68,8 +69,24 @@
 													autocomplete="off" onkeyup="stoppedTyping(this.id);"></label>
 												</div>
 												<!-- Break -->
-												<div class="col-12">
-													<label>New Address<input type="text" id="newaddress" value="" placeholder="City / Town / Street/ House no." 
+												<div class="col-6 col-12-xsmall">
+													<label>New Street<input type="text" id="newstreet" value="" placeholder="e.g Binabaan Street" 
+														autocomplete="off" onkeyup="stoppedTyping(this.id);"></label>
+												</div>
+												<div class="col-6 col-12-xsmall">
+													<label>New Barangay<input type="text" id="newbarangay" value="" placeholder="e.g Barangay 12" 
+														autocomplete="off" onkeyup="stoppedTyping(this.id);"></label>
+												</div>
+												<div class="col-6 col-12-xsmall">
+													<label>New City<input type="text" id="newcity" value="" placeholder="e.g Legazpi City" 
+														autocomplete="off" onkeyup="stoppedTyping(this.id);"></label>
+												</div>
+												<div class="col-6 col-12-xsmall">
+													<label>New Province<input type="text" id="newprovince" value="" placeholder="e.g Albay" 
+														autocomplete="off" onkeyup="stoppedTyping(this.id);"></label>
+												</div>
+												<div class="col-6 col-12-xsmall">
+													<label>New Zip Code<input type="text" id="newzipcode" value="" placeholder="e.g 4709" 
 														autocomplete="off" onkeyup="stoppedTyping(this.id);"></label>
 												</div>
 											</div>
@@ -94,7 +111,7 @@
 														autocomplete="off" onkeyup="stoppedTyping(this.id);"></label>
 												</div>
 												<div class="col-12">
-													<label>Guardian 1 New Address<input type="text" id="new_guardian_address" value="" placeholder="City / Town / Street/ House no." 
+													<label>Guardian 1 New Address<input type="text" id="new_guardian_address" value="" placeholder="Street / Barangay / City / Province" 
 														autocomplete="off" onkeyup="stoppedTyping(this.id);"></input></label>
 												</div>
 											</div>
@@ -119,7 +136,7 @@
 														autocomplete="off" onkeyup="stoppedTyping(this.id);"></input></label>
 												</div>
 												<div class="col-12">
-													<label>Guardian 2 New Address<input type="text" id="new_guardian_address2" value="" placeholder="City / Town / Street/ House no." 
+													<label>Guardian 2 New Address<input type="text" id="new_guardian_address2" value="" placeholder="Street / Barangay / City / Province" 
 														autocomplete="off" onkeyup="stoppedTyping(this.id);"></input></label>
 												</div>
 											</div>

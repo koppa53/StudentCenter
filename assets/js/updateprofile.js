@@ -23,7 +23,9 @@ function confirm_reset() {
     }else{
         //Enable or Disable submit button if the page has not detected any input in fields
         if(document.getElementById("newmobilenum").value===""&&document.getElementById("newemail").value===""&&
-        document.getElementById("newaddress").value===""&&document.getElementById("guardian_firstname").value===""&&
+        document.getElementById("newstreet").value===""&&document.getElementById("guardian_firstname").value===""&&
+        document.getElementById("newbarangay").value===""&&document.getElementById("newcity").value===""&&
+        document.getElementById("newprovince").value===""&& document.getElementById("newzipcode").value===""&&
         document.getElementById("guardian_middlename").value===""&&document.getElementById("guardian_lastname").value===""&& 
         document.getElementById("new_guardian_mobilenum").value===""&&document.getElementById("new_guardian_address").value===""&&
         document.getElementById("guardian_firstname2").value===""&&document.getElementById("guardian_middlename2").value===""&&
@@ -42,12 +44,14 @@ function stoppedTyping(id){
     let inpt = document.getElementById(id).value
     if(inpt.value===""|| inpt.replace(/^\s+|\s+$/g, '').length == 0){ 
         if(document.getElementById("newmobilenum").value===""&&document.getElementById("newemail").value===""&&
-            document.getElementById("newaddress").value===""&&document.getElementById("guardian_firstname").value===""&&
-            document.getElementById("guardian_middlename").value===""&&document.getElementById("guardian_lastname").value===""&& 
-            document.getElementById("new_guardian_mobilenum").value===""&&document.getElementById("new_guardian_address").value===""&&
-            document.getElementById("guardian_firstname2").value===""&&document.getElementById("guardian_middlename2").value===""&&
-            document.getElementById("guardian_lastname2").value===""&& document.getElementById("new_guardian_mobilenum2").value===""&&
-            document.getElementById("new_guardian_address2").value===""){
+        document.getElementById("newstreet").value===""&&document.getElementById("guardian_firstname").value===""&&
+        document.getElementById("newbarangay").value===""&&document.getElementById("newcity").value===""&&
+        document.getElementById("newprovince").value===""&& document.getElementById("newzipcode").value===""&&
+        document.getElementById("guardian_middlename").value===""&&document.getElementById("guardian_lastname").value===""&& 
+        document.getElementById("new_guardian_mobilenum").value===""&&document.getElementById("new_guardian_address").value===""&&
+        document.getElementById("guardian_firstname2").value===""&&document.getElementById("guardian_middlename2").value===""&&
+        document.getElementById("guardian_lastname2").value===""&& document.getElementById("new_guardian_mobilenum2").value===""&&
+        document.getElementById("new_guardian_address2").value===""){
                 document.getElementById('sbmt').disabled = true; 
             }
         } 
@@ -61,6 +65,7 @@ async function editProfile(update){
     
     try{
         notice.style.display='block';
+        al.style.display = 'none';
         //GUARDIAN PROFILE UPDATE
         const res = await fetch (get_guardian_url,{
             headers: {
@@ -109,9 +114,6 @@ async function editProfile(update){
             body: JSON.stringify(d)
         });
         const stat = await update_guardian_info.json();
-
-
-
         //STUDENT PROFILE UPDATE
         const response = await fetch (get_profile_url,{
             headers:{
@@ -119,6 +121,8 @@ async function editProfile(update){
             }
         });
         const data = await response.json(); 
+        delete data.is_hidden
+        delete data.address
         delete data.is_currently_enrolled
         delete data.created_at
         delete data.updated_at
@@ -128,8 +132,20 @@ async function editProfile(update){
         if(update.email_address!=""){
             data.email_address =update.email_address
         }
-        if(update.address!=""){
-            data.address =update.address
+        if(update.a_street!=""){
+            data.a_street =update.a_street
+        }   
+        if(update.a_barangay!=""){
+            data.a_barangay =update.a_barangay
+        }
+        if(update.a_city!=""){
+            data.a_city =update.a_city
+        }
+        if(update.a_zip_code!=""){
+            data.a_zip_code =update.a_zip_code
+        }
+        if(update.a_province!=""){
+            data.a_province =update.a_province
         }
         const update_info = await fetch(update_profile_url,{
             method: 'PUT',
@@ -146,6 +162,7 @@ async function editProfile(update){
             success.style.display='block';
             setInterval(function(){ window.location.href="aboutprofile.html";}, 3000);
         }else{
+            al.innerHTML = status.message;
             al.style.display = 'block';
             notice.style.display = 'none';
         }
@@ -159,6 +176,7 @@ async function editProfile(update){
 
 function readFields(){
     try{
+        document.querySelector("#header").scrollIntoView({behavior:'smooth'});
         var data={};
         var result= true;
         var result1= true;
@@ -204,14 +222,18 @@ function readFields(){
         }
         
         data["email_address"] = document.getElementById("newemail").value
-        data["address"] = document.getElementById("newaddress").value
+        data["a_street"] = document.getElementById("newstreet").value
+        data["a_barangay"] = document.getElementById("newbarangay").value
+        data["a_city"] = document.getElementById("newcity").value
+        data["a_province"] = document.getElementById("newprovince").value
+        data["a_zip_code"] = document.getElementById("newzipcode").value
         var mailformat = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
         if(data["email_address"]!==""){
             if(data["email_address"].match(mailformat)){
                 editProfile(data);
             }else{
                 document.getElementById("newemail").focus();
-                data["address"] =""
+                data["email_address"] =""
             }
         }
         //check all mobile numbers has passed validity test

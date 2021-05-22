@@ -89,7 +89,7 @@ async function verifyID_Password(){
     if (verify_login["status"] == 200){
         sessionStorage.setItem('token', status["session-token"])
         sessionStorage.setItem('id', status["id"])
-        window.location.href="home";
+        window.location.href="home.html";
     }else{  //Prompt Incorrect Credentials to the webpage
         document.getElementById("login-button").innerHTML = "Log in";
         document.getElementById("user_pass").value ="";
