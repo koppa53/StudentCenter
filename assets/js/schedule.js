@@ -915,9 +915,17 @@ async function generateCOR(corstudent_name,corgender,corschoolid,status,program,
             //COMPUTE END TIME
             var separate = starttime.split(":")
             separate[0] = parseInt(separate[0]) + parseInt(v.schedule_time_duration["hours"])
-            if(separate[0]==12) separate[2] = "00PM"
+            if(separate[0]==12) separate[2] = separate[2].replace("AM","PM")
+            if(separate[0]>12) {
+                separate[0] = parseInt(separate[0]) - 12
+                separate[2] = separate[2].replace("AM","PM")
+            }
             if(v.schedule_time_duration["minutes"]!=null){
                 separate[1] = parseInt(separate[1]) + parseInt(v.schedule_time_duration["minutes"])
+                if(separate[1]==60){
+                    separate[1]="00"
+                    separate[0] = parseInt(separate[0]) + 1
+                }
             }
             separate[2] = separate[2].replace("00","")
             var endtime= separate[0]+":"+separate[1]+" "+separate[2]
@@ -962,9 +970,17 @@ async function generateCOR(corstudent_name,corgender,corschoolid,status,program,
             //COMPUTE END TIME  
             var separate = starttime.split(":")
             separate[0] = parseInt(separate[0]) + parseInt(v.schedule_time_duration["hours"])
-            if(separate[0]==12) separate[2] = "00PM"
+            if(separate[0]==12) separate[2] = separate[2].replace("AM","PM")
+            if(separate[0]>12) {
+                separate[0] = parseInt(separate[0]) - 12
+                separate[2] = separate[2].replace("AM","PM")
+            }
             if(v.schedule_time_duration["minutes"]!=null){
                 separate[1] = parseInt(separate[1]) + parseInt(v.schedule_time_duration["minutes"])
+                if(separate[1]==60){
+                    separate[1]="00"
+                    separate[0] = parseInt(separate[0]) + 1
+                }
             }
             separate[2] = separate[2].replace("00","")
             var endtime= separate[0]+":"+separate[1]+" "+separate[2]
