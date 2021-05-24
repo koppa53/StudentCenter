@@ -1128,7 +1128,7 @@ async function generateCOR(corstudent_name,corgender,corschoolid,status,program,
         pdf.save(corschoolid+".pdf");
         dlnotice.style.display = 'none'
         dlsuccess.style.display = 'block'
-        setInterval(function(){ dlsuccess.style.display = 'none'}, 5000);
+        setTimeout(function(){ dlsuccess.style.display = 'none'}, 5000);
     };
 }
 

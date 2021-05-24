@@ -118,7 +118,6 @@ async function fetchGrades(enrollment_ID,academic_term ){
         }
     })
     const d = await res.json()
-    console.log(d)
     d.forEach(function(v){
         if(v.grade==null || v.grade==-1 || v.grade==-2) complete = false;
         if(complete){

@@ -60,7 +60,7 @@ async function updatePassword(update){
                 sessionStorage.removeItem('token')
 	            sessionStorage.removeItem('id')
                 success.style.display='block';
-                setInterval(function(){ window.location.href="index.html";}, 3000);
+                setTimeout(function(){ window.location.href="index.html";}, 3000);
             }else{
                 al.style.display = 'block';
             }

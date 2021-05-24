@@ -160,7 +160,7 @@ async function editProfile(update){
         if (status.code == 200 && stat.code == 200 ){
             notice.style.display='none';
             success.style.display='block';
-            setInterval(function(){ window.location.href="aboutprofile.html";}, 3000);
+            setTimeout(function(){ window.location.href="aboutprofile.html";}, 3000);
         }else{
             al.innerHTML = status.message;
             al.style.display = 'block';
