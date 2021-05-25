@@ -11,6 +11,42 @@ let al = document.querySelector('#show-alert');
 let success = document.querySelector('#show-success');
 let element = document.getElementById("t1");
 
+window.onload = function() {
+    fillplaceholder();
+};
+
+async function fillplaceholder() {
+    const res = await fetch (get_guardian_url,{
+        headers: {
+            "X-Session-Token": token,
+        }
+    });
+    const d = await res.json(); 
+    const response = await fetch (get_profile_url,{
+        headers:{
+            "X-Session-Token": token,
+        }
+    });
+    const data = await response.json(); 
+    document.getElementById("newmobilenum").placeholder = data.phone_number
+    document.getElementById("newemail").placeholder = data.email_address
+    document.getElementById("newstreet").placeholder = data.a_street
+    document.getElementById("newbarangay").placeholder = data.a_barangay
+    document.getElementById("newcity").placeholder = data.a_city
+    document.getElementById("newprovince").placeholder = data.a_province
+    document.getElementById("newzipcode").placeholder = data.a_zip_code
+    document.getElementById("guardian_firstname").placeholder = d.first_name
+    document.getElementById("guardian_middlename").placeholder = d.middle_name
+    document.getElementById("guardian_lastname").placeholder = d.last_name
+    document.getElementById("new_guardian_mobilenum").placeholder = d.phone_number
+    document.getElementById("new_guardian_address").placeholder = d.address
+    document.getElementById("guardian_firstname2").placeholder = d.first_name_2
+    document.getElementById("guardian_middlename2").placeholder = d.middle_name_2
+    document.getElementById("guardian_lastname2").placeholder = d.last_name_2
+    document.getElementById("new_guardian_mobilenum2").placeholder = d.phone_number_2
+    document.getElementById("new_guardian_address2").placeholder = d.address_2
+
+}
 
 function confirm_reset() {
     //Confirm reset all fields
