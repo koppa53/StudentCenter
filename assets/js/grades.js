@@ -137,7 +137,7 @@ async function fetchGrades(enrollment_ID,academic_term ){
     let k = Object.keys(head);
     //Build table after fetching data
     generateGradesTableHead(gradesTable, k,i,academic_term);
-    generateGradesTable(gradesTable, d,gwa);
+    generateGradesTable(gradesTable, d,gwa,complete);
     gradesTable.style.boxShadow = "0 2px 12px 12px rgba(0,0,0,.1)"
     gradesTable.scrollIntoView({behavior:'smooth'});
 }
@@ -163,7 +163,7 @@ function generateGradesTableHead(table, data,i,academic_term) {
     }   
 }
 
-function generateGradesTable(table, data,gwa) {
+function generateGradesTable(table, data,gwa,complete) {
     for (let element of data) {
         let row = table.insertRow();
         for (key in element) {
@@ -199,7 +199,7 @@ function generateGradesTable(table, data,gwa) {
     cell.style.color = "white";
     cell.appendChild(text);
     let gcell = finalRow.insertCell();
-    if(gwa!='0.0') {gtext = document.createTextNode(gwa)}
+    if(complete) {gtext = document.createTextNode(gwa)}
     else{
         gtext = document.createTextNode("N/A")
     }
