@@ -2309,7 +2309,7 @@ button,
     border-radius:6px;
   }
   body::-webkit-scrollbar-thumb:hover{
-    background: linear-gradient(transparent,#5fdada);
+    background: linear-gradient(transparent,#FDA300);
     border-radius:6px;
   }
   
