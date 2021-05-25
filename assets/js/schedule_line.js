@@ -677,7 +677,11 @@ async function generateCOR(corstudent_name,corgender,corschoolid,status,program,
             content[count][0] = v.subject_code
             content[count][1] = v.subject_name
             var credits = v.subject_unit_lec + v.subject_unit_lab
-            content[count][2] = credits.toFixed(1) + " " + v.subject_unit_lec.toFixed(1) + " " + v.subject_unit_lab.toFixed(1)
+            if(v.subject_unit_lab==0.0) v.subject_unit_lab ="---"
+            else{
+                v.subject_unit_lab= v.subject_unit_lab.toFixed(1)
+            }
+            content[count][2] = credits.toFixed(1) + " " + v.subject_unit_lec.toFixed(1) + " " + v.subject_unit_lab
             content[count][3] = v.schedule_class
             var days = ""
             for(var y =0; y<=v.schedule_days.length; y++){
@@ -715,7 +719,7 @@ async function generateCOR(corstudent_name,corgender,corschoolid,status,program,
             var endtime= separate[0]+":"+separate[1]+" "+separate[2]
             content[count][5] = formattedStartTime +"-"+ endtime
             content[count][6] = v.schedule_room
-            content[count][7] = v.professor_last_name.toUpperCase()+", "+v.professor_first_name[0]
+            content[count][7] = v.professor_last_name.toUpperCase()+", "+v.professor_first_name[0]+"."
             totalunits = totalunits + credits
             count++
         }else{
@@ -754,7 +758,7 @@ async function generateCOR(corstudent_name,corgender,corschoolid,status,program,
             separate[2] = separate[2].replace("00","")
             var endtime= separate[0]+":"+separate[1]+" "+separate[2]
             content[dupPos][5] = content[dupPos][5]+"\n"+formattedStartTime +"-"+ endtime
-            var profname = v.professor_last_name.toUpperCase()+", "+v.professor_first_name[0]
+            var profname = v.professor_last_name.toUpperCase()+", "+v.professor_first_name[0]+"."
             if(content[dupPos][7]!= profname ) content[dupPos][7] = content[dupPos][7]+"\n" + profname
             alreadyAdded = false
         }
