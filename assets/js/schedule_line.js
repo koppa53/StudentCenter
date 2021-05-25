@@ -532,11 +532,7 @@ function plot_table_time(time,duration){
     if(time == "18:00:00"){
         t[0] = 22;
         for(i=1;i<=duration.hours;i++){
-            if(i==1){
-                d+=3
-            }else{
-                d+=2
-            }
+            d+=2
         }
         if(Object.keys(duration).length > 1){
             d+=3
@@ -547,11 +543,7 @@ function plot_table_time(time,duration){
     if(time == "18:30:00"){
         t[0] = 23;
         for(i=1;i<=duration.hours;i++){
-            if(i==1){
-                d+=3
-            }else{
-                d+=2
-            }
+            d+=2
         }
         if(Object.keys(duration).length > 1){
             d+=1
@@ -562,11 +554,7 @@ function plot_table_time(time,duration){
     if(time == "19:00:00"){
         t[0] = 24;
         for(i=1;i<=duration.hours;i++){
-            if(i==1){
-                d+=3
-            }else{
-                d+=2
-            }
+            d+=2
         }
         if(Object.keys(duration).length > 1){
             d+=1
@@ -577,11 +565,7 @@ function plot_table_time(time,duration){
     if(time == "19:30:00"){
         t[0] = 25;
         for(i=1;i<=duration.hours;i++){
-            if(i==1){
-                d+=3
-            }else{
-                d+=2
-            }
+            d+=2
         }
         if(Object.keys(duration).length > 1){
             d+=1
@@ -592,11 +576,7 @@ function plot_table_time(time,duration){
     if(time == "20:00:00"){
         t[0] = 26;
         for(i=1;i<=duration.hours;i++){
-            if(i==1){
-                d+=3
-            }else{
-                d+=2
-            }
+            d+=2
         }
         if(Object.keys(duration).length > 1){
             d+=1
@@ -607,11 +587,7 @@ function plot_table_time(time,duration){
     if(time == "20:30:00"){
         t[0] = 27;
         for(i=1;i<=duration.hours;i++){
-            if(i==1){
-                d+=3
-            }else{
-                d+=2
-            }
+            d+=2
         }
         if(Object.keys(duration).length > 1){
             d+=1
@@ -622,11 +598,7 @@ function plot_table_time(time,duration){
     if(time == "21:00:00"){
         t[0] = 27;
         for(i=1;i<=duration.hours;i++){
-            if(i==1){
-                d+=3
-            }else{
-                d+=2
-            }
+            d+=2
         }
         if(Object.keys(duration).length > 1){
             d+=1
