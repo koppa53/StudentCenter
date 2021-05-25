@@ -35,6 +35,7 @@ async function fetchUserGrades(){
         data.forEach(function(v){
             Object.assign(v, {button: ""});
             v.academic_term_name += " "+ "("+ v.course_schedule_name + ")"
+            delete v.course_schedule_year_level
             delete v.course_schedule_name
             delete v.status
             delete v.student_first_name
