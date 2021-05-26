@@ -181,7 +181,7 @@ function generateTable(table, data,corstudent_name,corgender,corschoolid,age) {
         }
         let row = table.insertRow();
         for (key in element) {
-            if(key != "course_schedule_id" && key!="status"){
+            if(key != "course_schedule_id" && key!="status" && key!="reg_num"){
                 let text = ""
                 let btext = ""
                 let cell = row.insertCell();
@@ -633,8 +633,21 @@ function plot_table_time(time,duration){
 async function generateCOR(corstudent_name,corgender,corschoolid,status,program,id,term,age){
     dlnotice.style.display = 'block';
     var stat =""
+    var registrationNum=""
     if(status=="Regular") stat = "FREE EDUCATION"
     var totalunits = 0;
+    const re = await fetch (enrollmentID_url,{
+        headers:{
+            "X-Session-Token": token
+        }
+    })
+    const rnum = await re.json();
+    console.log(rnum)
+    rnum.forEach(function(g){ 
+        if(g.course_schedule_id == id){
+            registrationNum = g.reg_num
+        }
+    })
     const yearlvl_url = "https://softeng.jbtabz.com/course_schedule/"+id;
         const res = await fetch(yearlvl_url,{
             headers:{
@@ -785,7 +798,6 @@ async function generateCOR(corstudent_name,corgender,corschoolid,status,program,
     var note2 = "*NOTE: INVALID WITHOUT THE REGISTRAR'S SIGNATURE"
     //append data
     var current = new Date();
-    var regnum = "20211067901"
     var regName = "SHARLENE A. MENDIZABAL"
     var initials = corstudent_name.toUpperCase().split(" ")
     window.jsPDF = window.jspdf.jsPDF
@@ -873,7 +885,7 @@ async function generateCOR(corstudent_name,corgender,corschoolid,status,program,
         pdf.rect(97, finalY-111, 105, 5, "F");
         pdf.text(regNum,97,finalY-107)
         pdf.setTextColor(255,0,0)
-        pdf.text(regnum,140,finalY-107)
+        pdf.text(registrationNum,140,finalY-107)
         pdf.setTextColor(0,0,0)
         pdf.text(corstudent_name.toUpperCase(),133,finalY-67)
         pdf.setFont('Helvetica','normal')

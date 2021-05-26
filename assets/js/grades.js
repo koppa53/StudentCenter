@@ -35,6 +35,7 @@ async function fetchUserGrades(){
         data.forEach(function(v){
             Object.assign(v, {button: ""});
             v.academic_term_name += " "+ "("+ v.course_schedule_name + ")"
+            delete v.reg_num
             delete v.course_schedule_year_level
             delete v.course_schedule_name
             delete v.status
@@ -128,6 +129,7 @@ async function fetchGrades(enrollment_ID,academic_term ){
         temp = v.subject_code;
         v.subject_code = v.subject_name;
         v.subject_name = temp; 
+        v.grade = parseFloat(v.grade).toFixed(1);
         delete v.subject_id;
         delete v.is_hidden;
         delete v.updated_at});
@@ -172,7 +174,7 @@ function generateGradesTable(table, data,gwa,complete) {
                 let cell = row.insertCell();
                 cell.style.textAlign = "center"
                 //Classify Cell for grades status 
-                if(element[key]==null){
+                if(element[key]=="NaN"){
                     text = document.createTextNode("TBD");
                 }else if(element[key]=="-1"){
                     text = document.createTextNode("INC");
