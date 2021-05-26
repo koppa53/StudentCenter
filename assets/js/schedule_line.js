@@ -642,7 +642,6 @@ async function generateCOR(corstudent_name,corgender,corschoolid,status,program,
         }
     })
     const rnum = await re.json();
-    console.log(rnum)
     rnum.forEach(function(g){ 
         if(g.course_schedule_id == id){
             registrationNum = g.reg_num
