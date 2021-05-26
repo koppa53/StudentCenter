@@ -31,7 +31,6 @@
             if (status > 0){
                 showValidate(input[0]);
                 showValidate(input[1]);
-                check = false;
             }
         })()  
     });
