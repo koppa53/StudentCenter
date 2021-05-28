@@ -2398,6 +2398,7 @@ button,
   top:50%;
   left:50%;
   transform:translate(-50%,-50%) scale(0);
+  border-radius:0.5em;
   background:#fff;
   margin-top: -50px;
   margin-bottom: -50px;
