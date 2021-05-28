@@ -115,11 +115,9 @@ a {
   border-bottom: none; /*dotted 1px*/
   color: #FDA300;
   text-decoration: none; }
-  a:hover {
+  a:hover{
     border-bottom: none;
     color: #000000 !important; }
-    a:hover strong {
-      color: inherit; }
 
  b {
   color: #3d4449;
@@ -1372,7 +1370,7 @@ ul.contact {
   ul.contact li {
     text-decoration: none;
     border-top: solid 1px rgba(210, 215, 217, 0.75);
-    margin: 1.5em 0 0 0;
+    margin: 1.2em 0 0 0;
     padding: 1.5em 0 0 3em;
     position: relative; }
     ul.contact li:before {

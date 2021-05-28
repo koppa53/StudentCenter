@@ -4,15 +4,14 @@ const token = sessionStorage.getItem('token');
 const get_profile_url = 'https://softeng.jbtabz.com/student/'+ student_id;
 const get_guardian_url = 'https://softeng.jbtabz.com/guardian/'+ student_id; 
 const enrollmentID_url = "https://softeng.jbtabz.com/enrollments/"+ student_id;
+const whoamI = "https://softeng.jbtabz.com/auth/whoami";
 let notice = document.querySelector('#show-notice');
 let al = document.querySelector('#show-alert');
 /*HIDE CONTENT*/
     const bt = document.querySelector('#bt');
     const tb = document.querySelector('#tbl');
     const gtb = document.querySelector('#gtbl');
-    bt.style.display = 'none';
-    tb.style.display = 'none';
-    gtb.style.display = 'none';
+    const atb = document.querySelector('#atbl');
 /*END OF HIDE CONTENT*/
 
 //Fetch profiles once page has loaded
@@ -22,7 +21,7 @@ window.onload = function() {
 
 async function fetchUserProfile(){
     try{
-        const [response,res,prog] = await Promise.all([fetch(get_profile_url,{
+        const [response,res,prog,acc] = await Promise.all([fetch(get_profile_url,{
             headers: {
                 "X-Session-Token": token
             }}
@@ -32,16 +31,22 @@ async function fetchUserProfile(){
             }}),fetch(enrollmentID_url,{
                 headers: {
                     "X-Session-Token": token
-            }}
-            )]);
+            }}),fetch(whoamI,{
+                headers: {
+                    "X-Session-Token": token
+            }})
+            ]);
         const data = await response.json(); 
         const d = await res.json();
         const p = await prog.json(); 
+        const a = await acc.json();
+        var update = a.updated_at.split('T');
         //hide status message from the page
         if(data != undefined && d!=undefined && p!=undefined){
             bt.style.display = '';
             tb.style.display = '';
             gtb.style.display = '';
+            atb.style.display = '';
             notice.style.display = 'none';
         }
         //Append Fetched data from server to profile fields in the page 
@@ -59,6 +64,9 @@ async function fetchUserProfile(){
         document.getElementById("guardian_name2").innerHTML = d.first_name_2 + " "+ d.middle_name_2 + " "+d.last_name_2;
         document.getElementById("guardian_mobile_number2").innerHTML = d.phone_number_2;
         document.getElementById("guardian_address2").innerHTML = d.address_2;
+        document.getElementById("username").innerHTML = a.username;
+        document.getElementById("accupdate").innerHTML = update[0] ;
+        
     }catch(e){
         console.log(e.message)
         al.style.display = 'block';
