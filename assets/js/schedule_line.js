@@ -106,6 +106,8 @@ async function fetchAcademicTerms(){
         data.forEach(function(v){
             Object.assign(v, {button: ""});
             v.academic_term_name += " "+ "("+ v.course_schedule_name + ")"
+            delete v.department_name
+            delete v.department_id
             delete v.course_schedule_year_level
             delete v.course_schedule_name
             delete v.student_first_name

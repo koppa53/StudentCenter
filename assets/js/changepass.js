@@ -7,6 +7,7 @@ let notice = document.querySelector('#show-notice');
 let al = document.querySelector('#show-alert');
 let success = document.querySelector('#show-success');
 let pass_al = document.querySelector('#show-passError');
+let pass_al2 = document.querySelector('#show-passError2');
 let cpass = document.querySelector('#cpass');
 cpass.style.boxShadow = "0px 2px 8px 8px rgba(0,0,0,.1)"
 
@@ -15,12 +16,14 @@ function stoppedTyping(id){
     let inpt = document.getElementById(id).value
     if(inpt.value===""|| inpt.replace(/^\s+|\s+$/g, '').length == 0){ 
         if(document.getElementById("oldpass").value==""||
-            document.getElementById("newpass").value==""){
+            document.getElementById("newpass").value==""||
+            document.getElementById("cnewpass").value==""){
                 document.getElementById('sbmt').disabled = true; 
         }
     } else { 
         if(document.getElementById("oldpass").value!=""&&
-            document.getElementById("newpass").value!=""){
+            document.getElementById("newpass").value!=""&&
+            document.getElementById("cnewpass").value!=""){
                 document.getElementById('sbmt').disabled = false; 
         }
     }       
@@ -81,10 +84,19 @@ async function updatePassword(update){
 function readFields(){
     try{
         //Get data from the fields
+        al.style.display = 'none';
+        pass_al2.style.display = 'none'
         var data={};
+        var cpass=""
         data["oldpass"] = document.getElementById("oldpass").value
         data["newpass"] = document.getElementById("newpass").value
-        updatePassword(data);
+        cpass= document.getElementById("cnewpass").value
+        if(data["newpass"]==cpass) updatePassword(data);
+        else{
+            document.getElementById("newpass").value = ""
+            document.getElementById("cnewpass").value = ""
+            pass_al2.style.display = 'block'
+        }
     }catch(e){
         console.log(e.message)
         al.style.display = 'block';

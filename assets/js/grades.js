@@ -31,6 +31,7 @@ async function fetchUserGrades(){
         })
         const d = await res.json() 
         const data = await response.json() 
+        console.log(data)
         if(data!=undefined){
             notice.style.display = 'none';
         }
@@ -38,6 +39,8 @@ async function fetchUserGrades(){
         data.forEach(function(v){
             Object.assign(v, {button: ""});
             v.academic_term_name += " "+ "("+ v.course_schedule_name + ")"
+            delete v.department_name
+            delete v.department_id
             delete v.reg_num
             delete v.course_schedule_year_level
             delete v.course_schedule_name
@@ -127,7 +130,7 @@ async function fetchGrades(enrollment_ID,academic_term ){
         })
         const d = await res.json()
         d.forEach(function(v){
-            if(v.grade==null || v.grade==-1 || v.grade==-2) complete = false;
+            if(v.grade==null || v.grade==-1 || v.grade==-2 || v.grade==0) complete = false;
             if(complete){
                 sum = sum + v.grade * (v.subject_unit_lab+v.subject_unit_lec)
                 count = count + v.subject_unit_lab+v.subject_unit_lec
