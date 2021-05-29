@@ -21,6 +21,7 @@ window.onload = function() {
 
 async function fetchUserProfile(){
     try{
+        al.style.display = 'none';
         const [response,res,prog,acc] = await Promise.all([fetch(get_profile_url,{
             headers: {
                 "X-Session-Token": token
@@ -45,8 +46,11 @@ async function fetchUserProfile(){
         if(data != undefined && d!=undefined && p!=undefined){
             bt.style.display = '';
             tb.style.display = '';
+            tb.style.boxShadow = "0px 2px 8px 8px rgba(0,0,0,.1)"
             gtb.style.display = '';
+            gtb.style.boxShadow = "0px 2px 8px 8px rgba(0,0,0,.1)"
             atb.style.display = '';
+            atb.style.boxShadow = "0px 2px 8px 8px rgba(0,0,0,.1)"
             notice.style.display = 'none';
         }
         //Append Fetched data from server to profile fields in the page 

@@ -72,6 +72,7 @@
 async function verifyID_Password(){
     try{
     document.getElementById("login-button").innerHTML = "Logging in...";
+    document.querySelector('#show-err').style.display = "none"
     const login_endpoint = "https://softeng.jbtabz.com/auth/login";
     var data={};
     data["username"] = document.getElementById("user_ID").value;

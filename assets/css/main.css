@@ -79,7 +79,7 @@ html {
 
 body {
   filter: initial;
-  background: #ffffff; }
+  background: #EFEFEF; }
   body.is-preload *, body.is-preload *:before, body.is-preload *:after, body.is-resizing *, body.is-resizing *:before, body.is-resizing *:after {
     -moz-animation: none !important;
     -webkit-animation: none !important;

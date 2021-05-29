@@ -69,59 +69,62 @@ let notice = document.querySelector('#show-notice');
 let dlnotice = document.querySelector('#show-download');
 let dlsuccess = document.querySelector('#show-dlsuccess');
 let al = document.querySelector('#show-alert');
+let note = document.querySelector('#note');
 let corStudName = "";
 
 //Fetch all academic terms of student once page loads
 window.onload = function() {
     fetchAcademicTerms();
+    note.style.boxShadow = "0px 2px 8px 8px rgba(0,0,0,.1)"
 };
 
 async function fetchAcademicTerms(){
     try{
-    const response = await fetch (enrollmentID_url,{
-        headers:{
-            "X-Session-Token": token
+        al.style.display = 'none';
+        const response = await fetch (enrollmentID_url,{
+            headers:{
+                "X-Session-Token": token
+            }
+        })
+        const res = await fetch(get_profile_url,{
+            headers:{
+                "X-Session-Token": token
+            }
+        })
+        const d = await res.json() 
+        const data = await response.json() 
+        if(data!=undefined){
+            notice.style.display = 'none';
         }
-    })
-    const res = await fetch(get_profile_url,{
-        headers:{
-            "X-Session-Token": token
-        }
-    })
-    const d = await res.json() 
-    const data = await response.json() 
-    if(data!=undefined){
-        notice.style.display = 'none';
-    }
-    var current = new Date();
-    const student_name = d.school_id + " : "+ data[0].student_first_name+" "+data[0].student_middle_name+" " +data[0].student_last_name
-    const corstudent_name = data[0].student_first_name+" "+data[0].student_middle_name+" " +data[0].student_last_name
-    const corgender = d.sex
-    const corschoolid = d.school_id
-    var seperate = d.birth_date.split("-")
-    const age = current.getFullYear() - seperate[0] 
-    data.forEach(function(v){
-        Object.assign(v, {button: ""});
-        v.academic_term_name += " "+ "("+ v.course_schedule_name + ")"
-        delete v.course_schedule_year_level
-        delete v.course_schedule_name
-        delete v.student_first_name
-        delete v.student_middle_name
-        delete v.student_last_name
-        delete v.created_at
-        delete v.student_id
-        delete v.academic_term_id
-        delete v.id
-        delete v.is_revoked
-        delete v.subject_code;
-        delete  v.subject_name; 
-    delete v.updated_at});
-    const head = { 'Academic Term' : '','Program' : '', 'Actions' : '' };
-    let k = Object.keys(head);
-    //Build table for academic term list
-    generateTableHead(table,k,i,student_name);
-    generateTable(table, data,corstudent_name,corgender,corschoolid,age);
-    table.style.boxShadow = "0 2px 12px 12px rgba(0,0,0,.1)"
+        var current = new Date();
+        const student_name = d.school_id + " : "+ data[0].student_first_name+" "+data[0].student_middle_name+" " +data[0].student_last_name
+        const corstudent_name = data[0].student_first_name+" "+data[0].student_middle_name+" " +data[0].student_last_name
+        const corgender = d.sex
+        const corschoolid = d.school_id
+        var seperate = d.birth_date.split("-")
+        const age = current.getFullYear() - seperate[0] 
+        data.forEach(function(v){
+            Object.assign(v, {button: ""});
+            v.academic_term_name += " "+ "("+ v.course_schedule_name + ")"
+            delete v.course_schedule_year_level
+            delete v.course_schedule_name
+            delete v.student_first_name
+            delete v.student_middle_name
+            delete v.student_last_name
+            delete v.created_at
+            delete v.student_id
+            delete v.academic_term_id
+            delete v.id
+            delete v.is_revoked
+            delete v.subject_code;
+            delete  v.subject_name; 
+        delete v.updated_at});
+        const head = { 'Academic Term' : '','Program' : '', 'Actions' : '' };
+        let k = Object.keys(head);
+        //Build table for academic term list
+        generateTableHead(table,k,i,student_name);
+        generateTable(table, data,corstudent_name,corgender,corschoolid,age);
+        table.style.boxShadow = "0 2px 12px 12px rgba(0,0,0,.1)"
     }catch(e){
         console.log(e.message)
         al.style.display = 'block';
@@ -180,6 +183,7 @@ function generateTable(table, data,corstudent_name,corgender,corschoolid,age) {
             generateCOR(corstudent_name,corgender,corschoolid,element["status"],element["course_name"],element["course_schedule_id"],term,age)
         }
         let row = table.insertRow();
+        row.style.backgroundColor = "#ffffff";
         for (key in element) {
             if(key != "course_schedule_id" && key!="status" && key!="reg_num"){
                 let text = ""
@@ -199,6 +203,7 @@ function generateTable(table, data,corstudent_name,corgender,corschoolid,age) {
 
 async function getSchedule(timetables,id){
     try{
+        al.style.display = 'none';
         const schedule_url = "https://softeng.jbtabz.com/course_schedule_contents/"+id;
         const response = await fetch(schedule_url,{
             headers:{

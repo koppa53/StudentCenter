@@ -8,14 +8,17 @@ let table = document.querySelector("table");
 let gradesTable = document.querySelector("#grades");
 let notice = document.querySelector('#show-notice');
 let al = document.querySelector('#show-alert');
+let note = document.querySelector('#note');
 
 //Fetch grades once page has loaded
 window.onload = function() {
     fetchUserGrades();
+    note.style.boxShadow = "0px 2px 8px 8px rgba(0,0,0,.1)"
 };
 
 async function fetchUserGrades(){
     try{
+        al.style.display = 'none';
         const response = await fetch (enrollmentID_url,{
             headers:{
                 "X-Session-Token": token
@@ -54,7 +57,7 @@ async function fetchUserGrades(){
         //Build table for academic term list
         generateTableHead(table,k,i,student_name);
         generateTable(table, data);
-        table.style.boxShadow = "0 2px 12px 12px rgba(0,0,0,.1)"
+        table.style.boxShadow = "0px 2px 12px 12px rgba(0,0,0,.1)"
         }catch(e){
             console.log(e.message)
             al.style.display = 'block';
@@ -95,6 +98,7 @@ function generateTable(table, data) {
             gradesTable.style.boxShadow = "0 0px 0px 0px rgba(0,0,0,0)"
         }
         let row = table.insertRow();
+        row.style.backgroundColor = "#ffffff";
         for (key in element) {
             if(key != "course_schedule_id" && key!= "id"){
                 let text = ""
@@ -109,39 +113,45 @@ function generateTable(table, data) {
 
 
 async function fetchGrades(enrollment_ID,academic_term ){
-    var count = 1;
-    var sum = 0;
-    var gwa = 0;
-    var complete = true;
-    const grades_url = "https://softeng.jbtabz.com/grades/"+enrollment_ID
-    const res = await fetch (grades_url,{
-        headers:{
-            "X-Session-Token": token
-        }
-    })
-    const d = await res.json()
-    d.forEach(function(v){
-        if(v.grade==null || v.grade==-1 || v.grade==-2) complete = false;
-        if(complete){
-            sum = sum + v.grade * (v.subject_unit_lab+v.subject_unit_lec)
-            count = count + v.subject_unit_lab+v.subject_unit_lec
-        }
-        temp = v.subject_code;
-        v.subject_code = v.subject_name;
-        v.subject_name = temp; 
-        v.grade = parseFloat(v.grade).toFixed(1);
-        delete v.subject_id;
-        delete v.is_hidden;
-        delete v.updated_at});
-    gwa = sum/count
-    gwa = gwa.toFixed(1)
-    const head = { 'Course Code' : '', 'Subject' : '', 'Grades' :''};
-    let k = Object.keys(head);
-    //Build table after fetching data
-    generateGradesTableHead(gradesTable, k,i,academic_term);
-    generateGradesTable(gradesTable, d,gwa,complete);
-    gradesTable.style.boxShadow = "0 2px 12px 12px rgba(0,0,0,.1)"
-    gradesTable.scrollIntoView({behavior:'smooth'});
+    try{
+        al.style.display = 'none';
+        var count = 1;
+        var sum = 0;
+        var gwa = 0;
+        var complete = true;
+        const grades_url = "https://softeng.jbtabz.com/grades/"+enrollment_ID
+        const res = await fetch (grades_url,{
+            headers:{
+                "X-Session-Token": token
+            }
+        })
+        const d = await res.json()
+        d.forEach(function(v){
+            if(v.grade==null || v.grade==-1 || v.grade==-2) complete = false;
+            if(complete){
+                sum = sum + v.grade * (v.subject_unit_lab+v.subject_unit_lec)
+                count = count + v.subject_unit_lab+v.subject_unit_lec
+            }
+            temp = v.subject_code;
+            v.subject_code = v.subject_name;
+            v.subject_name = temp; 
+            v.grade = parseFloat(v.grade).toFixed(1);
+            delete v.subject_id;
+            delete v.is_hidden;
+            delete v.updated_at});
+        gwa = sum/count
+        gwa = gwa.toFixed(1)
+        const head = { 'Course Code' : '', 'Subject' : '', 'Grades' :''};
+        let k = Object.keys(head);
+        //Build table after fetching data
+        generateGradesTableHead(gradesTable, k,i,academic_term);
+        generateGradesTable(gradesTable, d,gwa,complete);
+        gradesTable.style.boxShadow = "0 2px 12px 12px rgba(0,0,0,.1)"
+        gradesTable.scrollIntoView({behavior:'smooth'});
+    }catch(e){
+        console.log(e.message)
+        al.style.display = 'block';
+    }
 }
 
 function generateGradesTableHead(table, data,i,academic_term) {
@@ -168,6 +178,7 @@ function generateGradesTableHead(table, data,i,academic_term) {
 function generateGradesTable(table, data,gwa,complete) {
     for (let element of data) {
         let row = table.insertRow();
+        row.style.backgroundColor = "#ffffff";
         for (key in element) {
             if(key != "subject_unit_lab" && key!= "subject_unit_lec"){
                 let text = ""

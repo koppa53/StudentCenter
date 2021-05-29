@@ -7,6 +7,8 @@ let notice = document.querySelector('#show-notice');
 let al = document.querySelector('#show-alert');
 let success = document.querySelector('#show-success');
 let pass_al = document.querySelector('#show-passError');
+let cpass = document.querySelector('#cpass');
+cpass.style.boxShadow = "0px 2px 8px 8px rgba(0,0,0,.1)"
 
 //Enable or Disable submit button if the page has not detected any input in fields
 function stoppedTyping(id){

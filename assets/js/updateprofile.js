@@ -10,9 +10,15 @@ let notice = document.querySelector('#show-notice');
 let al = document.querySelector('#show-alert');
 let success = document.querySelector('#show-success');
 let element = document.getElementById("t1");
+let box1 = document.querySelector('#box1');
+let box2 = document.querySelector('#box2');
+let box3 = document.querySelector('#box3');
 
 window.onload = function() {
     fillplaceholder();
+    box1.style.boxShadow = "0px 2px 8px 8px rgba(0,0,0,.1)"
+    box2.style.boxShadow = "0px 2px 8px 8px rgba(0,0,0,.1)"
+    box3.style.boxShadow = "0px 2px 8px 8px rgba(0,0,0,.1)"
 };
 
 async function fillplaceholder() {
