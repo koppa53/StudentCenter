@@ -69,12 +69,14 @@ let notice = document.querySelector('#show-notice');
 let dlnotice = document.querySelector('#show-download');
 let dlsuccess = document.querySelector('#show-dlsuccess');
 let al = document.querySelector('#show-alert');
+let timetablecard = document.querySelector('#timetable-card');
 let note = document.querySelector('#note');
 let corStudName = "";
 
 //Fetch all academic terms of student once page loads
 window.onload = function() {
     fetchAcademicTerms();
+    timetablecard.style.boxShadow = "0px 2px 8px 8px rgba(0,0,0,.1)"
     note.style.boxShadow = "0px 2px 8px 8px rgba(0,0,0,.1)"
 };
 
@@ -268,6 +270,7 @@ async function getSchedule(timetables,id){
                 }
             }
         });
+        timetablecard.style.display = "block"
         createTable()
         element.scrollIntoView({behavior:'smooth'});
     }catch(e){
