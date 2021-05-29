@@ -31,7 +31,6 @@ async function fetchUserGrades(){
         })
         const d = await res.json() 
         const data = await response.json() 
-        console.log(data)
         if(data!=undefined){
             notice.style.display = 'none';
         }
@@ -130,6 +129,7 @@ async function fetchGrades(enrollment_ID,academic_term ){
         })
         const d = await res.json()
         d.forEach(function(v){
+            console.log(v.grade)
             if(v.grade==null || v.grade==-1 || v.grade==-2 || v.grade==0) complete = false;
             if(complete){
                 sum = sum + v.grade * (v.subject_unit_lab+v.subject_unit_lec)
@@ -188,7 +188,9 @@ function generateGradesTable(table, data,gwa,complete) {
                 let cell = row.insertCell();
                 cell.style.textAlign = "center"
                 //Classify Cell for grades status 
-                if(element[key]=="NaN"){
+                if(element[key]=="0.0"){
+                    text = document.createTextNode("TBD");
+                }else if(element[key]=="NaN"){
                     text = document.createTextNode("TBD");
                 }else if(element[key]=="-1"){
                     text = document.createTextNode("INC");
