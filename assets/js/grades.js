@@ -197,10 +197,6 @@ function generateGradesTable(table, data,gwa,complete) {
                     text = document.createTextNode("DRP");
                 }else{
                     text = document.createTextNode(element[key]);
-                    if(element[key]=="5.0") {
-                        row.style.backgroundColor = "#DE0F3F";
-                        row.style.color = "white";
-                    }
                 }
                 cell.appendChild(text);
             }
