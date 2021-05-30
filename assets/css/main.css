@@ -2391,7 +2391,7 @@ button,
   left:0px; 
   width:100vw;
   height:100vh;
-  background:black;
+  background:#efefef;
   z-index:1;
   display:none;
 }
@@ -2412,6 +2412,7 @@ button,
   align-items:center;
   padding:20px;
   box-sizing:border-box;
+  box-shadow: 0px 2px 8px 8px rgba(0,0,0,.1);
   font-family:"Open Sans",sans-serif;
 }
 
