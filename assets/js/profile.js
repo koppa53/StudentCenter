@@ -53,19 +53,38 @@ async function fetchUserProfile(){
             atb.style.boxShadow = "0px 2px 8px 8px rgba(0,0,0,.1)"
             notice.style.display = 'none';
         }
-        //Append Fetched data from server to profile fields in the page 
+        //Append Fetched data from server to profile fields in the page
+        var address="" 
+        if(data.a_street!="N/A") address = address + data.a_street 
+        if(data.a_barangay!="N/A") address = address +", "+data.a_barangay 
+        if(data.a_city!="N/A") address = address +", "+data.a_city
+        if(data.a_zip_code!="N/A") address = address +" "+data.a_zip_code
+        if(data.a_province!="N/A") address = address +" "+data.a_province 
         document.getElementById("Name").innerHTML = data.first_name + " "+ data.middle_name + " "+data.last_name;
         document.getElementById("ID").innerHTML = data.school_id;
         document.getElementById("program").innerHTML = p[p.length-1].course_name;
-        document.getElementById("add").innerHTML = data.address;
+        document.getElementById("add").innerHTML = address
         document.getElementById("mno").innerHTML = data.phone_number;
         document.getElementById("gend").innerHTML = data.sex;
         document.getElementById("bday").innerHTML = data.birth_date;
         document.getElementById("email").innerHTML = data.email_address;
-        document.getElementById("guardian_name").innerHTML = d.first_name + " "+ d.middle_name + " "+d.last_name;
+        //avoid null from being displayed in webpage
+        var guardname=""
+        var guardname2=""
+        if(d.first_name!=null) guardname = guardname + d.first_name
+        if(d.middle_name!=null && d.middle_name!="N/A") guardname = guardname +" "+d.middle_name
+        if(d.last_name!=null) guardname = guardname +" "+d.last_name
+        if(d.phone_number==null) d.phone_number=""
+        if(d.address==null) d.address=""
+        if(d.first_name_2!=null) guardname2 = guardname2 + d.first_name_2
+        if(d.middle_name_2!=null && d.middle_name_2!="N/A") guardname2 = guardname2 +" "+d.middle_name_2
+        if(d.last_name_2!=null) guardname2 = guardname2 +" "+d.last_name_2
+        if(d.phone_number_2==null) d.phone_number_2=""
+        if(d.address_2==null) d.address_2=""
+        document.getElementById("guardian_name").innerHTML = guardname
         document.getElementById("guardian_mobile_number").innerHTML = d.phone_number;
         document.getElementById("guardian_address").innerHTML = d.address;
-        document.getElementById("guardian_name2").innerHTML = d.first_name_2 + " "+ d.middle_name_2 + " "+d.last_name_2;
+        document.getElementById("guardian_name2").innerHTML = guardname2
         document.getElementById("guardian_mobile_number2").innerHTML = d.phone_number_2;
         document.getElementById("guardian_address2").innerHTML = d.address_2;
         document.getElementById("username").innerHTML = a.username;

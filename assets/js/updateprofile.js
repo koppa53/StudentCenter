@@ -33,14 +33,32 @@ async function fillplaceholder() {
             "X-Session-Token": token,
         }
     });
-    const data = await response.json(); 
+    const data = await response.json();
+    if(data.phone_number==null) data.phone_number="" 
     document.getElementById("newmobilenum").placeholder = data.phone_number
+    if(data.email_address==null) data.email_address=""
     document.getElementById("newemail").placeholder = data.email_address
+    if(data.a_street=="N/A" || data.a_street==null) data.a_street =""
+    if(data.a_barangay=="N/A" || data.a_barangay==null) data.a_barangay =""
+    if(data.a_city=="N/A" || data.a_city==null) data.a_city =""
+    if(data.a_province=="N/A" || data.a_province==null) data.a_province =""
+    if(data.a_zip_code=="N/A" || data.a_zip_code==null) data.a_zip_code =""
     document.getElementById("newstreet").placeholder = data.a_street
     document.getElementById("newbarangay").placeholder = data.a_barangay
     document.getElementById("newcity").placeholder = data.a_city
     document.getElementById("newprovince").placeholder = data.a_province
     document.getElementById("newzipcode").placeholder = data.a_zip_code
+    //avoid null from being displayed in webpage
+    if(d.first_name==null) d.first_name=""
+    if(d.middle_name==null) d.middle_name=""
+    if(d.last_name==null) d.last_name=""
+    if(d.phone_number==null) d.phone_number=""
+    if(d.address==null) d.address=""
+    if(d.first_name_2==null) d.first_name_2=""
+    if(d.middle_name_2==null) d.middle_name_2=""
+    if(d.last_name_2==null) d.last_name_2=""
+    if(d.phone_number_2==null) d.phone_number_2=""
+    if(d.address_2==null) d.address_2=""
     document.getElementById("guardian_firstname").placeholder = d.first_name
     document.getElementById("guardian_middlename").placeholder = d.middle_name
     document.getElementById("guardian_lastname").placeholder = d.last_name
@@ -204,7 +222,8 @@ async function editProfile(update){
             success.style.display='block';
             setTimeout(function(){ window.location.href="aboutprofile.html";}, 3000);
         }else{
-            al.innerHTML = status.message;
+            if(status.message=='"a_zip_code" must be a number') al.innerHTML = "ERROR: Invalid Zip Code"
+            else{al.innerHTML = status.message;}
             al.style.display = 'block';
             notice.style.display = 'none';
         }
