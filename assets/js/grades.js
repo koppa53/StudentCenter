@@ -117,7 +117,7 @@ function generateTable(table, data) {
 async function fetchGrades(enrollment_ID,academic_term ){
     try{
         al.style.display = 'none';
-        var count = 1;
+        var count = 0;
         var sum = 0;
         var gwa = 0;
         var complete = true;
