@@ -199,8 +199,8 @@ function generateTable(table, data,corstudent_name,corgender,corschoolid,age) {
             document.getElementById(id).disabled = true;
             var acad_term = element["academic_term_name"].split("(")
             var term = acad_term[1].replace("S/Y","")
-            generateCOR(corstudent_name,corgender,corschoolid,element["status"],element["course_name"],element["course_schedule_id"],term,age)
-            setTimeout(function(){ document.getElementById(id).disabled = false; }, 1500);
+            generateCOR(corstudent_name,corgender,corschoolid,element["status"],element["course_name"],element["course_schedule_id"],term,age,id)
+            
         }
         let row = table.insertRow();
         row.style.backgroundColor = "#ffffff";
@@ -657,7 +657,7 @@ function plot_table_time(time,duration){
     }
 }
 
-async function generateCOR(corstudent_name,corgender,corschoolid,status,program,id,term,age){
+async function generateCOR(corstudent_name,corgender,corschoolid,status,program,id,term,age,divid){
     dlnotice.style.display = 'block';
     var stat =""
     var registrationNum=""
@@ -940,6 +940,7 @@ async function generateCOR(corstudent_name,corgender,corschoolid,status,program,
         dlnotice.style.display = 'none'
         dlsuccess.style.display = 'block'
         setTimeout(function(){ dlsuccess.style.display = 'none'}, 5000);
+        document.getElementById(divid).disabled = false;
     };
 }
 
