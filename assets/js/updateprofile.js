@@ -308,7 +308,7 @@ function readFields(){
 
 function checkMobileNumber(data){
     if(data.length!==0){    
-        if(data.length > 10){
+        if(data.length > 11){
             let isnum = /^\d+$/.test(data);
             if(isnum==false){
                 return false;
