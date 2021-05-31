@@ -186,6 +186,9 @@ function generateTable(table, data,corstudent_name,corgender,corschoolid,age) {
                 ];
             if(document.getElementById("coursesTable") != null)
                 document.getElementById("coursesTable").innerHTML = "";
+            var acad_term = element["academic_term_name"].split("(")
+            var sem = acad_term[1].replace(")","")
+            document.getElementById("sem").innerHTML = sem
             getSchedule(timetables,element["course_schedule_id"])
             setTimeout(function(){ document.getElementById(id).disabled = false; }, 1500);
         }
@@ -195,7 +198,7 @@ function generateTable(table, data,corstudent_name,corgender,corschoolid,age) {
             var id = this.id
             document.getElementById(id).disabled = true;
             var acad_term = element["academic_term_name"].split("(")
-            var term = acad_term[0].replace("S/Y","")
+            var term = acad_term[1].replace("S/Y","")
             generateCOR(corstudent_name,corgender,corschoolid,element["status"],element["course_name"],element["course_schedule_id"],term,age)
             setTimeout(function(){ document.getElementById(id).disabled = false; }, 1500);
         }
