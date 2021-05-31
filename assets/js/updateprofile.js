@@ -276,4 +276,3 @@ function readFields(){
         notice.style.display = 'none';
     }   
 }
-
