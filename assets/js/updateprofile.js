@@ -222,8 +222,10 @@ async function editProfile(update){
             success.style.display='block';
             setTimeout(function(){ window.location.href="aboutprofile.html";}, 3000);
         }else{
-            if(status.message=='"a_zip_code" must be a number') al.innerHTML = "ERROR: Invalid Zip Code"
-            else{al.innerHTML = status.message;}
+            if(status.code != 200)al.innerHTML = "ERROR: "+ status.message;
+            else{
+                al.innerHTML = "ERROR: "+ stat.message;
+            }
             al.style.display = 'block';
             notice.style.display = 'none';
         }
@@ -239,9 +241,6 @@ function readFields(){
     try{
         document.querySelector("#header").scrollIntoView({behavior:'smooth'});
         var data={};
-        var result= true;
-        var result1= true;
-        var result2=true;
         //GUARDIAN PROFILE 
         data["guardian_firstname"] = document.getElementById("guardian_firstname").value
         data["guardian_middlename"] = document.getElementById("guardian_middlename").value
@@ -250,38 +249,11 @@ function readFields(){
         data["guardian_middlename2"] = document.getElementById("guardian_middlename2").value
         data["guardian_lastname2"] = document.getElementById("guardian_lastname2").value
         data["guardian_phone_number"] = document.getElementById("new_guardian_mobilenum").value
-        if(data["guardian_phone_number"]!=""){
-            result = checkMobileNumber(data["guardian_phone_number"])
-            if(result===false){
-                document.getElementById("new_guardian_mobilenum").focus()
-                document.getElementById("new_guardian_mobilenum").scrollIntoView({behavior:'smooth',block:'center'})
-                data["guardian_phone_number"]=""
-            }
-        }
-        data["guardian_phone_number2"] = document.getElementById("new_guardian_mobilenum2").value
-        if(data["guardian_phone_number2"]!=""){
-            result1 = checkMobileNumber(data["guardian_phone_number2"])
-            if(result1===false){
-                document.getElementById("new_guardian_mobilenum2").focus()
-                document.getElementById("new_guardian_mobilenum2").scrollIntoView({behavior:'smooth',block:'center'})
-                data["guardian_phone_number2"]=""
-            }
-        }
-        
+        data["guardian_phone_number2"] = document.getElementById("new_guardian_mobilenum2").value  
         data["guardian_address"] = document.getElementById("new_guardian_address").value
         data["guardian_address2"] = document.getElementById("new_guardian_address2").value
-
         //STUDENT PROFILE
         data["phone_number"] = document.getElementById("newmobilenum").value
-        if(data["phone_number"]!==""){
-            result2 = checkMobileNumber(data["phone_number"])
-            if(result2===false){
-                document.getElementById("newmobilenum").focus()
-                document.getElementById("newmobilenum").scrollIntoView({behavior:'smooth',block:'center'})
-                data["phone_number"]=""
-            }
-        }
-        
         data["email_address"] = document.getElementById("newemail").value
         data["a_street"] = document.getElementById("newstreet").value
         data["a_barangay"] = document.getElementById("newbarangay").value
@@ -297,8 +269,7 @@ function readFields(){
                 data["email_address"] =""
             }
         }
-        //check all mobile numbers has passed validity test
-        if(result!==false&&result1!==false&&result2!==false) editProfile(data);
+        editProfile(data);
     }catch(e){
         console.log(e.message)
         al.style.display = 'block';
@@ -306,17 +277,3 @@ function readFields(){
     }   
 }
 
-function checkMobileNumber(data){
-    if(data.length!==0){    
-        if(data.length > 11){
-            let isnum = /^\d+$/.test(data);
-            if(isnum==false){
-                return false;
-            }else{
-                return true;
-            }
-        }else{
-            return false
-        }
-    }
-}
