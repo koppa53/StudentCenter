@@ -55,11 +55,11 @@ async function fetchUserProfile(){
         }
         //Append Fetched data from server to profile fields in the page
         var address="" 
-        if(data.a_street!="N/A") address = address + data.a_street 
-        if(data.a_barangay!="N/A") address = address +", "+data.a_barangay 
-        if(data.a_city!="N/A") address = address +", "+data.a_city
-        if(data.a_zip_code!="N/A") address = address +" "+data.a_zip_code
-        if(data.a_province!="N/A") address = address +" "+data.a_province 
+        if(data.a_street!="N/A") address = address + data.a_street +", "
+        if(data.a_barangay!="N/A") address = address + data.a_barangay+", "
+        if(data.a_city!="N/A") address = address +data.a_city+" "
+        if(data.a_zip_code!="N/A") address = address +data.a_zip_code+" "
+        if(data.a_province!="N/A") address = address +data.a_province 
         var name =""
         if(data.first_name!="N/A") name = name + data.first_name +" "
         if(data.middle_name!="N/A") name = name + data.middle_name + " "
