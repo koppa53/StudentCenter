@@ -198,7 +198,7 @@ function generateTable(table, data,corstudent_name,corgender,corschoolid,age) {
             var id = this.id
             document.getElementById(id).disabled = true;
             var acad_term = element["academic_term_name"].split("(")
-            var term = acad_term[1].replace("S/Y","")
+            var term = acad_term[0].replace("S/Y","")
             generateCOR(corstudent_name,corgender,corschoolid,element["status"],element["course_name"],element["course_schedule_id"],term,age,id)
             
         }
