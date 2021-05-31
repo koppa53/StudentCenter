@@ -55,15 +55,23 @@ async function fetchUserProfile(){
         }
         //Append Fetched data from server to profile fields in the page
         var address="" 
-        if(data.a_street!="N/A") address = address + data.a_street +", "
-        if(data.a_barangay!="N/A") address = address + data.a_barangay+", "
-        if(data.a_city!="N/A") address = address +data.a_city+" "
-        if(data.a_zip_code!="N/A") address = address +data.a_zip_code+" "
-        if(data.a_province!="N/A") address = address +data.a_province 
+        if(data.a_street!="N/A"){ address = address + data.a_street +", "
+        }
+        if(data.a_barangay!="N/A"){ address = address + data.a_barangay+", "
+        }
+        if(data.a_city!="N/A"){ address = address +data.a_city+" "
+        }
+        if(data.a_zip_code!="N/A"){ address = address +data.a_zip_code+" "
+        }
+        if(data.a_province!="N/A"){ address = address +data.a_province 
+        }
         var name =""
-        if(data.first_name!="N/A") name = name + data.first_name +" "
-        if(data.middle_name!="N/A") name = name + data.middle_name + " "
-        if(data.last_name!="N/A") name = name + data.last_name
+        if(data.first_name!="N/A"){ name = name + data.first_name +" "
+        }
+        if(data.middle_name!="N/A"){ name = name + data.middle_name + " "
+        }
+        if(data.last_name!="N/A"){ name = name + data.last_name
+        }
         document.getElementById("Name").innerHTML = name;
         document.getElementById("ID").innerHTML = data.school_id;
         document.getElementById("program").innerHTML = p[p.length-1].course_name;
@@ -75,14 +83,26 @@ async function fetchUserProfile(){
         //avoid null from being displayed in webpage
         var guardname=""
         var guardname2=""
-        if(d.first_name!=null) guardname = guardname + d.first_name +" "
-        if(d.middle_name!=null && d.middle_name!="N/A") guardname = guardname +d.middle_name+" "
-        if(d.last_name!=null) guardname = guardname +d.last_name
+        if(d.first_name!=null){ 
+            guardname = guardname + d.first_name.charAt(0).toUpperCase() + d.first_name.slice(1) +" "
+        }
+        if(d.middle_name!=null && d.middle_name!="N/A"){ 
+            guardname = guardname +d.middle_name.charAt(0).toUpperCase() + d.middle_name.slice(1) +" "
+        }
+        if(d.last_name!=null){ 
+            guardname = guardname +d.last_name.charAt(0).toUpperCase() + d.last_name.slice(1) +" "
+        }
         if(d.phone_number==null) d.phone_number=""
         if(d.address==null) d.address=""
-        if(d.first_name_2!=null) guardname2 = guardname2 + d.first_name_2 +" "
-        if(d.middle_name_2!=null && d.middle_name_2!="N/A") guardname2 = guardname2 +d.middle_name_2 +" "
-        if(d.last_name_2!=null) guardname2 = guardname2 +d.last_name_2
+        if(d.first_name_2!=null){ 
+            guardname2 = guardname2 + d.first_name_2.charAt(0).toUpperCase() + d.first_name_2.slice(1) +" "
+        }
+        if(d.middle_name_2!=null && d.middle_name_2!="N/A"){ 
+            guardname2 = guardname2 +d.middle_name_2.charAt(0).toUpperCase() + d.middle_name_2.slice(1) +" "
+        }
+        if(d.last_name_2!=null){ 
+            guardname2 = guardname2 +d.last_name_2.charAt(0).toUpperCase() + d.last_name_2.slice(1) +" "
+        }
         if(d.phone_number_2==null) d.phone_number_2=""
         if(d.address_2==null) d.address_2=""
         document.getElementById("guardian_name").innerHTML = guardname
