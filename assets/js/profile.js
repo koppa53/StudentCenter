@@ -75,14 +75,14 @@ async function fetchUserProfile(){
         //avoid null from being displayed in webpage
         var guardname=""
         var guardname2=""
-        if(d.first_name!=null) guardname = guardname + d.first_name
-        if(d.middle_name!=null && d.middle_name!="N/A") guardname = guardname +" "+d.middle_name
-        if(d.last_name!=null) guardname = guardname +" "+d.last_name
+        if(d.first_name!=null) guardname = guardname + d.first_name +" "
+        if(d.middle_name!=null && d.middle_name!="N/A") guardname = guardname +d.middle_name+" "
+        if(d.last_name!=null) guardname = guardname +d.last_name
         if(d.phone_number==null) d.phone_number=""
         if(d.address==null) d.address=""
-        if(d.first_name_2!=null) guardname2 = guardname2 + d.first_name_2
-        if(d.middle_name_2!=null && d.middle_name_2!="N/A") guardname2 = guardname2 +" "+d.middle_name_2
-        if(d.last_name_2!=null) guardname2 = guardname2 +" "+d.last_name_2
+        if(d.first_name_2!=null) guardname2 = guardname2 + d.first_name_2 +" "
+        if(d.middle_name_2!=null && d.middle_name_2!="N/A") guardname2 = guardname2 +d.middle_name_2 +" "
+        if(d.last_name_2!=null) guardname2 = guardname2 +d.last_name_2
         if(d.phone_number_2==null) d.phone_number_2=""
         if(d.address_2==null) d.address_2=""
         document.getElementById("guardian_name").innerHTML = guardname
