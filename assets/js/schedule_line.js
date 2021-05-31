@@ -99,8 +99,11 @@ async function fetchAcademicTerms(){
             notice.style.display = 'none';
         }
         var current = new Date();
-        const student_name = d.school_id + " : "+ data[0].student_first_name+" "+data[0].student_middle_name+" " +data[0].student_last_name
-        const corstudent_name = data[0].student_first_name+" "+data[0].student_middle_name+" " +data[0].student_last_name
+        var corstudent_name = ""
+        if(data[0].student_first_name!="N/A") corstudent_name = corstudent_name + data[0].student_first_name + " "
+        if(data[0].student_middle_name!="N/A") corstudent_name = corstudent_name + data[0].student_middle_name + " "
+        if(data[0].student_last_name!="N/A") corstudent_name = corstudent_name + data[0].student_last_name
+        const student_name = d.school_id + " : "+ corstudent_name
         const corgender = d.sex
         const corschoolid = d.school_id
         var seperate = d.birth_date.split("-")

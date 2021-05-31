@@ -34,7 +34,11 @@ async function fetchUserGrades(){
         if(data!=undefined){
             notice.style.display = 'none';
         }
-        const student_name = d.school_id + " : "+ data[0].student_first_name+" "+data[0].student_middle_name+" " +data[0].student_last_name
+        var student_name = ""
+        if(data[0].student_first_name!="N/A") student_name= student_name + data[0].student_first_name + " "
+        if(data[0].student_middle_name!="N/A") student_name = student_name + data[0].student_middle_name + " "
+        if(data[0].student_last_name!="N/A") student_name = student_name + data[0].student_last_name
+        const studentid_name = d.school_id + " : "+ student_name 
         data.forEach(function(v){
             Object.assign(v, {button: ""});
             v.academic_term_name += " "+ "("+ v.course_schedule_name + ")"
@@ -57,7 +61,7 @@ async function fetchUserGrades(){
         const head = { 'Academic Term' : '','Program' : '', 'View' : '' };
         let k = Object.keys(head);
         //Build table for academic term list
-        generateTableHead(table,k,i,student_name);
+        generateTableHead(table,k,i,studentid_name);
         generateTable(table, data);
         table.style.boxShadow = "0px 2px 12px 12px rgba(0,0,0,.1)"
         }catch(e){
@@ -187,13 +191,11 @@ function generateGradesTable(table, data,gwa,complete) {
                 let cell = row.insertCell();
                 cell.style.textAlign = "center"
                 //Classify Cell for grades status 
-                if(element[key]=="0.0"){
+                if(element[key]=="NaN"){
                     text = document.createTextNode("TBD");
-                }else if(element[key]=="NaN"){
-                    text = document.createTextNode("TBD");
-                }else if(element[key]=="-1"){
+                }else if(element[key]==-1){
                     text = document.createTextNode("INC");
-                }else if(element[key]=="-2"){
+                }else if(element[key]==-2){
                     text = document.createTextNode("DRP");
                 }else{
                     text = document.createTextNode(element[key]);

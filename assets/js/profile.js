@@ -60,7 +60,11 @@ async function fetchUserProfile(){
         if(data.a_city!="N/A") address = address +", "+data.a_city
         if(data.a_zip_code!="N/A") address = address +" "+data.a_zip_code
         if(data.a_province!="N/A") address = address +" "+data.a_province 
-        document.getElementById("Name").innerHTML = data.first_name + " "+ data.middle_name + " "+data.last_name;
+        var name =""
+        if(data.first_name!="N/A") name = name + data.first_name +" "
+        if(data.middle_name!="N/A") name = name + data.middle_name + " "
+        if(data.last_name!="N/A") name = name + data.last_name
+        document.getElementById("Name").innerHTML = name;
         document.getElementById("ID").innerHTML = data.school_id;
         document.getElementById("program").innerHTML = p[p.length-1].course_name;
         document.getElementById("add").innerHTML = address
