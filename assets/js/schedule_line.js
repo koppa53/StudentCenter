@@ -161,15 +161,20 @@ function generateTableHead(table, data,i,student_name) {
     
 }
 function generateTable(table, data,corstudent_name,corgender,corschoolid,age) {
+    var count=0
     for (let element of data) {
         button = document.createElement("button");
         button.title = "View Graphical Schedule"
         button.className ="button primary icon solid fa-search";
+        button.setAttribute("id","btnid"+count);
         dlbutton = document.createElement("button");
         dlbutton.className ="button primary icon solid fa-download ";
         dlbutton.title = "Download Schedule (COR)"
+        dlbutton.setAttribute("id","dbtnid"+count);
         //reset timetable for new schedules
         button.onclick = function() {
+            var id = this.id
+            document.getElementById(id).disabled = true;
             timetables = [
                 ['', '', '', '', '', '', '', '', '', '', '', '','','','','','','','','','','','','','','','','','','',''],
                 ['', '', '', '', '', '', '', '', '', '', '', '','','','','','','','','','','','','','','','','','','',''],
@@ -182,12 +187,17 @@ function generateTable(table, data,corstudent_name,corgender,corschoolid,age) {
             if(document.getElementById("coursesTable") != null)
                 document.getElementById("coursesTable").innerHTML = "";
             getSchedule(timetables,element["course_schedule_id"])
+            setTimeout(function(){ document.getElementById(id).disabled = false; }, 1500);
         }
         //generate COR based on selected semester
         dlbutton.onclick = function(){
+            document.querySelector("#header").scrollIntoView({behavior:'smooth'});
+            var id = this.id
+            document.getElementById(id).disabled = true;
             var acad_term = element["academic_term_name"].split("(")
             var term = acad_term[0].replace("S/Y","")
             generateCOR(corstudent_name,corgender,corschoolid,element["status"],element["course_name"],element["course_schedule_id"],term,age)
+            setTimeout(function(){ document.getElementById(id).disabled = false; }, 1500);
         }
         let row = table.insertRow();
         row.style.backgroundColor = "#ffffff";
@@ -205,6 +215,7 @@ function generateTable(table, data,corstudent_name,corgender,corschoolid,age) {
                 cell.style.textAlign = "middle"
             }
         }
+        count++
     }
 }
 

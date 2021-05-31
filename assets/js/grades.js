@@ -93,15 +93,20 @@ function generateTableHead(table, data,i,academic_term) {
 }
 
 function generateTable(table, data) {
+    var count=0
     for (let element of data) {
         button = document.createElement("button");
         button.className ="button primary icon solid fa-search";
+        button.setAttribute("id","btnid"+count);
         //reset timetable for new schedules
         button.onclick = function() {
+            var id = this.id
+            document.getElementById(id).disabled = true;
             if(document.getElementById("grades") != null)
                 document.getElementById("grades").innerHTML = "";
             fetchGrades(element["id"],element["academic_term_name"]);
             gradesTable.style.boxShadow = "0 0px 0px 0px rgba(0,0,0,0)"
+            setTimeout(function(){ document.getElementById(id).disabled = false; }, 1500);
         }
         let row = table.insertRow();
         row.style.backgroundColor = "#ffffff";
@@ -114,6 +119,7 @@ function generateTable(table, data) {
                 cell.appendChild(button);
             }
         }
+        count++
     }
 }
 
